@@ -8,6 +8,17 @@ import {
   AdminTweetsPage,
   AdminUsersPage,
 } from './AdminMainPage'
+import {
+  MainLayout,
+  MainSection,
+  TweetSection,
+  UserSectionLayout,
+  UserMainSection,
+  UserLikeSection,
+  UserReplySection,
+  UserFollowSection,
+} from './MainPage'
+
 export {
   RegisterPage,
   LoginPage,
@@ -17,4 +28,12 @@ export {
   AdminMainLayout,
   AdminTweetsPage,
   AdminUsersPage,
+  MainLayout,
+  MainSection,
+  TweetSection,
+  UserSectionLayout,
+  UserMainSection,
+  UserLikeSection,
+  UserReplySection,
+  UserFollowSection,
 }

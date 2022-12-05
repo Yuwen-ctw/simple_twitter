@@ -4,7 +4,9 @@ function NotFoundPage() {
   const locate = useLocation()
   return (
     <>
-      <h1>This is NotFoundPage on {locate.pathname}</h1>
+      <h1 style={{ color: 'red' }}>
+        This is NotFoundPage on {locate.pathname}
+      </h1>
     </>
   )
 }
