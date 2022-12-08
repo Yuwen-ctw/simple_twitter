@@ -1,0 +1,30 @@
+@use '../../abstracts/index' as *;
+
+// font(size:1rem, weight:400, line-height:1.5, color:#171725, font-family:'Noto Sans TC')
+
+.pageTitle {
+  @include font(1.75rem, 700, 0.93, $text-pageTitle);
+}
+
+.sectionTitle {
+  @include font(1.5rem, 700, 1.08);
+}
+
+.userNameText {
+  @include font(1rem, 700, 1.62);
+}
+
+.subText {
+  @include font(0.875rem, 400, 1.57, $text-secondary);
+}
+
+.contentText {
+  @include font(1rem, 400, 1.62);
+}
+
+.replyTargetText {
+  @include font(0.875rem, 400, 1.57, $text-secondary);
+  > span {
+    @include font(0.875rem, 400, 1.57, $brand);
+  }
+}

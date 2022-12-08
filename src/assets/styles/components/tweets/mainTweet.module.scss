@@ -1,0 +1,37 @@
+@use '../../abstracts/index' as *;
+
+.layout {
+  width: 100%;
+  max-width: 640px;
+  border: 1px solid $listBorder;
+  padding: 16px 24px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 8px;
+  row-gap: 6px;
+  grid-template-areas:
+    'img author'
+    'img text'
+    'img info';
+
+  > :first-child {
+    grid-area: img;
+  }
+}
+
+.tweetInfo {
+  button {
+    @include font(0.875rem, 600, 1, $text-secondary, 'Montserrat');
+    margin-right: 40px;
+    height: 1.25rem;
+    border: 0;
+    background-color: transparent;
+
+    & > * {
+      height: 1rem;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+  }
+}
