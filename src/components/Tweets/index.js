@@ -1,2 +1,3 @@
 import MainTweet from './MainTweet/MainTweet'
-export { MainTweet }
+import SingleTweet from './SingleTweet/SingleTweet'
+export { MainTweet, SingleTweet }

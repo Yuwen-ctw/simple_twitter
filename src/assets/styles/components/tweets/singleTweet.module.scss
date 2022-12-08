@@ -1,0 +1,81 @@
+@use '../../abstracts/index' as *;
+
+.layout {
+  width: 100%;
+  max-width: 640px;
+  border: 1px solid $listBorder;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  grid-template-areas:
+    'img name'
+    'text text'
+    'time time'
+    'info info'
+    'button button';
+  gap: 8px;
+  & > :nth-child(1) {
+    grid-area: img;
+  }
+  & > :nth-child(2) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.contentText {
+  @include font(1.5rem, 400, 1.5, $text-dark);
+  grid-area: text;
+}
+
+.timeText {
+  @include font(0.875rem, 500, 1.57, $text-secondary);
+  grid-area: time;
+}
+
+.tweetInfo {
+  grid-area: info;
+  padding: 16px 0;
+  border-top: 1px solid #e6ecf0;
+  border-bottom: 1px solid #e6ecf0;
+
+  span {
+    @include font(1.1875rem, 500, 28px, $text-secondary);
+    margin-right: 24px;
+  }
+
+  strong {
+    @include font(1.1875rem, 700, 28px, $text-dark, 'Montserrat');
+  }
+}
+
+.tweetButtons {
+  grid-area: button;
+  padding-top: 10px;
+  display: flex;
+  gap: 128px;
+  button {
+    height: 30px;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+    img {
+      width: 100%;
+    }
+  }
+
+  input {
+    display: none;
+    &:checked + label {
+      background-image: url('../../../svgs/like_fill.svg');
+    }
+  }
+
+  label {
+    cursor: pointer;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: url('../../../svgs/like.svg');
+  }
+}
