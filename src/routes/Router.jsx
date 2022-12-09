@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { RegisterPage, LoginPage, SettingPage, NotFoundPage } from '../pages'
+import { RegisterPage, LoginPage, NotFoundPage } from '../pages'
 import AdminRoutes from './AdminRoutes'
 import MainRoutes from './MainRoutes/MainRoutes'
 
@@ -9,7 +9,6 @@ function Router() {
       <Routes>
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="setting" element={<SettingPage />} />
         <Route path="admin/*" element={<AdminRoutes />} />
         <Route path="/*" element={<MainRoutes />} />
         <Route path="*" element={<NotFoundPage />} />

@@ -30,7 +30,7 @@ module.exports = {
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
     // 不會檢查props的型態
-    'react/prop-types': 2,
+    'react/prop-types': 0,
     // 警告尚有未使用的變數
     'no-unused-vars': 1,
   },

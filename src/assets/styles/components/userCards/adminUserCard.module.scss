@@ -1,0 +1,5 @@
+@use '../../abstracts/index' as *;
+
+.adminCardAvatar {
+  @include circleAvatar(100px, 4px);
+}

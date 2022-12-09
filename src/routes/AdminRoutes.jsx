@@ -12,7 +12,7 @@ function AdminRoutes() {
     <Routes>
       <Route path="/" element={<AdminLoginPage />} />
       <Route path="main" element={<AdminMainLayout />}>
-        <Route index element={<AdminTweetsPage />} />
+        <Route path="tweets" element={<AdminTweetsPage />} />
         <Route path="users" element={<AdminUsersPage />} />
       </Route>
       <Route path="*" element={<NotFoundPage />} />

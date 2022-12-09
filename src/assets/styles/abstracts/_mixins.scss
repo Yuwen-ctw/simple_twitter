@@ -1,0 +1,30 @@
+@mixin font($fs: 1rem, $fw: 400, $lh: 1.5, $clr: #171725, $ff: 'Noto Sans TC') {
+  font-size: $fs;
+  font-weight: $fw;
+  line-height: $lh;
+  color: $clr;
+  font-family: $ff;
+}
+
+@mixin circleAvatar($radius: 50px, $borderWidth: 0px) {
+  width: $radius;
+  height: $radius;
+  border-radius: 50%;
+  overflow: hidden;
+  border: $borderWidth #ffffff solid;
+  img {
+    width: 100%;
+  }
+}
+
+@mixin for-desktop {
+  @media screen and (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin for-tablet {
+  @media screen and (min-width: 992px) {
+    @content;
+  }
+}

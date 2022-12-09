@@ -1,0 +1,11 @@
+@use '../../abstracts/index' as *;
+
+// circleAvatar(width & height: 50px, border-width: 0px)
+
+.userAvatar {
+  @include circleAvatar();
+}
+
+.profileAvatar {
+  @include circleAvatar(140px, 4px);
+}

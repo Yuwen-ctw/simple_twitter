@@ -1,4 +1,4 @@
-function SettingPage() {
+function SettingSection() {
   return (
     <>
       <h1>This is Setting on /setting</h1>
@@ -6,4 +6,4 @@ function SettingPage() {
   )
 }
 
-export default SettingPage
+export default SettingSection

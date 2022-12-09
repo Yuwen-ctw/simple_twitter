@@ -1,0 +1,35 @@
+@use '../../abstracts/index' as *;
+
+.baseLink {
+  @include font(1rem, 400, 1.5, $text-primary);
+  text-decoration: underline;
+}
+
+%switchLink,
+.switchLink {
+  position: relative;
+  display: inline-block;
+  padding: 17.5px 50px;
+  border-bottom: 2px solid transparent;
+  @include font(0.9375rem, 700, 1, $switch-inactive);
+  text-decoration: none;
+  /* underLine */
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    border-radius: 100px;
+  }
+}
+
+.switchLink__active {
+  @extend %switchLink;
+  color: $brand;
+  &::after {
+    background-color: $brand;
+  }
+}

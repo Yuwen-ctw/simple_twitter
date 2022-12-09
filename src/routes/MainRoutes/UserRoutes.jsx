@@ -16,8 +16,8 @@ function UserRoutes() {
         <Route path="like" element={<UserLikeSection />} />
         <Route path="reply" element={<UserReplySection />} />
       </Route>
-      <Route path="user/:userId/follower" element={<UserFollowSection />} />
-      <Route path="user/:userId/following" element={<UserFollowSection />} />
+      <Route path="follower" element={<UserFollowSection />} />
+      <Route path="following" element={<UserFollowSection />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

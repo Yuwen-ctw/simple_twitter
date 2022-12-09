@@ -1,0 +1,13 @@
+@use './abstracts/index' as *;
+
+.app {
+  position: relative;
+  margin: 0 auto;
+  min-height: 100vh;
+  @include for-tablet {
+    width: 960px;
+  }
+  @include for-desktop {
+    width: 1140px;
+  }
+}
