@@ -21,6 +21,9 @@
   background-repeat: no-repeat;
   background-size: 24px;
   background-position: left center;
+  &:active {
+    opacity: 0.5;
+  }
 }
 
 input[data-value] {
