@@ -1,6 +1,5 @@
 import RegisterPage from './RegisterPage'
 import LoginPage from './LoginPage'
-import SettingPage from './SettingPage'
 import AdminLoginPage from './AdminLoginPage'
 import NotFoundPage from './NotFoundPage'
 import {
@@ -10,6 +9,7 @@ import {
 } from './AdminMainPage'
 import {
   MainLayout,
+  SettingSection,
   MainSection,
   TweetSection,
   UserSectionLayout,
@@ -22,13 +22,13 @@ import {
 export {
   RegisterPage,
   LoginPage,
-  SettingPage,
   AdminLoginPage,
   NotFoundPage,
   AdminMainLayout,
   AdminTweetsPage,
   AdminUsersPage,
   MainLayout,
+  SettingSection,
   MainSection,
   TweetSection,
   UserSectionLayout,

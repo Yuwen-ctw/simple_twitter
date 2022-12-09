@@ -1,0 +1,67 @@
+@use '../../abstracts/index' as *;
+
+.navbar {
+  padding: 8px 0px;
+  width: 178px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  & > :first-child {
+    margin-left: 16px;
+  }
+}
+
+.navItem {
+  @include font(1.125rem, 700, 1.44, $text-nav-gray);
+  text-decoration: none;
+  margin-left: 16px;
+  padding: 16px 16px 16px 40px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  background-position: left center;
+}
+
+input[data-value] {
+  display: none;
+}
+
+[data-value='home'],
+[data-value='tweets'] {
+  background-image: url('../../../svgs/nav_home.svg');
+  &:hover,
+  &:checked + a {
+    background-image: url('../../../svgs/nav_home_clr.svg');
+    color: $brand;
+  }
+}
+
+[data-value='user'],
+[data-value='users'] {
+  background-image: url('../../../svgs/nav_user.svg');
+  &:hover,
+  &:checked + a {
+    background-image: url('../../../svgs/nav_user_clr.svg');
+    color: $brand;
+  }
+}
+
+[data-value='setting'] {
+  background-image: url('../../../svgs/nav_setting.svg');
+  &:hover,
+  &:checked + a {
+    background-image: url('../../../svgs/nav_setting_clr.svg');
+    color: $brand;
+  }
+}
+
+[data-value='logout'] {
+  margin-top: auto;
+  background-image: url('../../../svgs/nav_logout.svg');
+  &:hover,
+  &:checked + a {
+    background-image: url('../../../svgs/nav_logout_clr.svg');
+    color: $brand;
+  }
+}

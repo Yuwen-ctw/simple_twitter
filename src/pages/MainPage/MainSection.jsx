@@ -1,7 +1,7 @@
 function MainSection() {
   return (
     <>
-      <h1>This is MainSection on /main</h1>
+      <h1>This is MainSection on /</h1>
     </>
   )
 }
