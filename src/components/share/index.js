@@ -7,7 +7,7 @@ import SectionTitle from './SectionTitle'
 import ReplyTargetText from './ReplyTargetText'
 import ProfileAvatar from './ProfileAvatar'
 import Logo from './Logo'
-
+import FollowingCheckbox from './FollowingCheckbox'
 export {
   PageTitle,
   SectionTitle,
@@ -18,4 +18,5 @@ export {
   UserAvatar,
   ProfileAvatar,
   Logo,
+  FollowingCheckbox,
 }
