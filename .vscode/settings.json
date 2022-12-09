@@ -21,6 +21,5 @@
   },
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
-  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-  "typescript.validate.enable": false
+  "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
 }

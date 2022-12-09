@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "strict": true,
+    "target": "es2015",
+    "checkJs": true,
+    "lib": ["es2015", "dom"]
   },
   "include": ["src"]
 }
