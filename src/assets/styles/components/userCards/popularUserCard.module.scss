@@ -20,40 +20,6 @@
   & > :nth-child(3) {
     text-align: end;
   }
-
-  label {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: 50px;
-    border: 1px solid $brand;
-    color: $brand;
-    cursor: pointer;
-    transition: color 0.2s, background 0.2s, box-shadow 0.2s;
-    &:hover {
-      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25) inset;
-    }
-    &:active {
-      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) inset;
-      color: $brand;
-    }
-  }
-
-  input {
-    display: none;
-    &:checked + label {
-      color: #ffffff;
-      background: $brand;
-      &:hover {
-        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
-        color: white;
-      }
-
-      &:active {
-        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25) inset;
-        color: white;
-      }
-    }
-  }
 }
 
 .subtext {
