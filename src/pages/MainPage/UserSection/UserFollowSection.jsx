@@ -53,7 +53,7 @@ function UserFollowersSection() {
         <SwitchLink text="追隨者" to={`/user/${userId}/follower`} />
         <SwitchLink text="正在追隨" to={`/user/${userId}/following`} />
       </div>
-      <ul className={styles.list}>{listData}</ul>
+      <ul className="scrollbar">{listData}</ul>
     </section>
   )
 }

@@ -45,15 +45,3 @@
   border-top: 1px solid $listBorder;
   border-bottom: 1px solid $listBorder;
 }
-
-.list {
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    width: 4px;
-    background: rgba(0, 0, 0, 0.1);
-  }
-  &::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}

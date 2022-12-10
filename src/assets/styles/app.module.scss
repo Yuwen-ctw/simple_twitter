@@ -11,3 +11,15 @@
     width: 1140px;
   }
 }
+
+:global(.scrollbar) {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: rgba(0, 0, 0, 0.1);
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
