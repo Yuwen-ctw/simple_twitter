@@ -1,0 +1,28 @@
+@use '../abstracts/index' as *;
+
+.layout {
+  padding: 16px 24px;
+  border-bottom: 1px solid $listBorder;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  grid-template-areas:
+    'img name account'
+    'img target target'
+    'img content content';
+  gap: 8px;
+
+  & > * {
+    place-self: center start;
+  }
+
+  & > :first-child {
+    place-self: start;
+    grid-area: img;
+  }
+  & > :nth-child(4) {
+    grid-area: target;
+  }
+  & > :last-child {
+    grid-area: content;
+  }
+}

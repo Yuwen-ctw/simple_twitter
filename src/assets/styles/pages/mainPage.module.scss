@@ -10,8 +10,9 @@
   /* target: section */
   > :nth-child(2) {
     position: relative;
-    max-width: 640px;
     flex-grow: 1;
+    max-width: 640px;
+    max-height: 100vh;
     margin: 0 24px 0 24px;
     border-left: 1px solid $listBorder;
     border-right: 1px solid $listBorder;

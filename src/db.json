@@ -182,5 +182,34 @@
       "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     }
+  ],
+  "replys": [
+    {
+      "id": "fdsc679",
+      "name": "Mary",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg",
+      "account": "mary",
+      "time": "3小時",
+      "target": "target",
+      "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu."
+    },
+    {
+      "id": "fdscaadc679",
+      "name": "Mary2",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg",
+      "account": "mary",
+      "time": "4小時",
+      "target": "target",
+      "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu."
+    },
+    {
+      "id": "fdsc6adc79",
+      "name": "Mary3",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg",
+      "account": "mary",
+      "time": "5小時",
+      "target": "target",
+      "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu."
+    }
   ]
 }
