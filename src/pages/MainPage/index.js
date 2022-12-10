@@ -1,4 +1,4 @@
-import MainLayout from './MainLayout'
+import MainLayout from './MainLayout/MainLayout'
 import SettingSection from './SettingSection'
 import MainSection from './MainSection'
 import TweetSection from './TweetSection'

@@ -1,2 +1,3 @@
 import AdminUserCard from './AdminUserCard/AdminUserCard'
-export { AdminUserCard }
+import PopularUserCard from './PopularUserCard'
+export { AdminUserCard, PopularUserCard }
