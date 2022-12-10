@@ -1,0 +1,36 @@
+@use '../abstracts/index' as *;
+
+.sectionHeader {
+  padding: 16px 24px;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+  &:active {
+    opacity: 0.5;
+  }
+
+  img {
+    width: 24px;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+
+    p {
+      @include font(1.125rem, 700, 1.44);
+      width: min-content;
+      white-space: nowrap;
+    }
+
+    span {
+      @include font(0.8125rem, 500, 1.1875rem, $text-secondary);
+    }
+  }
+}
