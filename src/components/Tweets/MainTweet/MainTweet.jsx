@@ -7,14 +7,23 @@ import {
 import TweetInfo from './TweetInfo'
 import styles from 'assets/styles/components/tweets/mainTweet.module.scss'
 
-function MainTweet({ tweet }) {
-  const { name, account, postTime, content, avatar, replyAmount, likeAmount } =
-    tweet
+function MainTweet({ tweet, onLikeClick, onReplyClick }) {
+  const {
+    id,
+    name,
+    account,
+    postTime,
+    content,
+    avatar,
+    replyAmount,
+    likeAmount,
+    isLike,
+  } = tweet
   return (
     <li className={styles.layout}>
       <UserAvatar src={avatar} />
       <div>
-        <UserNameText text={name} />
+        <UserNameText name={name} />
         <SubText text={` @${account}．${postTime}`} />
       </div>
       <ContentText text={content} />
@@ -22,8 +31,10 @@ function MainTweet({ tweet }) {
         className={styles.tweetInfo}
         replyAmount={replyAmount}
         likeAmount={likeAmount}
-        onReplyClick={() => ''}
-        onLikeClick={() => ''}
+        onReplyClick={onReplyClick}
+        onLikeClick={onLikeClick}
+        isLike={isLike}
+        id={id}
       />
     </li>
   )

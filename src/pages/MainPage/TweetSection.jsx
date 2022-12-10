@@ -31,7 +31,7 @@ function TweetSection() {
         <img src={backImage} alt="A left direction arrow" />
         <SectionTitle text="推文" />
       </div>
-      <SingleTweet tweet={db.tweet[0]} />
+      <SingleTweet tweet={db.tweets[0]} />
       <ul>{replyList}</ul>
     </section>
   )
