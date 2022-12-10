@@ -12,7 +12,7 @@ function SingleTweetButtons({ className, isLike, onReplyClick, onLikeClick }) {
           defaultChecked={isLike}
           onChange={onLikeClick}
         />
-        <label htmlFor="like-checkbox" tabIndex={0}></label>
+        <label htmlFor="like-checkbox"></label>
       </div>
     </>
   )

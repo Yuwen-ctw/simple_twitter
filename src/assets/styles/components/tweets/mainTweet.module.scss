@@ -3,7 +3,7 @@
 .layout {
   width: 100%;
   max-width: 640px;
-  border: 1px solid $listBorder;
+  border-bottom: 1px solid $listBorder;
   padding: 16px 24px;
   display: grid;
   grid-template-columns: auto 1fr;
@@ -26,6 +26,7 @@
     height: 1.25rem;
     border: 0;
     background-color: transparent;
+    cursor: pointer;
 
     & > * {
       height: 1rem;

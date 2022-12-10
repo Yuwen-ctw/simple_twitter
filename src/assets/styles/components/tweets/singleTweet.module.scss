@@ -3,7 +3,8 @@
 .layout {
   width: 100%;
   max-width: 640px;
-  border: 1px solid $listBorder;
+  border-top: 1px solid $listBorder;
+  border-bottom: 1px solid $listBorder;
   padding: 16px;
   display: grid;
   grid-template-columns: 50px 1fr;

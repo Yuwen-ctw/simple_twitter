@@ -1,2 +1,3 @@
 import logoImage from './logo.png'
-export { logoImage }
+import backImage from './backArrow.png'
+export { logoImage, backImage }

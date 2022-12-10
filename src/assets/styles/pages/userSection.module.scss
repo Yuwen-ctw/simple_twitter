@@ -1,0 +1,46 @@
+@use '../abstracts/index' as *;
+
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeader {
+  align-self: flex-start;
+  padding: 24px;
+  display: inline-flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+  &:active {
+    opacity: 0.5;
+  }
+
+  img {
+    width: 24px;
+  }
+
+  div {
+    position: relative;
+    p {
+      @include font(1.125rem, 700, 1.44);
+    }
+
+    span {
+      @include font(0.8125rem, 500, 1.1875rem, $text-secondary);
+      position: absolute;
+      bottom: 1px;
+      translate: 0 100%;
+    }
+  }
+}
+
+.switchWrapper {
+  border-top: 1px solid $listBorder;
+  border-bottom: 1px solid $listBorder;
+}
