@@ -17,7 +17,8 @@
     "account": "Mary",
     "avatar": "https://randomuser.me/api/portraits/women/60.jpg",
     "following": ["123456", "3345678", "987654"],
-    "follower": ["33455hw2679", "123sdd456", "987654"]
+    "follower": ["33455hw2679", "123sdd456", "987654"],
+    "tweetAmount": 10
   },
 
   "popularUsers": [
@@ -82,7 +83,7 @@
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     }
   ],
-  "users": [
+  "follower": [
     {
       "id": "3345678",
       "name": "Maafasacsdcdfry",
@@ -107,6 +108,44 @@
       "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     },
+    {
+      "id": "3345s678",
+      "name": "Mary",
+      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+    },
+    {
+      "id": "3345fs679",
+      "name": "Mary",
+      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+    },
+    {
+      "id": "123sdd456",
+      "name": "Mary",
+      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+    },
+    {
+      "id": "33455vhy2679",
+      "name": "Mary",
+      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+    },
+    {
+      "id": "12w3456",
+      "name": "Mary",
+      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+    },
+    {
+      "id": "33455hw2679",
+      "name": "Mary",
+      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+    }
+  ],
+  "following": [
     {
       "id": "3345s678",
       "name": "Mary",

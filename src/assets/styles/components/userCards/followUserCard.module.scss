@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 640px;
   padding: 16px 30px 16px 16px;
-  border: 1px solid $listBorder;
+  border-bottom: 1px solid $listBorder;
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: auto 1fr;

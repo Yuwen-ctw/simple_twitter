@@ -10,7 +10,7 @@ const NavItem = ({ value, text, check, to }) => {
         data-value={value}
         readOnly
       />
-      <Link className={styles.navItem} data-value={value} to={to}>
+      <Link className={styles.navItem} data-value={value} to={to} state={value}>
         {text}
       </Link>
     </>

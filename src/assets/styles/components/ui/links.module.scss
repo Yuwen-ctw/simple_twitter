@@ -8,11 +8,14 @@
 %switchLink,
 .switchLink {
   position: relative;
+  width: 130px;
+  padding: 17.5px 0px;
   display: inline-block;
-  padding: 17.5px 50px;
   border-bottom: 2px solid transparent;
   @include font(0.9375rem, 700, 1, $switch-inactive);
   text-decoration: none;
+  text-align: center;
+  transition: color 0.2s, background 0.2s;
   /* underLine */
   &::after {
     content: '';
