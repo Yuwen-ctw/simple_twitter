@@ -19,7 +19,7 @@ function MainSection() {
     if (!isLike) {
       return (
         // confirm if the likeId not included in like list, then push it
-        !nextLikeList.includes(likeId) && setLikeList([...likeList, likeId])
+        !nextLikeList.includes(likeId) && setLikeList([...nextLikeList, likeId])
       )
     }
     // if liked, remove it

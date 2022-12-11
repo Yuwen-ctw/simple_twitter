@@ -8,6 +8,8 @@ import ReplyTargetText from './ReplyTargetText'
 import ProfileAvatar from './ProfileAvatar'
 import Logo from './Logo'
 import FollowingCheckbox from './FollowingCheckbox'
+import UserFollowInfo from './UserFollowInfo'
+
 export {
   PageTitle,
   SectionTitle,
@@ -19,4 +21,5 @@ export {
   ProfileAvatar,
   Logo,
   FollowingCheckbox,
+  UserFollowInfo,
 }

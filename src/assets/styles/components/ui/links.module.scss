@@ -15,7 +15,12 @@
   @include font(0.9375rem, 700, 1, $switch-inactive);
   text-decoration: none;
   text-align: center;
-  transition: color 0.2s, background 0.2s;
+  transition: color 0.2s, background 0.2s, opacity 0.2s;
+
+  &:hover {
+    opacity: 0.75;
+    color: $brand;
+  }
   /* underLine */
   &::after {
     content: '';
@@ -34,5 +39,8 @@
   color: $brand;
   &::after {
     background-color: $brand;
+  }
+  &:hover {
+    opacity: unset;
   }
 }
