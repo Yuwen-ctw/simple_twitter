@@ -78,7 +78,7 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
     &[aria-pressed='false'] {
       background-image: url($notifaction-false);
       &:hover {
-        background-image: url($notifaction-true);
+        background-color: transparent;
       }
     }
 
