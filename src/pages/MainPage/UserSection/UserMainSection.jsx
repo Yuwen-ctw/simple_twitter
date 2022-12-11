@@ -1,12 +1,19 @@
-import { useParams } from 'react-router-dom'
-
+// import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { MainTweet } from 'components/Tweets'
+import db from 'db.json'
 function UserMainSection() {
-  const { userId } = useParams()
-  return (
-    <>
-      <h1>This is UserMainSection on /main/user/{userId}</h1>
-    </>
-  )
+  // const { userId } = useParams()
+  // TODO get Data and likeList...  same as MainSection
+  const [data, setData] = useState([])
+  useEffect(() => {
+    setData(db.tweets)
+  }, [])
+
+  const dataList = data.map((tweet) => (
+    <MainTweet key={tweet.id} tweet={tweet} />
+  ))
+  return <ul>{dataList}</ul>
 }
 
 export default UserMainSection

@@ -1,0 +1,17 @@
+@use '../../abstracts/index' as *;
+
+.layout {
+  display: flex;
+  gap: 20px;
+  @include font(0.875rem, 400, 1.57);
+  cursor: pointer;
+  *:hover {
+    text-decoration: underline;
+  }
+  .count {
+    color: $text-dark;
+  }
+  .state {
+    color: $text-secondary;
+  }
+}

@@ -1,0 +1,103 @@
+@use '../../abstracts/index' as *;
+$notifaction-true: '../../../svgs/profile_noti_true.svg';
+$notifaction-false: '../../../svgs/profile_noti_false.svg';
+$mailTo: '../../../svgs/profile_mail.svg';
+$mailToHover: '../../../svgs/profile_mail_clr.svg';
+%interactingShadow {
+  &:hover {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    background-color: $brand;
+  }
+  &:active {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25) inset;
+  }
+}
+
+.layout {
+  position: relative;
+  padding: 200px 16px 16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: start;
+}
+
+.background {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+}
+
+.avatar {
+  position: absolute;
+  left: 16px;
+  top: 200px;
+  translate: 0 -50%;
+}
+
+%iconWrapper {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: 1px solid $brand;
+  border-radius: 50%;
+  cursor: pointer;
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.buttonGroup {
+  width: 100%;
+  height: 72px;
+  display: grid;
+  grid-template-columns: auto auto 96px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+
+  .mailTo {
+    @extend %iconWrapper;
+    @extend %interactingShadow;
+    transition: all 0.2s;
+    background-image: url($mailTo);
+
+    &:hover {
+      background-image: url($mailToHover);
+    }
+  }
+
+  button[aria-label='notifaction'] {
+    @extend %iconWrapper;
+    @extend %interactingShadow;
+    background-color: transparent;
+    transition: all 0.2s;
+
+    &[aria-pressed='false'] {
+      background-image: url($notifaction-false);
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    &[aria-pressed='true'] {
+      background-image: url($notifaction-true);
+      background-color: $brand;
+    }
+  }
+
+  & :nth-child(3) {
+    text-align: end;
+  }
+}
+
+.name {
+  @include font(1.125rem, 700, 1.44);
+}
+
+.intro {
+  padding: 8px 0 16px;
+  @include font(0.875rem, 400, 1.57);
+}

@@ -57,8 +57,9 @@
     "name": "Marsd cassy",
     "account": "Mary",
     "avatar": "https://randomuser.me/api/portraits/women/60.jpg",
+    "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
     "following": ["123456", "3345678", "987654"],
-    "follower": ["33455hw2679", "123sdd456", "987654"],
+    "follower": ["33455hw2679", "123sdd456", "987654", "789sdc45sdf"],
     "like": ["789wed45sdf", "789sdc45sdf"],
     "tweetAmount": 10
   },

@@ -12,7 +12,7 @@ function UserRoutes() {
   return (
     <Routes>
       <Route path="/" element={<UserSectionLayout />}>
-        <Route index element={<UserMainSection />} />
+        <Route path="tweet" element={<UserMainSection />} />
         <Route path="like" element={<UserLikeSection />} />
         <Route path="reply" element={<UserReplySection />} />
       </Route>
