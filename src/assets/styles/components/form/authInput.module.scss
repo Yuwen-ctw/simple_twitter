@@ -1,0 +1,24 @@
+@use '../../abstracts/mixins';
+
+.Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: #f5f8fa;
+    width: 100%;
+    height: 54px;
+    border-bottom: 2px solid black;
+}
+
+.label {
+    font-size: 14;
+    color: '#696974';
+    text-align: start;
+}
+
+.Input {
+    outline: none;
+    border: none;
+    background-color: #f5f8fa;
+    border-radius: 0px;
+}
