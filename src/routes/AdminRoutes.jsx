@@ -11,7 +11,7 @@ function AdminRoutes() {
   return (
     <Routes>
       <Route path="/" element={<AdminLoginPage />} />
-      <Route path="main" element={<AdminMainLayout />}>
+      <Route element={<AdminMainLayout />}>
         <Route path="tweets" element={<AdminTweetsPage />} />
         <Route path="users" element={<AdminUsersPage />} />
       </Route>

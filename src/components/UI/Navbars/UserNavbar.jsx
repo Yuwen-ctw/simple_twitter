@@ -15,7 +15,12 @@ function UserNavbar({ onClick }) {
   return (
     <Navbar>
       <NavItem text="首頁" value={'home'} check={check} to="/" />
-      <NavItem text="個人資料" value={'user'} check={check} to="user/5/tweet" />
+      <NavItem
+        text="個人資料"
+        value={'user'}
+        check={check}
+        to="user/5/tweets"
+      />
       <NavItem text="設定" value={'setting'} check={check} to="setting" />
       <ClrButton text="推文" onClick={onClick} />
       <NavItem text="登出" value={'logout'} />

@@ -54,9 +54,9 @@ function ProfileUserCard({ user }) {
         onClick={handleFollowInfoClick}
       />
       <div>
-        <SwitchLink text="推文" to={`/user/${user.id}/tweet`} />
-        <SwitchLink text="回覆" to={`/user/${user.id}/reply`} />
-        <SwitchLink text="喜歡的內容" to={`/user/${user.id}/like`} />
+        <SwitchLink text="推文" to={`/user/${user.id}/tweets`} />
+        <SwitchLink text="回覆" to={`/user/${user.id}/replies`} />
+        <SwitchLink text="喜歡的內容" to={`/user/${user.id}/likes`} />
       </div>
     </div>
   )
