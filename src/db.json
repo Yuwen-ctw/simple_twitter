@@ -1,4 +1,34 @@
 {
+  "tweets1": [
+    {
+      "id": 55,
+      "description": "Good!",
+      "replyCount": 2,
+      "likeCount": 3,
+      "createdAt": "2022-11-30T15:42:13.000Z",
+      "User": {
+        "id": 2,
+        "name": "Red",
+        "account": "redddd",
+        "avatar": "https://avatar"
+      },
+      "isLiked": false
+    },
+    {
+      "id": 56,
+      "description": "Not bad!",
+      "replyCount": 1,
+      "likeCount": 5,
+      "createdAt": "2022-11-30T15:42:13.000Z",
+      "User": {
+        "id": 11,
+        "name": "Bob",
+        "account": "bob2222",
+        "avatar": "https://avatar"
+      },
+      "isLiked": false
+    }
+  ],
   "tweets": [
     {
       "id": "78945sdf",
@@ -126,7 +156,7 @@
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     }
   ],
-  "follower": [
+  "followers": [
     {
       "id": "3345678",
       "name": "Maafasacsdcdfry",
@@ -188,7 +218,7 @@
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     }
   ],
-  "following": [
+  "followings": [
     {
       "id": "3345s678",
       "name": "Madfascasry",
