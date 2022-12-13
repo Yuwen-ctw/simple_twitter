@@ -19,12 +19,12 @@ module.exports = {
   },
   plugins: ['react', 'prettier'],
   rules: {
-    // 'prettier/prettier': [
-    //   'error',
-    //   {
-    //     endOfLine: 'auto',
-    //   },
-    // ],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
     // quotes: [0, 'single'],
     // semi: [2, 'never'],
     'react/jsx-uses-react': 'error',
