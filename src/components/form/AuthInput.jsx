@@ -2,6 +2,7 @@ import styles from '../../assets/styles/components/form/authInput.module.scss'
 
 const AuthInput = ({ type, label, value, placeholder, onChange }) => {
   return (
+    <>
     <div className={styles.Container}>
       <div className={styles.label}>{label}</div>
       <div
@@ -12,6 +13,7 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
         onChange={(event) => onChange?.(event.target.value)}
       ></div>
     </div>
+    </>  
   )
 }
 

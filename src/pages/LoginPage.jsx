@@ -2,33 +2,36 @@ import { AuthContainer, AuthInputContainer } from '../components/form/Auth'
 import { Logo, PageTitle } from 'components/share'
 import { AuthInput } from 'components/form'
 import { useState, useEffect } from 'react'
-import { useAuth } from 'contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
+import { login } from '../api/auth';
 
 function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
-  // const { login, isAuthenticated } = useAuth();
+  // // const { login, isAuthenticated } = useAuth();
 
   const handleClick = async () => {
-    // if (username.length === 0) {
-    //   return;
-    // }
-    // if (password.length === 0) {
-    //   return;
-    // }
-    // const success = await login({
-    //   username,
-    //   password,
-    // });
-  }
+    if (username.length === 0) {
+      return;
+    }
+    if (password.length === 0) {
+      return;
+    }
+
+    const { success, authToken } = await login({
+      username,
+      password,
+    });
+    if (success) {
+      localStorage.setItem('authToken', authToken);
+    }
+  };
 
   // useEffect(() => {
   // if (isAuthenticated) {
-  //   navigate('/todos');
+  //   navigate('/MainRoutes');
   // }
   // }, [navigate, isAuthenticated]);
 
@@ -45,6 +48,7 @@ function LoginPage() {
             value={username}
             onChange={(nameInputValue) => setUsername(nameInputValue)}
           />
+          {/* console.log(AuthInput) */}
         </AuthInputContainer>
 
         <AuthInputContainer>
@@ -63,7 +67,9 @@ function LoginPage() {
         </div>
       </AuthContainer>
     </>
+    
   )
+  
 }
 
 export default LoginPage
