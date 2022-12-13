@@ -50,8 +50,8 @@ function UserFollowersSection() {
     <section className={styles.sectionWrapper}>
       <SectionHeader user={db.loginUser} />
       <div className={styles.switchWrapper}>
-        <SwitchLink text="追隨者" to={`/user/${userId}/follower`} />
-        <SwitchLink text="正在追隨" to={`/user/${userId}/following`} />
+        <SwitchLink text="追隨者" to={`/user/${userId}/followers`} />
+        <SwitchLink text="正在追隨" to={`/user/${userId}/followings`} />
       </div>
       <ul className="scrollbar">{listData}</ul>
     </section>

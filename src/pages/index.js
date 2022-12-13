@@ -4,8 +4,8 @@ import AdminLoginPage from './AdminLoginPage'
 import NotFoundPage from './NotFoundPage'
 import {
   AdminMainLayout,
-  AdminTweetsPage,
-  AdminUsersPage,
+  AdminTweetSection,
+  AdminUserSection,
 } from './AdminMainPage'
 import {
   MainLayout,
@@ -25,8 +25,8 @@ export {
   AdminLoginPage,
   NotFoundPage,
   AdminMainLayout,
-  AdminTweetsPage,
-  AdminUsersPage,
+  AdminTweetSection,
+  AdminUserSection,
   MainLayout,
   SettingSection,
   MainSection,

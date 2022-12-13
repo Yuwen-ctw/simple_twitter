@@ -12,12 +12,12 @@ function UserRoutes() {
   return (
     <Routes>
       <Route path="/" element={<UserSectionLayout />}>
-        <Route path="tweet" element={<UserMainSection />} />
-        <Route path="like" element={<UserLikeSection />} />
-        <Route path="reply" element={<UserReplySection />} />
+        <Route path="tweets" element={<UserMainSection />} />
+        <Route path="likes" element={<UserLikeSection />} />
+        <Route path="replies" element={<UserReplySection />} />
       </Route>
-      <Route path="follower" element={<UserFollowSection />} />
-      <Route path="following" element={<UserFollowSection />} />
+      <Route path="followers" element={<UserFollowSection />} />
+      <Route path="followings" element={<UserFollowSection />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
