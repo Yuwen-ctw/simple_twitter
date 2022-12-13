@@ -1,5 +1,5 @@
 import AdminMainLayout from './AdminMainLayout'
-import AdminTweetsPage from './AdminTweetsPage'
-import AdminUsersPage from './AdminUsersPage'
+import AdminTweetSection from './AdminTweetSection'
+import AdminUserSection from './AdminUserSection'
 
-export { AdminUsersPage, AdminTweetsPage, AdminMainLayout }
+export { AdminTweetSection, AdminUserSection, AdminMainLayout }
