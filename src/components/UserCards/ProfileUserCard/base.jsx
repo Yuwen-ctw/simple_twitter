@@ -32,10 +32,10 @@ const Interactions = ({ onChange, user }) => {
   )
 }
 
-const ButtonGroup = ({ user, onChange }) => {
+const ButtonGroup = ({ user, onChange, onClickEdit }) => {
   let result
   if (user.self) {
-    result = <BaseButton text="編輯個人資料" />
+    result = <BaseButton text="編輯個人資料" onClick={onClickEdit} />
   } else {
     result = <Interactions user={user} onChange={onChange} />
   }
