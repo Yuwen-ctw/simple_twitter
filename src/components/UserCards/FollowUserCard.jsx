@@ -7,16 +7,19 @@ import {
 import styles from 'assets/styles/components/userCards/followUserCard.module.scss'
 
 function FollowUserCard({ user, onChange, isFollowing }) {
-  const { avatar, name, id, intro } = user
+  const { avatar, name, id, intro, isLoginUser } = user
   return (
     <li className={styles.layout}>
       <UserAvatar src={avatar} />
       <UserNameText name={name} />
-      <FollowingCheckbox
-        userId={id}
-        isFollowing={isFollowing}
-        onChange={onChange}
-      />
+      {!isLoginUser && (
+        <FollowingCheckbox
+          userId={id}
+          isFollowing={isFollowing}
+          onChange={onChange}
+        />
+      )}
+
       <ContentText text={intro} />
     </li>
   )

@@ -25,6 +25,8 @@ function PopularUserList({ users, className }) {
   const popularLists = users.map((user) => {
     // check if user is following
     const isFollowing = followings.some((followId) => followId === user.id)
+    // check if the user is himself/herself
+    if (user.id === db.loginUser.id) user.isLoginUser = true
     return (
       <PopularUserCard
         key={user.id}

@@ -37,6 +37,9 @@ function UserFollowersSection() {
   const listData = userList.map((user) => {
     // check if user is following
     const isFollowing = followings.some((followId) => followId === user.id)
+    // check if the user is himself/herself
+    if (user.id === db.loginUser.id) user.isLoginUser = true
+
     return (
       <FollowUserCard
         key={user.id}
