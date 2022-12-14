@@ -1,0 +1,54 @@
+@use '../../abstracts/index' as *;
+
+.background {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+  // backdrop-filter: blur(0px);
+}
+
+:global(.active) {
+  display: block;
+}
+
+.dialog {
+  position: relative;
+  margin: 56px auto 0px;
+  height: 100px;
+  width: 100%;
+  max-width: 634px;
+  background: #ffffff;
+  border-radius: 14px;
+}
+
+.dialog__header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid $listBorder;
+  gap: 16px;
+
+  .closeBtn {
+    border: 0;
+    background-color: transparent;
+    background-image: url('../../../svgs/modal_close.svg');
+    margin: 16px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.75;
+    }
+    &:active {
+      opacity: 0.5;
+    }
+  }
+
+  .title {
+    @include font(1.125rem, 700, 1.44, $text-pageTitle);
+  }
+}

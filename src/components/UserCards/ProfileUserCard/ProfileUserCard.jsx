@@ -7,15 +7,15 @@ import {
 } from './base'
 import { SwitchLink } from 'components/UI/Buttons'
 import styles from 'assets/styles/components/userCards/profileUserCard.module.scss'
-import fakeBG from 'assets/images/profileBgFake.png'
+import { defaultCover } from 'assets/images'
 import db from 'db.json'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function ProfileUserCard({ user }) {
+function ProfileUserCard({ user, onClickEdit }) {
   const navigate = useNavigate()
   //TODO get current user info
-  user.self = false
+  user.self = true
   const [followings, setFollowings] = useState(db.loginUser.following)
   user.isFollowing = followings.includes(user.id)
 
@@ -41,9 +41,13 @@ function ProfileUserCard({ user }) {
 
   return (
     <div className={styles.layout}>
-      <ProfileBackground src={fakeBG} />
+      <ProfileBackground src={defaultCover} />
       <ProfileAvatar src={user.avatar} className={styles.avatar} />
-      <ButtonGroup user={user} onChange={handleToggle} />
+      <ButtonGroup
+        user={user}
+        onChange={handleToggle}
+        onClickEdit={onClickEdit}
+      />
       <ProfileNameText name={user.name} />
       <SubText text={`@${user.account}`} />
       <IntroText text={user.intro} />
