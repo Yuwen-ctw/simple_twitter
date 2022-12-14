@@ -2,7 +2,7 @@ import { PopularUserCard } from 'components/UserCards'
 import { SectionTitle } from 'components/share'
 import db from '../../../db.json'
 import { useState } from 'react'
-function PopularUserList({ users, className }) {
+function PopularUserList({ users, className, onClick }) {
   // TODO: get user's followingList(maybe from context), which is fake below
   const [followings, setFollowings] = useState(db.loginUser.following)
 
@@ -37,7 +37,7 @@ function PopularUserList({ users, className }) {
     )
   })
   return (
-    <ul className={className}>
+    <ul className={className} onClick={onClick}>
       <SectionTitle text="推薦跟隨" />
       {popularLists}
     </ul>

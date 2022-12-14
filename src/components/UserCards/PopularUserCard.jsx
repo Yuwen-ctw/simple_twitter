@@ -5,19 +5,16 @@ function PopularUserCard({ popularUser, onChange, isFollowing }) {
   const { name, avatar, account, id, isLoginUser } = popularUser
 
   return (
-    <li className={styles.layout}>
+    <li className={styles.layout} data-userid={id} data-click>
       <UserAvatar src={avatar} />
-      <div>
-        <UserNameText name={name} />
-        <p className={styles.subtext}>@{account}</p>
-      </div>
-      {!isLoginUser && (
-        <FollowingCheckbox
-          userId={id}
-          isFollowing={isFollowing}
-          onChange={onChange}
-        />
-      )}
+      <UserNameText name={name} />
+      <span data-rolename="account">@{account}</span>
+      <FollowingCheckbox
+        userId={id}
+        isFollowing={isFollowing}
+        onChange={onChange}
+        hide={isLoginUser}
+      />
     </li>
   )
 }
