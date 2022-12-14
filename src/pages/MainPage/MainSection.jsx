@@ -3,8 +3,10 @@ import { SectionTitle, Spinner } from 'components/share'
 import { MainTweet } from 'components/Tweets'
 import styles from 'assets/styles/pages/mainSection.module.scss'
 import { getAllTweets } from 'api/tweets'
+import { useOutletContext } from 'react-router-dom'
 
 function MainSection() {
+  const { handleUserOrTweetClick } = useOutletContext()
   const [tweets, setTweets] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -44,8 +46,9 @@ function MainSection() {
       />
     )
   })
+
   return (
-    <section className={styles.sectionWrapper}>
+    <section className={styles.sectionWrapper} onClick={handleUserOrTweetClick}>
       <SectionTitle text="首頁" />
       <h1 style={{ color: 'red' }}>這裡放TweetInput</h1>
       <hr />

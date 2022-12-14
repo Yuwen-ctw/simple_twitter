@@ -6,20 +6,50 @@
   border-bottom: 1px solid $listBorder;
   padding: 16px 24px;
   display: grid;
-  grid-template-columns: auto 1fr;
+  align-items: center;
+  grid-template-columns: auto auto 1fr;
   column-gap: 8px;
   row-gap: 6px;
   grid-template-areas:
-    'img author'
-    'img text'
-    'img info';
+    'img name account'
+    'img content content'
+    'img info info';
 
-  > :first-child {
+  > * {
+    cursor: pointer;
+  }
+
+  > span,
+  > p {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  [data-rolename='avatarWrapper'] {
     grid-area: img;
+    align-self: start;
+  }
+
+  [data-rolename='name'] {
+    grid-area: name;
+  }
+
+  [data-rolename='account'] {
+    grid-area: account;
+  }
+
+  [data-rolename='content'] {
+    grid-area: content;
+  }
+
+  &:hover {
+    background-color: $hover-background;
   }
 }
 
 .tweetInfo {
+  grid-area: info;
+
   button {
     @include font(0.875rem, 600, 1, $text-secondary, 'Montserrat');
     margin-right: 40px;
@@ -27,7 +57,9 @@
     border: 0;
     background-color: transparent;
     cursor: pointer;
-
+    &:hover > span {
+      text-decoration: underline;
+    }
     & > * {
       height: 1rem;
       display: inline-block;

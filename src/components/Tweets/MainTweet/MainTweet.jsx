@@ -8,15 +8,26 @@ import TweetInfo from './TweetInfo'
 import styles from 'assets/styles/components/tweets/mainTweet.module.scss'
 
 function MainTweet({ tweet, onLikeClick, onReplyClick }) {
-  const { id, User, createdAt, description, replyCount, likeCount, isLiked } =
-    tweet
+  const {
+    id: tweetId,
+    User,
+    createdAt,
+    description,
+    replyCount,
+    likeCount,
+    isLiked,
+  } = tweet
+
   return (
-    <li className={styles.layout}>
+    <li
+      className={styles.layout}
+      data-tweetid={tweetId}
+      data-userid={User.id}
+      data-click
+    >
       <UserAvatar src={User.avatar} />
-      <div>
-        <UserNameText name={User.name} />
-        <SubText text={` @${User.account}．${createdAt}`} />
-      </div>
+      <UserNameText name={User.name} />
+      <SubText text={` @${User.account}．${createdAt}`} />
       <ContentText text={description} />
       <TweetInfo
         className={styles.tweetInfo}
@@ -25,7 +36,7 @@ function MainTweet({ tweet, onLikeClick, onReplyClick }) {
         onReplyClick={onReplyClick}
         onLikeClick={onLikeClick}
         isLike={isLiked}
-        id={id}
+        id={tweetId}
       />
     </li>
   )
