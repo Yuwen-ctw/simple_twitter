@@ -4,11 +4,12 @@ import { AuthInput } from 'components/form'
 import { useState, useEffect } from 'react'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import { login } from '../api/auth';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   // // const { login, isAuthenticated } = useAuth();
 
@@ -26,6 +27,9 @@ function LoginPage() {
     });
     if (success) {
       localStorage.setItem('authToken', authToken);
+      navigate('/');
+    } else{
+      console.log(success)
     }
   };
 
@@ -60,7 +64,10 @@ function LoginPage() {
             onChange={(passwordInputValue) => setPassword(passwordInputValue)}
           />
         </AuthInputContainer>
-        <ClrButton text="登入" onClick={handleClick} />
+        <ClrButton
+         text="登入" 
+         onClick={handleClick}
+         />
         <div>
           <BaseLink text="註冊" to="/register" />·
           <BaseLink text="後台登入" to="/admin" />

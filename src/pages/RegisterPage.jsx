@@ -18,21 +18,30 @@ function RegisterPage() {
   // const { register, isAuthenticated } = useAuth();
 
   const handleClick = async () => {
-    // if (username.length === 0) {
-    //   return;
-    // }
-    // if (password.length === 0) {
-    //   return;
-    // }
-    // if (email.length === 0) {
-    //   return;
-    // }
-    // const success = await register({
-    //   username,
-    //   email,
-    //   password,
-    // });
-    // if (success) {
+    if (username.length === 0) {
+      return;
+    }
+    if (password.length === 0) {
+      return;
+    }
+    if (email.length === 0) {
+      return;
+    }
+    const success = await register({
+      username,
+      nickname,
+      email,
+      password,
+    });
+    if (success) {
+      localStorage.setItem('authToken', authToken);
+      navigate('/login');
+    } else{
+      console.log(success)
+    }
+
+
+    // if (success) {n
     //   Swal.fire({
     //     position: 'top',
     //     title: '註冊成功！',
