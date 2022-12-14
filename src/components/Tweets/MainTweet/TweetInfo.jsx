@@ -3,8 +3,8 @@ import { replySvg, likeSvg, likingSvg } from 'assets/svgs/index'
 const TweetInfo = ({
   id,
   className,
-  replyAmount,
-  likeAmount,
+  replyCount,
+  likeCount,
   onReplyClick,
   onLikeClick,
   isLike,
@@ -12,11 +12,11 @@ const TweetInfo = ({
   <div className={className}>
     <button onClick={onReplyClick}>
       <img src={replySvg} alt="reply" />
-      <span>{replyAmount}</span>
+      <span>{replyCount}</span>
     </button>
-    <button onClick={() => onLikeClick(id, isLike)}>
+    <button onClick={() => onLikeClick(id)}>
       <img src={isLike ? likingSvg : likeSvg} alt="like" />
-      <span>{likeAmount}</span>
+      <span>{likeCount}</span>
     </button>
   </div>
 )
