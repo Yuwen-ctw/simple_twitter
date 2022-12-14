@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom'
 function ProfileUserCard({ user, onClickEdit }) {
   const navigate = useNavigate()
   //TODO get current user info
-  user.self = true
+  user.self = false
   const [followings, setFollowings] = useState(db.loginUser.following)
   user.isFollowing = followings.includes(user.id)
 

@@ -6,35 +6,38 @@ import {
 } from 'components/share'
 import TweetInfo from './TweetInfo'
 import styles from 'assets/styles/components/tweets/mainTweet.module.scss'
+import formatRelativeTime from 'uitlities/formatRelativeTime'
 
 function MainTweet({ tweet, onLikeClick, onReplyClick }) {
   const {
-    id,
-    name,
-    account,
-    postTime,
-    content,
-    avatar,
-    replyAmount,
-    likeAmount,
-    isLike,
+    id: tweetId,
+    User,
+    createdAt,
+    description,
+    replyCount,
+    likeCount,
+    isLiked,
   } = tweet
+
   return (
-    <li className={styles.layout}>
-      <UserAvatar src={avatar} />
-      <div>
-        <UserNameText name={name} />
-        <SubText text={` @${account}．${postTime}`} />
-      </div>
-      <ContentText text={content} />
+    <li
+      className={styles.layout}
+      data-tweetid={tweetId}
+      data-userid={User.id}
+      data-click
+    >
+      <UserAvatar src={User.avatar} />
+      <UserNameText name={User.name} />
+      <SubText text={` @${User.account}．${formatRelativeTime(createdAt)}`} />
+      <ContentText text={description} />
       <TweetInfo
         className={styles.tweetInfo}
-        replyAmount={replyAmount}
-        likeAmount={likeAmount}
+        replyCount={replyCount}
+        likeCount={likeCount}
         onReplyClick={onReplyClick}
         onLikeClick={onLikeClick}
-        isLike={isLike}
-        id={id}
+        isLike={isLiked}
+        id={tweetId}
       />
     </li>
   )

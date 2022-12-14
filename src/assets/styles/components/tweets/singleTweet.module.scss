@@ -64,19 +64,4 @@
       width: 100%;
     }
   }
-
-  input {
-    display: none;
-    &:checked + label {
-      background-image: url('../../../svgs/like_fill.svg');
-    }
-  }
-
-  label {
-    cursor: pointer;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    background-image: url('../../../svgs/like.svg');
-  }
 }
