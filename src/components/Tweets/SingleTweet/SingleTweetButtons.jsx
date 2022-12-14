@@ -1,4 +1,5 @@
 import { replySvg } from 'assets/svgs'
+import { likingSvg, likeSvg } from 'assets/svgs'
 function SingleTweetButtons({ className, isLike, onReplyClick, onLikeClick }) {
   return (
     <>
@@ -6,13 +7,9 @@ function SingleTweetButtons({ className, isLike, onReplyClick, onLikeClick }) {
         <button onClick={onReplyClick}>
           <img src={replySvg} alt="reply" />
         </button>
-        <input
-          type="checkbox"
-          id="like-checkbox"
-          defaultChecked={isLike}
-          onChange={onLikeClick}
-        />
-        <label htmlFor="like-checkbox"></label>
+        <button onClick={onLikeClick}>
+          <img src={isLike ? likingSvg : likeSvg} alt="like" />
+        </button>
       </div>
     </>
   )
