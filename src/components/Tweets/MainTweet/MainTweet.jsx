@@ -6,6 +6,7 @@ import {
 } from 'components/share'
 import TweetInfo from './TweetInfo'
 import styles from 'assets/styles/components/tweets/mainTweet.module.scss'
+import formatRelativeTime from 'uitlities/formatRelativeTime'
 
 function MainTweet({ tweet, onLikeClick, onReplyClick }) {
   const {
@@ -27,7 +28,7 @@ function MainTweet({ tweet, onLikeClick, onReplyClick }) {
     >
       <UserAvatar src={User.avatar} />
       <UserNameText name={User.name} />
-      <SubText text={` @${User.account}．${createdAt}`} />
+      <SubText text={` @${User.account}．${formatRelativeTime(createdAt)}`} />
       <ContentText text={description} />
       <TweetInfo
         className={styles.tweetInfo}

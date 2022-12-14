@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { SingleTweet } from 'components/Tweets'
-import { SectionTitle } from 'components/share'
+import { SectionTitle, Spinner } from 'components/share'
 import Reply from 'components/Reply'
 import { backImage } from 'assets/images'
 import styles from 'assets/styles/pages/tweetSection.module.scss'
@@ -13,12 +13,16 @@ function TweetSection() {
   const { tweetId } = useParams()
   const [replys, setReplys] = useState([])
   const [tweet, setTweet] = useState({})
+  const [loading, setLoading] = useState(false)
+
   // TODO get tweet and replys data here
   useEffect(() => {
+    setLoading(true)
     async function getData() {
       try {
         const { data, status, message } = await getTweet(tweetId)
         status === 'success' ? setTweet(data.tweet) : console.error(message)
+        setLoading(false)
       } catch (err) {
         console.error(err)
       }
@@ -44,8 +48,14 @@ function TweetSection() {
         <img src={backImage} alt="A left direction arrow" />
         <SectionTitle text="推文" />
       </div>
-      <SingleTweet tweet={tweet} onLikeClick={handleLikeClick} />
-      <ul>{replyList}</ul>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <SingleTweet tweet={tweet} onLikeClick={handleLikeClick} />
+          <ul>{replyList}</ul>
+        </>
+      )}
     </section>
   )
 }
