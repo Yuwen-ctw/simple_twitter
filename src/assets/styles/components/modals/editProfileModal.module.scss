@@ -3,7 +3,7 @@
 .modal__content {
   position: relative;
   padding: 280px 16px 16px;
-  height: 553px;
+  height: 570px;
   border-radius: 14px;
   background: #ffffff;
   display: flex;
@@ -176,9 +176,10 @@
 
 .introInput {
   @include font(1rem, 400, 26px, $text-dark);
+  margin-top: 22px;
   width: 100%;
   height: 147px;
-  padding: 20px 0 0 18px;
+  padding: 0 0 0 18px;
   background: #f5f8fa;
   resize: none;
   border: 0;

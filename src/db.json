@@ -1,5 +1,5 @@
 {
-  "tweets1": [
+  "tweets": [
     {
       "id": 55,
       "description": "Good!",
@@ -10,7 +10,7 @@
         "id": 2,
         "name": "Red",
         "account": "redddd",
-        "avatar": "https://avatar"
+        "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
       },
       "isLiked": false
     },
@@ -24,12 +24,40 @@
         "id": 11,
         "name": "Bob",
         "account": "bob2222",
-        "avatar": "https://avatar"
+        "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
       },
       "isLiked": false
     }
   ],
-  "tweets": [
+  "tweet1": {
+    "status": "success",
+    "data": {
+      "tweet": {
+        "id": 55,
+        "description": "Good!",
+        "replyCount": 2,
+        "likeCount": 3,
+        "createdAt": "2022-12-12T13:04:55.000Z",
+        "User": {
+          "id": 2,
+          "name": "Red",
+          "account": "redddd",
+          "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+        },
+        "isLiked": true
+      }
+    }
+  },
+  "tweet2": {
+    "status": "error",
+    "message": "Unauthorized"
+  },
+  "tweet3": {
+    "status": "error",
+    "message": "Tweet not found!"
+  },
+
+  "tweets1": [
     {
       "id": "78945sdf",
       "name": "yuwen",
