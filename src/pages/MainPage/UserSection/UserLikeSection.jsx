@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react'
 import { MainTweet } from 'components/Tweets'
 import { getAllTweets } from 'api/tweets'
 import { Spinner } from 'components/share'
+import { useOutletContext } from 'react-router-dom'
 
 function UserLikesSection() {
   // const { userId } = useParams()
+  const { handleUserOrTweetClick } = useOutletContext()
   const [tweets, setTweets] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -44,7 +46,7 @@ function UserLikesSection() {
     />
   ))
   return (
-    <ul>
+    <ul onClick={handleUserOrTweetClick}>
       {loading && <Spinner />}
       {dataList}
     </ul>

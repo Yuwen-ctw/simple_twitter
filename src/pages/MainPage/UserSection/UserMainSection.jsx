@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react'
 import { MainTweet } from 'components/Tweets'
 import { Spinner } from 'components/share'
 import { getAllTweets } from 'api/tweets'
+import { useOutletContext } from 'react-router-dom'
 
 function UserMainSection() {
   // const { userId } = useParams()
+  const { handleUserOrTweetClick } = useOutletContext()
   const [tweets, setTweets] = useState([])
   const [loading, setLoading] = useState(false)
 
@@ -44,7 +46,7 @@ function UserMainSection() {
     />
   ))
   return (
-    <ul>
+    <ul onClick={handleUserOrTweetClick}>
       {loading && <Spinner />}
       {tweetList}
     </ul>

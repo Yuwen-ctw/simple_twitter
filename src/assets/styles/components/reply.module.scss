@@ -15,14 +15,34 @@
     place-self: center start;
   }
 
-  & > :first-child {
+  [data-rolename='avatarWrapper'] {
     place-self: start;
     grid-area: img;
   }
+
+  [data-rolename='name'] {
+    grid-area: name;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  [data-rolename='account'] {
+    grid-area: account;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   & > :nth-child(4) {
     grid-area: target;
   }
-  & > :last-child {
+
+  [data-rolename='content'] {
     grid-area: content;
+  }
+
+  &:hover {
+    background-color: $hover-background;
   }
 }
