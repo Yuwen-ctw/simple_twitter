@@ -1,6 +1,7 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001'
-const baseUrl1 = 'https://quiet-mountain-47605.herokuapp.com/api'
+
+const baseUrl = 'https://quiet-mountain-47605.herokuapp.com/api'
+const basePath = 'tweets'
 
 const axiosInstance = axios.create({
   baseURL: `${baseUrl}`,
@@ -18,7 +19,7 @@ axiosInstance.interceptors.request.use(
 
 export async function getAllTweets() {
   try {
-    const { data } = await axiosInstance.get(`${baseUrl}/tweets`)
+    const { data } = await axiosInstance.get(`${baseUrl}/${basePath}`)
     return data
   } catch (err) {
     return {
@@ -30,7 +31,9 @@ export async function getAllTweets() {
 
 export async function getTweet(tweetId) {
   try {
-    const { data } = await axiosInstance.get(`${baseUrl}/tweet${tweetId}`)
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${tweetId}`
+    )
     return data
   } catch (err) {
     return {

@@ -1,7 +1,7 @@
 import styles from '../../assets/styles/components/form/auth.module.scss'
 
 const AuthContainer = ({ children }) => (
-  <div className={styles.AuthContainer}>{children}</div>
+  <form className={styles.AuthContainer}>{children}</form>
 )
 
 const AuthInputContainer = ({ children }) => {

@@ -19,6 +19,7 @@ function RegisterPage() {
   const navigate = useNavigate()
 
   const handleClick = async () => {
+    event.preventDefault()
     if (account.length === 0) return
     if (name.length === 0) return
     if (email.length === 0) return

@@ -16,6 +16,7 @@ function LoginPage() {
   const navigate = useNavigate()
 
   const handleClick = async () => {
+    event.preventDefault()
     if (account.length === 0 || password.length === 0) return
     const { success, errorMessage } = await login({
       account,
