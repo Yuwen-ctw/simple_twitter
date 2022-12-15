@@ -15,7 +15,7 @@ function RegisterPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordCheck, setpasswordCheck] = useState('')
+  const [checkPassword, setcheckPassword] = useState('')
   const navigate = useNavigate()
 
   const handleClick = async () => {
@@ -23,14 +23,14 @@ function RegisterPage() {
     if (name.length === 0) return
     if (email.length === 0) return
     if (password.length === 0) return
-    if (passwordCheck.length === 0) return
+    if (checkPassword.length === 0) return
 
     const { success, errorMessage } = await register({
       account,
       name,
       email,
       password,
-      passwordCheck,
+      checkPassword,
     })
     // pop modal
     if (success) {
@@ -109,8 +109,8 @@ function RegisterPage() {
           <AuthInput
             label="確認密碼"
             placeholder="請再次輸入密碼"
-            value={passwordCheck}
-            onChange={(value) => setpasswordCheck(value)}
+            value={checkPassword}
+            onChange={(value) => setcheckPassword(value)}
           />
         </AuthInputContainer>
         <ClrButton text="註冊" onClick={handleClick} />

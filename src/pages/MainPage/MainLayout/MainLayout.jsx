@@ -4,11 +4,15 @@ import { UserNavbar } from 'components/UI/Navbars'
 import { useAuth } from 'contexts/AuthContext'
 import styles from 'assets/styles/pages/mainPage.module.scss'
 import db from '../../../db.json'
+import { useEffect } from 'react'
 
 function MainLayout() {
   const navigate = useNavigate()
   const { state } = useLocation()
-  const { logout } = useAuth()
+  const { logout, hasAuthToken } = useAuth()
+  useEffect(() => {
+    if (!hasAuthToken) navigate('login')
+  })
   // TODO send api here to get popularUsers
 
   // handle all event from clicking avatars and tweets

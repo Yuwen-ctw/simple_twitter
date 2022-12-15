@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const authURL = 'https://quiet-mountain-47605.herokuapp.com'
+const authURL = 'https://quiet-mountain-47605.herokuapp.com/api'
 const testUrl = 'http://localhost:3001'
 
 export const login = async ({ account, password }) => {
@@ -27,7 +27,7 @@ export const register = async ({
   name,
   email,
   password,
-  passwordCheck,
+  checkPassword,
 }) => {
   try {
     // TODO 上線後 get 要改 post
@@ -36,7 +36,7 @@ export const register = async ({
       name,
       email,
       password,
-      passwordCheck,
+      checkPassword,
     })
     // get response data
     const { success, user, message: errorMessage } = resData

@@ -24,7 +24,6 @@ function AuthContextProvider({ children }) {
     if (!authToken) {
       setHasAuthToken(false)
       setPayload(null)
-      navigate('/login')
       return
     }
     const temPayload = jwt.decode(authToken)
