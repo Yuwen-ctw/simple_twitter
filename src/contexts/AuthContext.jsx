@@ -21,7 +21,6 @@ function AuthContextProvider({ children }) {
   // check authToken when route switched
   useEffect(() => {
     const authToken = localStorage.getItem('authToken')
-    console.log(authToken)
     if (!authToken) {
       setHasAuthToken(false)
       setPayload(null)
@@ -29,6 +28,7 @@ function AuthContextProvider({ children }) {
       return
     }
     const temPayload = jwt.decode(authToken)
+    console.log(temPayload)
     setHasAuthToken(true)
     setPayload(temPayload)
   }, [pathname])
