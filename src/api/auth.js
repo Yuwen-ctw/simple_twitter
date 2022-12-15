@@ -1,54 +1,49 @@
 import axios from 'axios'
 
 const authURL = 'https://todo-list.alphacamp.io/api/auth'
+const testUrl = 'http://localhost:3001'
 
-export const login = async ({ username, password }) => {
+export const login = async ({ account, password }) => {
+  // TODO 上線後 get 要改 post
   try {
-    const { data } = await axios.post(`${authURL}/login`, {
-      username,
+    const { data: resData } = await axios.get(`${testUrl}/login200`, {
+      account,
       password,
     })
-
-    const { authToken } = data
-
-    if (authToken) {
-      return { success: true, ...data }
-    }
-
-    return data
+    // get response data
+    const { success, data, message: errorMessage } = resData
+    // return data or error message
+    if (success) return { success, ...data }
+    return { success, errorMessage }
+    // handle fetch error
   } catch (error) {
     console.error('[Login Failed]:', error)
   }
 }
 
-export const register = async ({ username, email, password }) => {
+export const register = async ({
+  account,
+  name,
+  email,
+  password,
+  passwordCheck,
+}) => {
   try {
-    const { data } = await axios.post(`${authURL}/register`, {
-      username,
+    // TODO 上線後 get 要改 post
+    const { data: resData } = await axios.get(`${testUrl}/register201`, {
+      account,
+      name,
       email,
       password,
+      passwordCheck,
     })
-    const { authToken } = data
-
-    if (authToken) {
-      return { success: true, ...data }
-    }
-
-    return data
+    // get response data
+    const { success, user, message: errorMessage } = resData
+    // return user or error message
+    if (success) return { success, user }
+    return { success, errorMessage }
+    // handle fetch error
   } catch (error) {
-    console.error('[Register Failed]: ', error)
-  }
-}
-
-export const checkPermission = async (authToken) => {
-  try {
-    const response = await axios.get(`${authURL}/test-token`, {
-      headers: {
-        Authorization: 'Bearer ' + authToken,
-      },
-    })
-    return response.data.success
-  } catch (error) {
-    console.error('[Check Permission Failed]:', error)
+    console.error('[Signup Failed]', error)
   }
 }
