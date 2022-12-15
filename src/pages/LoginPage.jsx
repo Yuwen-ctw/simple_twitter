@@ -7,29 +7,30 @@ import { login } from '../api/auth'
 import { Link, useNavigate } from 'react-router-dom'
 
 function LoginPage() {
-  const [username, setUsername] = useState('')
+  const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
   // // const { login, isAuthenticated } = useAuth();
 
   const handleClick = async () => {
-    if (username.length === 0) {
-      return
-    }
-    if (password.length === 0) {
-      return
-    }
-
-    const { success, authToken } = await login({
-      username,
+    if (account.length === 0 || password.length === 0) return
+    // get data
+    const {
+      success,
+      token: Authtoken,
+      user,
+      errorMessage,
+    } = await login({
+      account,
       password,
     })
+    // store token if success, then redirect to '/'
     if (success) {
-      localStorage.setItem('authToken', authToken)
+      localStorage.setItem('authToken', Authtoken)
       navigate('/')
     } else {
-      console.log(success)
+      console.log(`登入失敗: ${errorMessage}`)
     }
   }
 
@@ -49,8 +50,8 @@ function LoginPage() {
           <AuthInput
             label="帳號"
             placeholder="請輸入帳號"
-            value={username}
-            onChange={(nameInputValue) => setUsername(nameInputValue)}
+            value={account}
+            onChange={(nameInputValue) => setAccount(nameInputValue)}
           />
           {/* console.log(AuthInput) */}
         </AuthInputContainer>

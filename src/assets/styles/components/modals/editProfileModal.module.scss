@@ -158,15 +158,16 @@
     padding-left: 18px;
     @include font(0.875rem, 400, 1.57, $text-placeholder);
   }
-
+  span.maxLen {
+    right: 0px;
+    @include font(0.75rem, 500, 1.67, $text-placeholder);
+  }
   span {
     position: absolute;
     bottom: 0px;
     translate: 0 calc(100% + 4px);
 
     &.maxLen {
-      right: 0px;
-      @include font(0.75rem, 500, 1.67, $text-placeholder);
     }
 
     &.error {
