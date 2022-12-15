@@ -7,7 +7,7 @@ import styles from 'assets/styles/pages/userSection.module.scss'
 import { useState } from 'react'
 
 function UserSectionLayout() {
-  const [showModal, setShowModal] = useState(false)
+  const [showModal, setShowModal] = useState(true)
   const { userId } = useParams()
   console.log(`user#${userId}'s personal page`)
 
