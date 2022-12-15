@@ -1,12 +1,12 @@
-function SingleTweetInfo({ replyAmount, likeAmount, className }) {
+function SingleTweetInfo({ replyCount, likeCount, className }) {
   return (
     <div className={className}>
       <span>
-        <strong>{`${replyAmount} `}</strong>
+        <strong>{`${replyCount} `}</strong>
         回覆
       </span>
       <span>
-        <strong>{`${likeAmount} `} </strong>
+        <strong>{`${likeCount} `} </strong>
         喜歡次數
       </span>
     </div>

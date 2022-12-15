@@ -2,7 +2,7 @@ import { PopularUserCard } from 'components/UserCards'
 import { SectionTitle } from 'components/share'
 import db from '../../../db.json'
 import { useState } from 'react'
-function PopularUserList({ users, className }) {
+function PopularUserList({ users, className, onClick }) {
   // TODO: get user's followingList(maybe from context), which is fake below
   const [followings, setFollowings] = useState(db.loginUser.following)
 
@@ -25,6 +25,8 @@ function PopularUserList({ users, className }) {
   const popularLists = users.map((user) => {
     // check if user is following
     const isFollowing = followings.some((followId) => followId === user.id)
+    // check if the user is himself/herself
+    if (user.id === db.loginUser.id) user.isLoginUser = true
     return (
       <PopularUserCard
         key={user.id}
@@ -35,7 +37,7 @@ function PopularUserList({ users, className }) {
     )
   })
   return (
-    <ul className={className}>
+    <ul className={className} onClick={onClick}>
       <SectionTitle text="推薦跟隨" />
       {popularLists}
     </ul>

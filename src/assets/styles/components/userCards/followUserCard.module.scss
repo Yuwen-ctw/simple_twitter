@@ -9,11 +9,17 @@
   grid-template-rows: auto 1fr;
   column-gap: 8px;
 
-  & > :nth-child(2) {
+  [data-rolename='name'] {
     align-self: center;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
-  & > :last-child {
+  [data-rolename='content'] {
     grid-column: 2 / 4;
+  }
+  &:hover {
+    background-color: $hover-background;
   }
 }

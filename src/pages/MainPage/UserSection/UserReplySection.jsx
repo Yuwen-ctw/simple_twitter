@@ -2,8 +2,10 @@
 import { useEffect, useState } from 'react'
 import Reply from 'components/Reply'
 import db from 'db.json'
+import { useOutletContext } from 'react-router-dom'
 
 function UserRepliesSection() {
+  const { handleUserOrTweetClick } = useOutletContext()
   // const { userId } = useParams()
   // TODO get Data and likeList...  same as MainSection
   const [data, setData] = useState([])
@@ -13,7 +15,7 @@ function UserRepliesSection() {
 
   const dataList = data.map((reply) => <Reply key={reply.id} reply={reply} />)
 
-  return <ul>{dataList}</ul>
+  return <ul onClick={handleUserOrTweetClick}>{dataList}</ul>
 }
 
 export default UserRepliesSection

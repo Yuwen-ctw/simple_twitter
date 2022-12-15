@@ -6,58 +6,57 @@ import Swal from 'sweetalert2'
 import { useAuth } from 'contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
+import { register } from 'api/auth'
 
 function RegisterPage() {
-  const [username, setUsername] = useState('')
-  const [nickname, setNickname] = useState('')
+  const [account, setAccount] = useState('')
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [checkPassword, setCheckPassword] = useState('')
+  const [passwordCheck, setpasswordCheck] = useState('')
   const navigate = useNavigate()
 
   // const { register, isAuthenticated } = useAuth();
 
   const handleClick = async () => {
-    if (username.length === 0) {
-      return;
-    }
-    if (password.length === 0) {
-      return;
-    }
-    if (email.length === 0) {
-      return;
-    }
-    const success = await register({
-      username,
-      nickname,
+    if (account.length === 0) return
+    if (name.length === 0) return
+    if (email.length === 0) return
+    if (password.length === 0) return
+    if (passwordCheck.length === 0) return
+
+    const { success, user, errorMessage } = await register({
+      account,
+      name,
       email,
       password,
-    });
+      passwordCheck,
+    })
     if (success) {
-      localStorage.setItem('authToken', authToken);
-      navigate('/login');
-    } else{
-      console.log(success)
+      navigate('/login')
+    } else {
+      console.log(`註冊失敗: ${errorMessage}`)
     }
 
-
-    // if (success) {n
-    //   Swal.fire({
-    //     position: 'top',
-    //     title: '註冊成功！',
-    //     timer: 1000,
-    //     icon: 'success',
-    //     showConfirmButton: false,
-    //   });
-    //   return;
-    // }
-    // Swal.fire({
-    //   position: 'top',
-    //   title: '註冊失敗！',
-    //   timer: 1000,
-    //   icon: 'error',
-    //   showConfirmButton: false,
-    // });
+    if (success) {
+      Swal.fire({
+        position: 'top',
+        title: `註冊成功～
+        請重新登入！`,
+        timer: 1000,
+        icon: 'success',
+        showConfirmButton: false,
+      })
+      return
+    }
+    Swal.fire({
+      position: 'top',
+      title: `註冊失敗！
+      ${errorMessage}`,
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    })
   }
 
   // useEffect(() => {
@@ -76,8 +75,8 @@ function RegisterPage() {
           <AuthInput
             label="帳號"
             placeholder="請輸入帳號"
-            value={username}
-            onChange={(nameInputValue) => setUsername(nameInputValue)}
+            value={account}
+            onChange={(value) => setAccount(value)}
           />
         </AuthInputContainer>
 
@@ -85,8 +84,8 @@ function RegisterPage() {
           <AuthInput
             label="名稱"
             placeholder="請輸入使用者名稱"
-            value={nickname}
-            onChange={(nickInputValue) => setNickname(nickInputValue)}
+            value={name}
+            onChange={(value) => setName(value)}
           />
         </AuthInputContainer>
 
@@ -95,7 +94,7 @@ function RegisterPage() {
             label="Email"
             placeholder="請輸入 email"
             value={email}
-            onChange={(emailInputValue) => setEmail(emailInputValue)}
+            onChange={(value) => setEmail(value)}
           />
         </AuthInputContainer>
 
@@ -105,7 +104,7 @@ function RegisterPage() {
             label="密碼"
             placeholder="請輸入密碼"
             value={password}
-            onChange={(passwordInputValue) => setPassword(passwordInputValue)}
+            onChange={(value) => setPassword(value)}
           />
         </AuthInputContainer>
 
@@ -113,8 +112,8 @@ function RegisterPage() {
           <AuthInput
             label="確認密碼"
             placeholder="請再次輸入密碼"
-            value={checkPassword}
-            onChange={(checkInputValue) => setCheckPassword(checkInputValue)}
+            value={passwordCheck}
+            onChange={(value) => setpasswordCheck(value)}
           />
         </AuthInputContainer>
         <ClrButton text="註冊" onClick={handleClick} />

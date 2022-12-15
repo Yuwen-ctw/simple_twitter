@@ -4,6 +4,10 @@
 
 .userAvatar {
   @include circleAvatar();
+  cursor: pointer;
+  &:hover {
+    scale: (1.02);
+  }
 }
 
 .profileAvatar {

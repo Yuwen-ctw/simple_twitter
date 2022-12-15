@@ -15,7 +15,7 @@ const Interactions = ({ onChange, user }) => {
   const [isPressed, setIsPressed] = useState(false)
   return (
     <>
-      <a href='mailto:"abc@gmail.com"' className={styles.mailTo} />
+      <a href={`mailto:${user.email}`} className={styles.mailTo} />
       <button
         aria-label="notifaction"
         aria-pressed={isPressed}

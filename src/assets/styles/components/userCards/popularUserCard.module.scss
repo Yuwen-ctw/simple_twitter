@@ -5,23 +5,43 @@
   padding: 16px;
   display: grid;
   grid-template-columns: 50px 93px 98px;
+  grid-template-areas:
+    'img name button'
+    'img account button';
   align-items: center;
-  /*  userName and UserAccount */
-  & > :nth-child(2) {
-    margin: 0 4px 0 8px;
-    > * {
-      display: block;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
+  text-align: left;
+
+  &:hover {
+    background: #f1f1f5;
+    text-decoration: underline;
   }
+
+  span {
+    margin-left: 8px;
+    cursor: pointer;
+    // hide letters which overflow
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  [data-rolename='avatarWrapper'] {
+    grid-area: img;
+  }
+
+  [data-rolename='name'] {
+    grid-area: name;
+  }
+
+  [data-rolename='account'] {
+    grid-area: account;
+    @include font(0.875rem, 500, 1.57, $text-popular-gray);
+  }
+
   /* following button */
-  & > :nth-child(3) {
+  & > :nth-child(4) {
+    grid-area: button;
     text-align: end;
   }
-}
-
-.subtext {
-  @include font(0.875rem, 500, 1.57, $text-popular-gray);
 }

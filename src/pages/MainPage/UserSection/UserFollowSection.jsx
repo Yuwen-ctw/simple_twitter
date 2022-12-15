@@ -5,8 +5,10 @@ import { FollowUserCard } from 'components/UserCards/index'
 import styles from 'assets/styles/pages/userSection.module.scss'
 import db from 'db.json'
 import { useEffect, useState } from 'react'
+import { useOutletContext } from 'react-router-dom'
 
 function UserFollowersSection() {
+  const { handleUserOrTweetClick } = useOutletContext()
   const { userId } = useParams()
   // TODO send api to get userList accroding lastPath,
   const pathnames = useLocation().pathname.split('/')
@@ -37,6 +39,9 @@ function UserFollowersSection() {
   const listData = userList.map((user) => {
     // check if user is following
     const isFollowing = followings.some((followId) => followId === user.id)
+    // check if the user is himself/herself
+    if (user.id === db.loginUser.id) user.isLoginUser = true
+
     return (
       <FollowUserCard
         key={user.id}
@@ -53,7 +58,9 @@ function UserFollowersSection() {
         <SwitchLink text="追隨者" to={`/user/${userId}/followers`} />
         <SwitchLink text="正在追隨" to={`/user/${userId}/followings`} />
       </div>
-      <ul className="scrollbar">{listData}</ul>
+      <ul className="scrollbar" onClick={handleUserOrTweetClick}>
+        {listData}
+      </ul>
     </section>
   )
 }

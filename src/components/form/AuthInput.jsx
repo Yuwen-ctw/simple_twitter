@@ -8,11 +8,11 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
   }
 
   return (
-
-    <div className={styles.input_wrapper}>
+    <>
+    <div className={styles.input__wrapper}>
       <div className={styles.label}>{label}</div>
       <input 
-        className={styles.input}
+        className={styles.input_text}
         type={type || 'text'}
         value={value}
         placeholder={placeholder}
@@ -23,7 +23,7 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
       <span className={styles.error}>字數超出上限！</span>
       <span className={styles.maxLen}>{value?.length}/10</span>
     </div>
-    
+    </>  
   )
 }
 
