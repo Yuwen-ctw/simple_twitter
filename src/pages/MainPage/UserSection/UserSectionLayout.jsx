@@ -1,4 +1,4 @@
-import { Outlet, useParams } from 'react-router-dom'
+import { Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { ProfileUserCard } from 'components/UserCards'
 import { EditProfileModal } from 'components/UI/Modals'
 import db from 'db.json'
@@ -23,7 +23,7 @@ function UserSectionLayout() {
     <section className={[styles.sectionWrapper, 'scrollbar'].join(' ')}>
       <SectionHeader user={db.loginUser} />
       <ProfileUserCard user={db.loginUser} onClickEdit={handleToggleModal} />
-      <Outlet />
+      <Outlet context={useOutletContext()} />
       <EditProfileModal
         user={db.loginUser}
         showModal={showModal}

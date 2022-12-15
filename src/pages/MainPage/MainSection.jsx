@@ -1,35 +1,42 @@
 import { useEffect, useState } from 'react'
-import { SectionTitle } from 'components/share'
+import { SectionTitle, Spinner } from 'components/share'
 import { MainTweet } from 'components/Tweets'
 import styles from 'assets/styles/pages/mainSection.module.scss'
-import db from 'db.json'
+import { getAllTweets } from 'api/tweets'
+import { useOutletContext } from 'react-router-dom'
 
 function MainSection() {
+  const { handleUserOrTweetClick } = useOutletContext()
   const [tweets, setTweets] = useState([])
-  const [likeList, setLikeList] = useState([])
+  const [loading, setLoading] = useState(false)
+
   // TODO get data
   useEffect(() => {
-    setTweets(db.tweets)
-    setLikeList(db.loginUser.like)
+    setLoading(true)
+    async function getData() {
+      try {
+        const tweets = await getAllTweets()
+        if (!tweets) return
+        setLoading(false)
+        setTweets(tweets)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    getData()
   }, [])
 
-  function handleLikeClick(likeId, isLike) {
-    const nextLikeList = [...likeList]
-    // if not like yet
-    if (!isLike) {
-      return (
-        // confirm if the likeId not included in like list, then push it
-        !nextLikeList.includes(likeId) && setLikeList([...nextLikeList, likeId])
-      )
-    }
-    // if liked, remove it
-    // TODO send api
-    setLikeList(nextLikeList.filter((id) => id !== likeId))
+  function handleLikeClick(likeId) {
+    setTweets((draft) =>
+      draft.map((tweet) => {
+        if (tweet.id === likeId) return { ...tweet, isLiked: !tweet.isLiked }
+        return tweet
+      })
+    )
   }
 
-  // map list
+  // map data
   const tweetList = tweets.map((tweet) => {
-    likeList.includes(tweet.id) ? (tweet.isLike = true) : (tweet.isLike = false)
     return (
       <MainTweet
         key={tweet.id}
@@ -39,11 +46,13 @@ function MainSection() {
       />
     )
   })
+
   return (
-    <section className={styles.sectionWrapper}>
+    <section className={styles.sectionWrapper} onClick={handleUserOrTweetClick}>
       <SectionTitle text="首頁" />
       <h1 style={{ color: 'red' }}>這裡放TweetInput</h1>
       <hr />
+      {loading && <Spinner />}
       <ul className="scrollbar">{tweetList}</ul>
     </section>
   )

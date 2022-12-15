@@ -9,7 +9,7 @@ import ProfileAvatar from './ProfileAvatar'
 import Logo from './Logo'
 import FollowingCheckbox from './FollowingCheckbox'
 import UserFollowInfo from './UserFollowInfo'
-
+import Spinner from './Spinner'
 export {
   PageTitle,
   SectionTitle,
@@ -22,4 +22,5 @@ export {
   Logo,
   FollowingCheckbox,
   UserFollowInfo,
+  Spinner,
 }

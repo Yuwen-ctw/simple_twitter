@@ -2,29 +2,31 @@ import { UserNameText, SubText, UserAvatar } from 'components/share'
 import SingleTweetInfo from './SingleTweetInfo'
 import SingleTweetButtons from './SingleTweetButtons'
 import styles from 'assets/styles/components/tweets/singleTweet.module.scss'
+import formatCreateTime from 'uitlities/formatCreateTime'
 
-function SingleTweet({ tweet }) {
-  const { name, account, postTime, content, avatar, replyAmount, likeAmount } =
+function SingleTweet({ tweet, onLikeClick }) {
+  const { id, description, replyCount, likeCount, createdAt, User, isLiked } =
     tweet
   return (
     <li className={styles.layout}>
-      <UserAvatar src={avatar} />
+      <UserAvatar src={User?.avatar} />
       <div>
-        <UserNameText name={name} />
-        <SubText text={`@${account}`} />
+        <UserNameText name={User?.name} />
+        <SubText text={`@${User?.account}`} />
       </div>
-      <p className={styles.contentText}>{content}</p>
-      <p className={styles.timeText}>{postTime}</p>
+      <p className={styles.contentText}>{description}</p>
+      <p className={styles.timeText}>{formatCreateTime(createdAt)}</p>
       <SingleTweetInfo
         className={styles.tweetInfo}
-        replyAmount={replyAmount}
-        likeAmount={likeAmount}
+        replyCount={replyCount}
+        likeCount={likeCount}
       />
       <SingleTweetButtons
         className={styles.tweetButtons}
-        isLike={''}
+        isLike={isLiked}
         onReplyClick={() => ''}
-        onLikeClick={() => ''}
+        onLikeClick={onLikeClick}
+        tweetId={id}
       />
     </li>
   )
