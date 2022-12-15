@@ -3,10 +3,12 @@ import Router from './routes/Router'
 import styles from 'assets/styles/app.module.scss'
 import { AuthContextProvider } from 'contexts/AuthContext'
 
+const basename = process.env.PUBLIC_URL
+
 function App() {
   return (
     <div className={styles.app}>
-      <BrowserRouter>
+      <BrowserRouter basename={basename}>
         <AuthContextProvider>
           <Router />
         </AuthContextProvider>
