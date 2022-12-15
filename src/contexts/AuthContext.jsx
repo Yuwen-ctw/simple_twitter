@@ -1,95 +1,74 @@
-// import { login, register, checkPermission } from 'api/auth'
-// import { createContext, useState, useEffect } from 'react'
-// import * as jwt from 'jsonwebtoken'
-// import { useLocation } from 'react-router-dom'
-// import { useContext } from 'react'
+import { login as loginAsync, register } from 'api/auth'
+import * as jwt from 'jsonwebtoken'
+import { useEffect, useState, createContext, useContext } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 
-// const defaultAuthContext = {
-//   isAuthenticated: false,
-//   currentMember: null,
-//   register: null,
-//   login: null,
-//   logout: null,
-// }
+const defaultAuthContext = {
+  hasAuthToken: false,
+  currentUser: null,
+  register: null,
+  login: null,
+  logout: null,
+}
+const AuthContext = createContext(defaultAuthContext)
+const useAuth = () => useContext(AuthContext)
 
-// const AuthContext = createContext(defaultAuthContext)
-// export const useAuth = () => useContext(AuthContext)
-// export const AuthProvider = ({ children }) => {
-//   const [isAuthenticated, setIsAuthenticated] = useState(false)
-//   const [payload, setPayload] = useState(null)
-//   const { pathname } = useLocation()
+function AuthContextProvider({ children }) {
+  const navigate = useNavigate()
+  const [hasAuthToken, setHasAuthToken] = useState(null)
+  const [payload, setPayload] = useState(null)
+  const { pathname } = useLocation()
+  // check authToken when route switched
+  useEffect(() => {
+    const authToken = localStorage.getItem('authToken')
+    console.log(authToken)
+    if (!authToken) {
+      setHasAuthToken(false)
+      setPayload(null)
+      navigate('/login')
+      return
+    }
+    const temPayload = jwt.decode(authToken)
+    setHasAuthToken(true)
+    setPayload(temPayload)
+  }, [pathname])
 
-//   useEffect(() => {
-//     const checkTokenIsValid = async () => {
-//       const authToken = localStorage.getItem('authToken')
-//       if (!authToken) {
-//         setIsAuthenticated(false)
-//         setPayload(null)
-//         return
-//       }
-//       const result = await checkPermission(authToken)
-//       if (result) {
-//         setIsAuthenticated(true)
-//         const tempPayload = jwt.decode(authToken)
-//         setPayload(tempPayload)
-//       } else {
-//         setIsAuthenticated(false)
-//         setPayload(null)
-//       }
-//     }
+  function logout() {
+    localStorage.removeItem('authToken')
+    setHasAuthToken(false)
+    setPayload(null)
+    navigate('/login')
+  }
 
-//     checkTokenIsValid()
-//   }, [pathname])
+  async function login(data) {
+    const { success, token, errorMessage } = await loginAsync({
+      account: data.account,
+      password: data.password,
+    })
+    if (success) {
+      const temPayload = jwt.decode(token)
+      setHasAuthToken(true)
+      setPayload(temPayload)
+      localStorage.setItem('authToken', token)
+    } else {
+      setHasAuthToken(false)
+      setPayload(null)
+    }
+    return { success, errorMessage }
+  }
+  return (
+    <AuthContext.Provider
+      value={{
+        hasAuthToken,
+        currentUser: payload,
+        register: register,
+        login: login,
+        logout: logout,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
+}
 
-//   return (
-//     <AuthContext.Provider
-//       value={{
-//         isAuthenticated,
-//         currentMember: payload && {
-//           id: payload.sub,
-//           name: payload.name,
-//         },
-//         register: async (data) => {
-//           const { success, authToken } = await register({
-//             username: data.username,
-//             email: data.email,
-//             password: data.password,
-//           })
-//           const tempPayload = jwt.decode(authToken)
-//           if (tempPayload) {
-//             setPayload(tempPayload)
-//             setIsAuthenticated(true)
-//             localStorage.setItem('authToken', authToken)
-//           } else {
-//             setPayload(null)
-//             setIsAuthenticated(false)
-//           }
-//           return success
-//         },
-//         login: async (data) => {
-//           const { success, authToken } = await login({
-//             username: data.username,
-//             password: data.password,
-//           })
-//           const tempPayload = jwt.decode(authToken)
-//           if (tempPayload) {
-//             setPayload(tempPayload)
-//             setIsAuthenticated(true)
-//             localStorage.setItem('authToken', authToken)
-//           } else {
-//             setPayload(null)
-//             setIsAuthenticated(false)
-//           }
-//           return success
-//         },
-//         logout: () => {
-//           localStorage.removeItem('authToken')
-//           setPayload(null)
-//           setIsAuthenticated(false)
-//         },
-//       }}
-//     >
-//       {children}
-//     </AuthContext.Provider>
-//   )
-// }
+export { useAuth, AuthContextProvider }

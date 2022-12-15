@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const authURL = 'https://todo-list.alphacamp.io/api/auth'
+const authURL = 'https://quiet-mountain-47605.herokuapp.com'
 const testUrl = 'http://localhost:3001'
 
 export const login = async ({ account, password }) => {
@@ -17,7 +17,8 @@ export const login = async ({ account, password }) => {
     return { success, errorMessage }
     // handle fetch error
   } catch (error) {
-    console.error('[Login Failed]:', error)
+    console.error(error)
+    return { success: false, errorMessage: `伺服器無回應` }
   }
 }
 
@@ -44,6 +45,7 @@ export const register = async ({
     return { success, errorMessage }
     // handle fetch error
   } catch (error) {
-    console.error('[Signup Failed]', error)
+    console.error(error)
+    return { success: false, errorMessage: `伺服器無回應` }
   }
 }

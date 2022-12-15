@@ -15,13 +15,15 @@ function UserLikesSection() {
   useEffect(() => {
     setLoading(true)
     async function getData() {
-      try {
-        const tweets = await getAllTweets()
-        if (!tweets) return
+      const { success, data, message } = await getAllTweets()
+      if (success) {
+        // cancle the spinner
         setLoading(false)
-        setTweets(tweets)
-      } catch (err) {
-        console.log(err)
+        // update data
+        setTweets(data.tweets)
+      } else {
+        // handle error
+        console.error(message)
       }
     }
     getData()
