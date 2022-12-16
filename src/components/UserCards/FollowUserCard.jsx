@@ -7,7 +7,7 @@ import {
 import styles from 'assets/styles/components/userCards/followUserCard.module.scss'
 
 function FollowUserCard({ user, onChange, isFollowing }) {
-  const { avatar, name, id, intro, isLoginUser } = user
+  const { avatar, name, id, introduction, isLoginUser } = user
   return (
     <li className={styles.layout} data-userid={id} data-click>
       <UserAvatar src={avatar} />
@@ -19,7 +19,7 @@ function FollowUserCard({ user, onChange, isFollowing }) {
         hide={isLoginUser}
       />
 
-      <ContentText text={intro} />
+      <ContentText text={introduction} />
     </li>
   )
 }

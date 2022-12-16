@@ -11,6 +11,7 @@ const AuthInput = ({ type, label, value, placeholder, onChange }) => {
           value={value}
           placeholder={placeholder}
           onChange={(event) => onChange?.(event.target.value)}
+          autoComplete="off"
           max={10}
         />
         <span className={styles.error}>帳號不存在</span>

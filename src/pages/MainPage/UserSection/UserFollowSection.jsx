@@ -14,7 +14,7 @@ function UserFollowersSection() {
   const pathnames = useLocation().pathname.split('/')
   const lastPath = pathnames[pathnames.length - 1]
   // TODO: get user's followingList(maybe from context), which is fake below
-  const [followings, setFollowings] = useState(db.loginUser.following)
+  const [followings, setFollowings] = useState(db.loginUser.Followings)
   const [userList, setUserList] = useState([])
 
   useEffect(() => {

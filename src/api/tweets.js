@@ -1,20 +1,44 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001'
+
+const baseUrl = 'https://quiet-mountain-47605.herokuapp.com/api'
+const basePath = 'tweets'
+
+const axiosInstance = axios.create({
+  baseURL: `${baseUrl}`,
+})
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('authToken')
+    if (token) {
+      config.headers['Authorization'] = 'Bearer ' + token
+    }
+    return config
+  },
+  (err) => console.error(err)
+)
 
 export async function getAllTweets() {
   try {
-    const res = await axios.get(`${baseUrl}/tweets`)
-    return res.data
+    const { data } = await axiosInstance.get(`${baseUrl}/${basePath}`)
+    return data
   } catch (err) {
-    console.log('[Get tweets failed]: ', err)
+    return {
+      success: false,
+      message: `[Get tweets failed]: ${err}`,
+    }
   }
 }
 
 export async function getTweet(tweetId) {
   try {
-    const res = await axios.get(`${baseUrl}/tweet${tweetId}`)
-    return res.data
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${tweetId}`
+    )
+    return data
   } catch (err) {
-    console.log('[Get tweet failed]: ', err)
+    return {
+      success: false,
+      message: `[Get tweet failed]: ${err}`,
+    }
   }
 }

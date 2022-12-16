@@ -1,43 +1,39 @@
+// hooks & context
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useAuth } from 'contexts/AuthContext'
+// components
 import { AuthContainer, AuthInputContainer } from '../components/form/Auth'
 import { Logo, PageTitle } from 'components/share'
 import { AuthInput } from 'components/form'
-import { useState, useEffect } from 'react'
-import Swal from 'sweetalert2'
-import { useAuth } from 'contexts/AuthContext'
-import { useNavigate } from 'react-router-dom'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
-import { register } from 'api/auth'
+import Swal from 'sweetalert2'
 
 function RegisterPage() {
+  const { hasAuthToken, register } = useAuth()
   const [account, setAccount] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordCheck, setpasswordCheck] = useState('')
+  const [checkPassword, setcheckPassword] = useState('')
   const navigate = useNavigate()
 
-  // const { register, isAuthenticated } = useAuth();
-
   const handleClick = async () => {
+    event.preventDefault()
     if (account.length === 0) return
     if (name.length === 0) return
     if (email.length === 0) return
     if (password.length === 0) return
-    if (passwordCheck.length === 0) return
+    if (checkPassword.length === 0) return
 
-    const { success, user, errorMessage } = await register({
+    const { success, errorMessage } = await register({
       account,
       name,
       email,
       password,
-      passwordCheck,
+      checkPassword,
     })
-    if (success) {
-      navigate('/login')
-    } else {
-      console.log(`註冊失敗: ${errorMessage}`)
-    }
-
+    // pop modal
     if (success) {
       Swal.fire({
         position: 'top',
@@ -47,23 +43,25 @@ function RegisterPage() {
         icon: 'success',
         showConfirmButton: false,
       })
-      return
+      navigate('/login')
+    } else {
+      console.log(`註冊失敗: ${errorMessage}`)
+      Swal.fire({
+        position: 'top',
+        title: `註冊失敗！
+        ${errorMessage}`,
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      })
     }
-    Swal.fire({
-      position: 'top',
-      title: `註冊失敗！
-      ${errorMessage}`,
-      timer: 1000,
-      icon: 'error',
-      showConfirmButton: false,
-    })
   }
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate('/todos');
-  //   }
-  // }, [navigate, isAuthenticated]);
+  useEffect(() => {
+    if (hasAuthToken) {
+      navigate('/')
+    }
+  }, [navigate, hasAuthToken])
 
   return (
     <>
@@ -112,8 +110,8 @@ function RegisterPage() {
           <AuthInput
             label="確認密碼"
             placeholder="請再次輸入密碼"
-            value={passwordCheck}
-            onChange={(value) => setpasswordCheck(value)}
+            value={checkPassword}
+            onChange={(value) => setcheckPassword(value)}
           />
         </AuthInputContainer>
         <ClrButton text="註冊" onClick={handleClick} />

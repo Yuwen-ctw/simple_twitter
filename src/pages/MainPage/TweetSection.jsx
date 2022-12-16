@@ -19,12 +19,15 @@ function TweetSection() {
   useEffect(() => {
     setLoading(true)
     async function getData() {
-      try {
-        const { data, status, message } = await getTweet(tweetId)
-        status === 'success' ? setTweet(data.tweet) : console.error(message)
+      const { success, data, message } = await getTweet(tweetId)
+      if (success) {
+        // cancle the spinner
         setLoading(false)
-      } catch (err) {
-        console.error(err)
+        // update data
+        setTweet(data.tweet)
+      } else {
+        // handle error
+        console.error(message)
       }
     }
     getData()

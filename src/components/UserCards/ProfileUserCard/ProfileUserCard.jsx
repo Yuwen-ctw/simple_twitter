@@ -15,8 +15,8 @@ import { useNavigate } from 'react-router-dom'
 function ProfileUserCard({ user, onClickEdit }) {
   const navigate = useNavigate()
   //TODO get current user info
-  user.self = false
-  const [followings, setFollowings] = useState(db.loginUser.following)
+  user.self = true
+  const [followings, setFollowings] = useState(db.loginUser.Followings)
   user.isFollowing = followings.includes(user.id)
 
   const handleToggle = (targetUserId, isFollowing) => {
@@ -41,7 +41,7 @@ function ProfileUserCard({ user, onClickEdit }) {
 
   return (
     <div className={styles.layout}>
-      <ProfileBackground src={defaultCover} />
+      <ProfileBackground src={user.src} />
       <ProfileAvatar src={user.avatar} className={styles.avatar} />
       <ButtonGroup
         user={user}
@@ -50,10 +50,10 @@ function ProfileUserCard({ user, onClickEdit }) {
       />
       <ProfileNameText name={user.name} />
       <SubText text={`@${user.account}`} />
-      <IntroText text={user.intro} />
+      <IntroText text={user.introduction} />
       <UserFollowInfo
-        followingCount={user.following.length}
-        followerCount={user.follower.length}
+        followingCount={user.Followings.length}
+        followerCount={user.Followers.length}
         userId={user.id}
         onClick={handleFollowInfoClick}
       />

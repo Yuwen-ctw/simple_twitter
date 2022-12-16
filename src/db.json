@@ -1,15 +1,6 @@
 {
   "register201": {
-    "success": true,
-    "user": {
-      "id": 1,
-      "account": "timothy",
-      "name": "Timothy",
-      "email": "test@gmail.com",
-      "password": "$2a$10$4fZkjYSzRv9Y3D2.sdZSoeNV3vxqDjTw84l13mSzupo7eQWPEZt4S",
-      "updatedAt": "2022-12-12T01:52:27.457Z",
-      "createdAt": "2022-12-12T01:52:27.457Z"
-    }
+    "success": true
   },
   "register400": {
     "success": false,
@@ -19,57 +10,58 @@
   "login200": {
     "success": true,
     "data": {
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InJvb3QiLCJlbWFpbCI6InJvb3RAZXhhbXBsZS5jb20iLCJpc0FkbWluIjp0cnVlLCJpbWFnZSI6Imh0dHBzOi8vaS5pbWd1ci5jb20vTzlkZHRoZi5wbmciLCJjcmVhdGVkQXQiOiIyMDIyLTExLTIzVDAyOjI3OjEyLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTEyLTAxVDAyOjQ4OjU0LjAwMFoiLCJpYXQiOjE2NzA4MTE0NjYsImV4cCI6MTY3MzQwMzQ2Nn0.HJUULsfs-JXXI_ICPanXAnU8Bhwqrwn90zvPLrLEKVE",
-      "user": {
-        "id": 1,
-        "account": "timothy",
-        "name": "Timothy",
-        "email": "test@gmail.com",
-        "intro": "This is my introduction.",
-        "avatar": "https://i.imgur.com/O9ddthf.png",
-        "cover": "cover.jpg",
-        "isAdmin": false,
-        "createdAt": "2022-11-23T02:27:12.000Z",
-        "updatedAt": "2022-12-01T02:48:54.000Z"
-      }
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiYWNjb3VudCI6InRpbW90aHkiLCJlbWFpbCI6InRlc3RAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTAkdTRvM2hhbWk2UnpORzVpdUNvYWxST3FReVRYN1U3NUhVNjhVN3dUbmdXLi9UbVdXQk8xeS4iLCJuYW1lIjoiVGltb3RoeSIsImF2YXRhciI6bnVsbCwiY292ZXIiOm51bGwsImludHJvZHVjdGlvbiI6bnVsbCwicm9sZSI6InVzZXIiLCJjcmVhdGVkQXQiOiIyMDIyLTEyLTEzVDE0OjU2OjM0LjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIyLTEyLTEzVDE0OjU2OjM0LjAwMFoiLCJGb2xsb3dlcnMiOltdLCJGb2xsb3dpbmdzIjpbXSwiTGlrZXMiOltdLCJpYXQiOjE2NzEwNzUxODksImV4cCI6MTY3MzY2NzE4OX0.9yPMigqqSsuv6cgSGJ0gPa53TmjGKkOI0MYKbxVPx1E"
     }
   },
   "login401": {
     "success": false,
     "message": "帳號不存在 !"
   },
-  "tweets": [
-    {
-      "id": 55,
-      "description": "What a wonderful day! What a wonderful day! What a wonderful day!What a wonderful day!What a wonderful day!What a wonderful day!",
-      "replyCount": 2,
-      "likeCount": 3,
-      "createdAt": "2022-11-30T15:42:13.000Z",
-      "User": {
-        "id": 2,
-        "name": "Red",
-        "account": "redddd",
-        "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-      },
-      "isLiked": false
-    },
-    {
-      "id": 56,
-      "description": "Not bad!",
-      "replyCount": 1,
-      "likeCount": 5,
-      "createdAt": "2022-11-30T15:42:13.000Z",
-      "User": {
-        "id": 11,
-        "name": "Bob",
-        "account": "bob2222",
-        "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-      },
-      "isLiked": false
+  "tweets401": {
+    "success": false,
+    "message": "Unauthorized"
+  },
+  "tweets404": {
+    "success": false,
+    "message": "Tweet not found!"
+  },
+  "tweets": {
+    "success": true,
+    "data": {
+      "tweets": [
+        {
+          "id": 55,
+          "description": "What a wonderful day! What a wonderful day! What a wonderful day!What a wonderful day!What a wonderful day!What a wonderful day!",
+          "replyCount": 2,
+          "likeCount": 3,
+          "createdAt": "2022-11-30T15:42:13.000Z",
+          "User": {
+            "id": 2,
+            "name": "Red",
+            "account": "redddd",
+            "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+          },
+          "isLiked": false
+        },
+        {
+          "id": 56,
+          "description": "Not bad!",
+          "replyCount": 1,
+          "likeCount": 5,
+          "createdAt": "2022-11-30T15:42:13.000Z",
+          "User": {
+            "id": 11,
+            "name": "Bob",
+            "account": "bob2222",
+            "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+          },
+          "isLiked": false
+        }
+      ]
     }
-  ],
+  },
   "tweet1": {
-    "status": "success",
+    "success": true,
     "data": {
       "tweet": {
         "id": 55,
@@ -80,8 +72,8 @@
         "User": {
           "id": 2,
           "name": "Red",
-          "account": "redddd",
-          "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
+          "account": "redddd1",
+          "avatar": ""
         },
         "isLiked": true
       }
@@ -102,7 +94,7 @@
       "account": "yuwen",
       "postTime": "3小時",
       "content": "What a wonderful day! What a wonderful day! What a wonderful day!What a wonderful day!What a wonderful day!What a wonderful day!",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg",
+      "avatar": "",
       "replyAmount": 80,
       "likeAmount": 7
     },
@@ -152,12 +144,14 @@
     "name": "Marsd cassy",
     "email": "abc@example.com.tw",
     "account": "Mary",
-    "avatar": "https://randomuser.me/api/portraits/women/60.jpg",
-    "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-    "following": ["123456", "3345678", "987654"],
-    "follower": ["33455hw2679", "123sdd456", "987654", "789sdc45sdf"],
-    "like": ["789wed45sdf", "789sdc45sdf"],
-    "tweetAmount": 10
+    "cover": "",
+    "avatar": "",
+    "introductionduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+    "Followings": ["123456", "3345678", "987654"],
+    "Followers": ["33455hw2679", "123sdd456", "987654", "789sdc45sdf"],
+    "Likes": ["789wed45sdf", "789sdc45sdf"],
+    "tweetAmount": 10,
+    "role": "user"
   },
   "popularUsers": [
     {
@@ -225,61 +219,13 @@
     {
       "id": "3345678",
       "name": "Maafasacsdcdfry",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "introduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     },
     {
       "id": "3345679",
       "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-    },
-    {
-      "id": "123456",
-      "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-    },
-    {
-      "id": "334552679",
-      "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-    },
-    {
-      "id": "3345s678",
-      "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-    },
-    {
-      "id": "3345fs679",
-      "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-    },
-    {
-      "id": "123sdd456",
-      "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-    },
-    {
-      "id": "33455vhy2679",
-      "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-    },
-    {
-      "id": "12w3456",
-      "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-      "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
-    },
-    {
-      "id": "33455hw2679",
-      "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "introduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     }
   ],
@@ -287,37 +233,37 @@
     {
       "id": "3345s678",
       "name": "Madfascasry",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "introduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     },
     {
       "id": "3345fs679",
       "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "introduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     },
     {
       "id": "123sdd456",
       "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "introduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     },
     {
       "id": "33455vhy2679",
       "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "introduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     },
     {
       "id": "12w3456",
       "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "introduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     },
     {
       "id": "33455hw2679",
       "name": "Mary",
-      "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+      "introduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
       "avatar": "https://randomuser.me/api/portraits/women/60.jpg"
     }
   ],
