@@ -10,7 +10,6 @@ function UserSectionLayout() {
   const [showModal, setShowModal] = useState(false)
   const [user, setUser] = useState({})
   const { userId } = useParams()
-  console.log(`user#${userId}'s personal page`)
   useEffect(() => {
     async function getUserData() {
       const { success, data, message } = await getUser(userId)

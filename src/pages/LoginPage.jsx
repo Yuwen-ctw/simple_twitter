@@ -1,6 +1,6 @@
 // hooks & context
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
 import { AuthContainer, AuthInputContainer } from '../components/form/Auth'
@@ -14,6 +14,7 @@ function LoginPage() {
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   const handleClick = async () => {
     event.preventDefault()
@@ -47,7 +48,8 @@ function LoginPage() {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate('/')
+      if (pathname.includes(process.env.PUBLIC_URL)) navigate(-1)
+      else navigate('/')
     }
   }, [navigate, isAuthenticated])
 

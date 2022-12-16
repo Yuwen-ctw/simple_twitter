@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 function MainLayout() {
   const navigate = useNavigate()
   const { state } = useLocation()
-  const { logout, isAuthenticated } = useAuth()
+  const { logout, isAuthenticated, currentUser } = useAuth()
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -33,7 +33,7 @@ function MainLayout() {
   }
   return (
     <div className={styles.layout}>
-      <UserNavbar onLogout={logout} />
+      <UserNavbar onLogout={logout} currentUserId={currentUser?.id} />
       <Outlet context={{ handleUserOrTweetClick }} />
       {state !== 'setting' && (
         <PopularUserList
