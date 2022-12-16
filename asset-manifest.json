@@ -1,0 +1,35 @@
+{
+  "files": {
+    "main.css": "/simple_twitter/static/css/main.2fa5de38.css",
+    "main.js": "/simple_twitter/static/js/main.8d3959e5.js",
+    "static/js/787.aa94361f.chunk.js": "/simple_twitter/static/js/787.aa94361f.chunk.js",
+    "static/media/defaultCover.png": "/simple_twitter/static/media/defaultCover.e743f4b0c0f6e8f7e991.png",
+    "static/media/nav_setting.svg": "/simple_twitter/static/media/nav_setting.3e5e4e8194211062b0ef82172cf1edc7.svg",
+    "static/media/nav_setting_clr.svg": "/simple_twitter/static/media/nav_setting_clr.655a2662afecd1fe5ffa14afda4bb20b.svg",
+    "static/media/profile_noti_false.svg": "/simple_twitter/static/media/profile_noti_false.7346f62562f6d633d91ca8879445adb5.svg",
+    "static/media/nav_logout.svg": "/simple_twitter/static/media/nav_logout.6bf8817b46977f49765b.svg",
+    "static/media/nav_logout_clr.svg": "/simple_twitter/static/media/nav_logout_clr.3f99f4154fc86acf7b6e.svg",
+    "static/media/profile_noti_true.svg": "/simple_twitter/static/media/profile_noti_true.95229e5e53e151d5fbe9b4fe32bbafee.svg",
+    "static/media/nav_user.svg": "/simple_twitter/static/media/nav_user.f3f5e9c519e01182e929f5bad5fe2e6c.svg",
+    "static/media/editImage.svg": "/simple_twitter/static/media/editImage.7296f8bcc528cf13290f.svg",
+    "static/media/nav_home.svg": "/simple_twitter/static/media/nav_home.cc3aa71e2704edb97ebd6f3c34cbdb55.svg",
+    "static/media/reply.svg": "/simple_twitter/static/media/reply.2bb6d86a2074ca634817f71cac8589db.svg",
+    "static/media/nav_home_clr.svg": "/simple_twitter/static/media/nav_home_clr.dfa86a375e2677bcea8149c51f8a90b4.svg",
+    "static/media/like.svg": "/simple_twitter/static/media/like.510becc1b636e95a04b23c13b0adaa81.svg",
+    "static/media/discardImage.svg": "/simple_twitter/static/media/discardImage.3e79b6f6dd49b870feeb.svg",
+    "static/media/modal_close.svg": "/simple_twitter/static/media/modal_close.2df65df20c9d43016d25.svg",
+    "static/media/profile_mail.svg": "/simple_twitter/static/media/profile_mail.cb8efa6bf29e802d182cecf4f29204e5.svg",
+    "index.html": "/simple_twitter/index.html",
+    "static/media/nav_user_clr.svg": "/simple_twitter/static/media/nav_user_clr.f09bdfd58228069e1d5b9210834626ef.svg",
+    "static/media/profile_mail_clr.svg": "/simple_twitter/static/media/profile_mail_clr.04d113a80f2f35031ff53e098b7e6c44.svg",
+    "static/media/like_fill.svg": "/simple_twitter/static/media/like_fill.bb4e7c5909ea9dd3e0cc850ece9eea23.svg",
+    "static/media/nav_post_round.svg": "/simple_twitter/static/media/nav_post_round.8b82495c04659b18d664034b481ba889.svg",
+    "main.2fa5de38.css.map": "/simple_twitter/static/css/main.2fa5de38.css.map",
+    "main.8d3959e5.js.map": "/simple_twitter/static/js/main.8d3959e5.js.map",
+    "787.aa94361f.chunk.js.map": "/simple_twitter/static/js/787.aa94361f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2fa5de38.css",
+    "static/js/main.8d3959e5.js"
+  ]
+}
