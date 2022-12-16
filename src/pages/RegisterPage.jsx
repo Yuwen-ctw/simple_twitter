@@ -1,11 +1,17 @@
 import { Logo, PageTitle } from 'components/share'
-import { AuthInput } from 'components/form'
 import { useState, useEffect } from 'react'
 import Swal from 'sweetalert2'
 import { useAuth } from 'contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import { register } from 'api/auth'
+import {
+  AuthContainer,
+  AccountInput,
+  NameInput,
+  EmailInput,
+  PasswordInput 
+}from 'components/form/AuthInput'
 
 function RegisterPage() {
   const [account, setAccount] = useState('')
@@ -70,51 +76,37 @@ function RegisterPage() {
         <Logo />
         <PageTitle>建立您的帳號</PageTitle>
 
-        <AuthInputContainer>
-          <AuthInput
-            label="帳號"
+        <AccountInput
             placeholder="請輸入帳號"
             value={account}
-            onChange={(value) => setAccount(value)}
-          />
-        </AuthInputContainer>
+            onChange={(inputValues)=>setAccount(inputValues)}    
+        />
 
-        <AuthInputContainer>
-          <AuthInput
-            label="名稱"
-            placeholder="請輸入使用者名稱"
+        <NameInput
+            placeholder="請輸入名稱"
             value={name}
-            onChange={(value) => setName(value)}
-          />
-        </AuthInputContainer>
+            onChange={(inputValues)=>setName(inputValues)}  
+        />
 
-        <AuthInputContainer>
-          <AuthInput
-            label="Email"
-            placeholder="請輸入 email"
-            value={email}
-            onChange={(value) => setEmail(value)}
-          />
-        </AuthInputContainer>
+        <EmailInput
+          placeholder="請輸入Email"
+          value={email}
+          onChange={(inputValues)=>setEmail(inputValues)} 
+         /> 
 
-        <AuthInputContainer>
-          <AuthInput
-            type="password"
-            label="密碼"
-            placeholder="請輸入密碼"
-            value={password}
-            onChange={(value) => setPassword(value)}
-          />
-        </AuthInputContainer>
+        <PasswordInput
+          placeholder="請輸入密碼"
+          value={password}
+          onChange={(inputValues)=>setPassword(inputValues)}
+        /> 
 
-        <AuthInputContainer>
-          <AuthInput
+        <PasswordInput
             label="確認密碼"
             placeholder="請再次輸入密碼"
             value={passwordCheck}
             onChange={(value) => setpasswordCheck(value)}
-          />
-        </AuthInputContainer>
+        />
+
         <ClrButton text="註冊" onClick={handleClick} />
         <BaseLink text="取消" to="/login" />
       </AuthContainer>

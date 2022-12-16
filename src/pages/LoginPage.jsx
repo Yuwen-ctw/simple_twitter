@@ -12,20 +12,10 @@ import styles from 'assets/styles/components/form/authInput.module.scss'
 
 function LoginPage() {
 
-  // const [inputValues, setInputValues] = useState({
-  //   account: people.account,
-  //   password: people.password,
-  // })
-  // 下user會變成無限迴圈所以換people
-  // console讀不到account是undefined
-
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
-
-  // const refAccountInput = useRef(null)
-  // const refPasswordInput = useRef(null)
 
 
   const handleClick = async () => {
@@ -50,28 +40,7 @@ function LoginPage() {
     
   }
 
-  // 比對資料庫的user id 和 密碼
-  // function handleInputChange (action, payload){
-  //   let refElement
-  //   let valid
-  //   switch (action) {
-  //     case 'account':
-  //       refElement = refAccountInput.current
-  //       valid = payload.accountInputValue <= user.account ? 'false':'true'
-  //       break;
-  //     case 'passsword':
-  //       refElement = refPasswordInput.current
-  //       valid = payload.passwordInputValue <= user.password ? 'false':'true'
-  //       break;
-  //     default:
-  //       return
-  //   }
-  //    valid
-  //     ? refElement.setAttribute('data-isvalid', valid)
-  //     : refElement.setAttribute('data-isvalid', valid)
-  //   setInputValues({ ...inputValues, [action]: payload })
-  // }
-
+  
 
   return (
     <>
@@ -110,12 +79,4 @@ function LoginPage() {
 export default LoginPage
 
 
-  // useEffect(() => {
-  // if (isAuthenticated) {
-  //   navigate('/MainRoutes');
-  // }
-  // }, [navigate, isAuthenticated]);
-
-
-  
-   // const { login, isAuthenticated } = useAuth();
+ 

@@ -67,6 +67,7 @@ const PasswordInput = forwardRef((props, ref)=>{
   const {value,onChange,type,placeholder,errorMessage} = props
   return(
       <div className={styles.input__wrapper} ref={ref}>
+        
       <label htmlFor="profile-password-input">密碼</label>
       <input
         className={styles.textInput}
