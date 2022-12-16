@@ -5,13 +5,23 @@ import { useAuth } from 'contexts/AuthContext'
 import styles from 'assets/styles/pages/mainPage.module.scss'
 import db from '../../../db.json'
 import { useEffect } from 'react'
-
+import Swal from 'sweetalert2'
 function MainLayout() {
   const navigate = useNavigate()
   const { state } = useLocation()
   const { logout, hasAuthToken } = useAuth()
+
   useEffect(() => {
-    if (!hasAuthToken) navigate('login')
+    if (!hasAuthToken) {
+      Swal.fire({
+        position: 'top',
+        title: `請重新登入！`,
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      })
+      navigate('login')
+    }
   })
   // TODO send api here to get popularUsers
 

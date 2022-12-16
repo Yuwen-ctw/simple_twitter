@@ -6,7 +6,7 @@ import Reply from 'components/Reply'
 import { backImage } from 'assets/images'
 import styles from 'assets/styles/pages/tweetSection.module.scss'
 import db from 'db.json'
-import { getTweet } from 'api/tweets'
+import { getTweet, likeTweet, dislikeTweet } from 'api/tweets'
 
 function TweetSection() {
   const navigate = useNavigate()
@@ -37,8 +37,19 @@ function TweetSection() {
   function handleHeaderClick() {
     navigate(-1)
   }
-  function handleLikeClick() {
-    setTweet({ ...tweet, isLiked: !tweet.isLiked })
+  async function handleLikeClick(likeId, isLiked) {
+    // send api
+    const { success, message } = isLiked
+      ? await dislikeTweet(likeId)
+      : await likeTweet(likeId)
+    // update tweets if success
+    if (success) {
+      setTweet({ ...tweet, isLiked: !tweet.isLiked })
+    }
+    // handle failed
+    else {
+      console.error(message)
+    }
   }
 
   const replyList = replys.map((reply) => (

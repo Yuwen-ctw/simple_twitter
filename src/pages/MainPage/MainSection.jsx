@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { SectionTitle, Spinner } from 'components/share'
 import { MainTweet } from 'components/Tweets'
 import styles from 'assets/styles/pages/mainSection.module.scss'
-import { getAllTweets } from 'api/tweets'
+import { getAllTweets, likeTweet, dislikeTweet } from 'api/tweets'
 import { useOutletContext } from 'react-router-dom'
 
 function MainSection() {
@@ -28,15 +28,24 @@ function MainSection() {
     getData()
   }, [])
 
-  function handleLikeClick(likeId) {
-    setTweets((draft) =>
-      draft.map((tweet) => {
-        if (tweet.id === likeId) return { ...tweet, isLiked: !tweet.isLiked }
-        return tweet
-      })
-    )
+  async function handleLikeClick(likeId, isLiked) {
+    // send api
+    const { success, message } = isLiked
+      ? await dislikeTweet(likeId)
+      : await likeTweet(likeId)
+    // update tweets if success
+    if (success) {
+      setTweets((draft) =>
+        draft.map((tweet) => {
+          if (tweet.id === likeId) return { ...tweet, isLiked: !tweet.isLiked }
+          return tweet
+        })
+      )
+      // handle failed
+    } else {
+      console.error(message)
+    }
   }
-
   // map data
   const tweetList = tweets.map((tweet) => {
     return (

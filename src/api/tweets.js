@@ -42,3 +42,31 @@ export async function getTweet(tweetId) {
     }
   }
 }
+
+export async function likeTweet(tweetId) {
+  try {
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/like`
+    )
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Like tweet failed]: ${err}`,
+    }
+  }
+}
+
+export async function dislikeTweet(tweetId) {
+  try {
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/unlike`
+    )
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Dislike tweet failed]: ${err}`,
+    }
+  }
+}
