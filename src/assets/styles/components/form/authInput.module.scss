@@ -1,92 +1,114 @@
-@use '../../abstracts/mixins';
 @use '../../abstracts/index' as *;
 
+.AuthContainer {
+  position: relative;
+  margin: 69px auto 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  width: 356px;
 
-.input_wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    background-color: '#696974';
+  h3 {
+    margin-top: 29px;
+    margin-bottom: 40px;
+  }
+
+  .input__wrapper {
+    margin-bottom: 32px;
+  }
+
+  button {
+    margin-top: 8px;
+  }
+
+  & > :first-child {
+    align-self: center;
+  }
+
+  & > :last-child {
+    margin-top: 22px;
+    justify-content: flex-end;
     width: 100%;
-    height: 54px;
-    border-bottom: 2px solid black;
-
-    >label {
-        font-size: 14;
-        color: '#696974';
-        text-align: start;
-    }
-
-    &[data-isvalid='true'] {
-        &:after {
-            background: $clr-error;
-        }
-
-        span {
-            color: $clr-error;
-
-            &.error {
-                display: inline;
-            }
-        }
-    }
-
-    span {
-        position: absolute;
-        bottom: 0px;
-        translate: 0 calc(100% + 4px);
-
-        &.maxLen {
-            right: 0px;
-            @include font(0.75rem, 500, 1.67, $text-placeholder);
-        }
-
-        &.error {
-            display: none;
-            left: 0px;
-            @include font(0.75rem, 500, 1.67, $clr-error);
-        }
-
-        &.hover {
-            display: none;
-            left: 0px;
-            color: aqua;
-        }
-    }
+    display: flex;
+    gap: 12px;
+  }
 }
 
+.input__wrapper {
+  position: relative;
+  width: 100%;
+  padding: 2px 4px;
+  background: #f5f8fa;
 
+  > label {
+    position: absolute;
+    padding-left: 18px;
+    @include font(0.875rem, 400, 1.57, $text-placeholder);
+  }
 
+  span {
+    position: absolute;
+    bottom: 0px;
+    translate: 0 calc(100% + 4px);
 
+    &.maxLen {
+      display: none;
+      right: 0px;
+      @include font(0.75rem, 500, 1.67, $text-placeholder);
+    }
 
+    &.error {
+      display: none;
+      left: 0px;
+      @include font(0.75rem, 500, 1.67, $clr-error);
+    }
+  }
+}
 
+.underline {
+  content: '';
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 2px;
+  background: #657786;
+  border-radius: 0px 0px 4px 4px;
+}
 
+input:focus ~ .underline {
+  background-color: #50b5ff;
+}
 
+input:hover ~ .underline {
+  background-color: #50b5ff;
+}
 
+input.error ~ .underline {
+  content: '';
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 100%;
+  height: 2px;
+  background: $clr-error;
+  border-radius: 0px 0px 4px 4px;
+}
 
+.textInput {
+  @include font(1rem, 400, 26px, $text-dark);
+  width: 100%;
+  height: 46px;
+  padding: 20px 0 0 18px;
+  background: #f5f8fa;
+  border: 0;
 
+  ::placeholder {
+    color: #b5b5be;
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-.Container {}
-
-.label {}
-
-.input_wrapper {
+  &:focus {
     outline: none;
-    border: none;
-    background-color: #f5f8fa;
-    border-radius: 0px;
-
-
+  }
 }

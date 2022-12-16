@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
-import { AuthContainer, AuthInputContainer } from '../components/form/Auth'
+import {
+  AuthContainer,
+  AccountInput,
+  PasswordInput,
+} from 'components/form/AuthInput'
 import { Logo, PageTitle } from 'components/share'
-import { AuthInput } from 'components/form'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
-import Swal from 'sweetalert2'
 
 function LoginPage() {
   const { isAuthenticated, login } = useAuth()
@@ -19,30 +21,22 @@ function LoginPage() {
   const handleClick = async () => {
     event.preventDefault()
     if (account.length === 0 || password.length === 0) return
-    const { success, errorMessage } = await login({
+    // get data
+    const {
+      success,
+      token: Authtoken,
+      user,
+      errorMessage,
+    } = await login({
       account,
       password,
     })
-    // pop modal
+    // store token if success, then redirect to '/'
     if (success) {
-      Swal.fire({
-        position: 'top',
-        title: `登入成功！`,
-        timer: 800,
-        icon: 'success',
-        showConfirmButton: false,
-      })
+      localStorage.setItem('authToken', Authtoken)
       navigate('/')
     } else {
-      console.error(errorMessage)
-      Swal.fire({
-        position: 'top',
-        title: `登入失敗！
-        ${errorMessage}`,
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      })
+      console.log(`登入失敗: ${errorMessage}`)
     }
   }
 
@@ -59,24 +53,20 @@ function LoginPage() {
         <Logo />
         <PageTitle>登入 Alphitter</PageTitle>
 
-        <AuthInputContainer>
-          <AuthInput
-            label="帳號"
-            placeholder="請輸入帳號"
-            value={account}
-            onChange={(nameInputValue) => setAccount(nameInputValue)}
-          />
-        </AuthInputContainer>
+        <AccountInput
+          placeholder="請輸入帳號"
+          value={account}
+          onChange={(inputValues) => setAccount(inputValues)}
+        />
 
-        <AuthInputContainer>
-          <AuthInput
-            type="password"
-            label="密碼"
-            placeholder="請輸入密碼"
-            value={password}
-            onChange={(passwordInputValue) => setPassword(passwordInputValue)}
-          />
-        </AuthInputContainer>
+        <PasswordInput
+          label="密碼"
+          type="password"
+          placeholder="請輸入密碼"
+          value={password}
+          onChange={(inputValues) => setPassword(inputValues)}
+        />
+
         <ClrButton text="登入" onClick={handleClick} />
         <div>
           <BaseLink text="註冊" to="/register" />·
