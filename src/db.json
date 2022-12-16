@@ -6,7 +6,6 @@
     "success": false,
     "message": "account 已重複註冊 !"
   },
-
   "login200": {
     "success": true,
     "data": {
@@ -30,7 +29,7 @@
     "data": {
       "tweets": [
         {
-          "id": 55,
+          "id": 1,
           "description": "What a wonderful day! What a wonderful day! What a wonderful day!What a wonderful day!What a wonderful day!What a wonderful day!",
           "replyCount": 2,
           "likeCount": 3,
@@ -44,7 +43,7 @@
           "isLiked": false
         },
         {
-          "id": 56,
+          "id": 2,
           "description": "Not bad!",
           "replyCount": 1,
           "likeCount": 5,
@@ -87,11 +86,7 @@
     "status": "error",
     "message": "Tweet not found!"
   },
-
-  "likeTweet200": {
-    "success": true,
-    "message": "Liked successfully!"
-  },
+  "likeTweet200": {},
   "dislikeTweet200": {
     "success": true,
     "message": "Unliked successfully!"
@@ -112,9 +107,21 @@
     "cover": "",
     "avatar": "",
     "introductionduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-    "Followings": ["123456", "3345678", "987654"],
-    "Followers": ["33455hw2679", "123sdd456", "987654", "789sdc45sdf"],
-    "Likes": ["789wed45sdf", "789sdc45sdf"],
+    "Followings": [
+      "123456",
+      "3345678",
+      "987654"
+    ],
+    "Followers": [
+      "33455hw2679",
+      "123sdd456",
+      "987654",
+      "789sdc45sdf"
+    ],
+    "Likes": [
+      "789wed45sdf",
+      "789sdc45sdf"
+    ],
     "tweetAmount": 10,
     "role": "user"
   },

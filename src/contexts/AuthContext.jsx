@@ -40,7 +40,7 @@ function AuthContextProvider({ children }) {
   }
 
   async function login(data) {
-    const { success, token, errorMessage } = await loginAsync({
+    const { success, token, user, errorMessage } = await loginAsync({
       account: data.account,
       password: data.password,
     })

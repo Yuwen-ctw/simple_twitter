@@ -13,9 +13,9 @@ export const login = async ({ account, password }) => {
       }
     )
     // get response data
-    const { success, data, message: errorMessage } = resData
+    const { success, token, user, message: errorMessage } = resData
     // return data or error message
-    if (success) return { success, ...data }
+    if (success) return { success, token, user }
     return { success, errorMessage }
     // handle fetch error
   } catch (error) {
@@ -39,6 +39,17 @@ export const register = async ({
       password,
       checkPassword,
     })
+    // const { data: resData } = await axios.get(
+    //   `http://localhost:3001/register201`,
+    //   {
+    //     account,
+    //     name,
+    //     email,
+    //     password,
+    //     checkPassword,
+    //   }
+    // )
+
     // get response data
     const { success, user, message: errorMessage } = resData
     // return user or error message

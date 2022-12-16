@@ -19,7 +19,7 @@ function MainSection() {
         // cancle the spinner
         setLoading(false)
         // update data
-        setTweets(data.tweets)
+        setTweets(data)
       } else {
         // handle error
         console.error(message)

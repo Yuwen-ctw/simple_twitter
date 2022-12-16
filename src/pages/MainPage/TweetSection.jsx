@@ -19,12 +19,12 @@ function TweetSection() {
   useEffect(() => {
     setLoading(true)
     async function getData() {
-      const { success, data, message } = await getTweet(tweetId)
+      const { success, tweet, message } = await getTweet(tweetId)
       if (success) {
         // cancle the spinner
         setLoading(false)
         // update data
-        setTweet(data.tweet)
+        setTweet(tweet)
       } else {
         // handle error
         console.error(message)
@@ -38,6 +38,7 @@ function TweetSection() {
     navigate(-1)
   }
   async function handleLikeClick(likeId, isLiked) {
+    console.log(likeId)
     // send api
     const { success, message } = isLiked
       ? await dislikeTweet(likeId)

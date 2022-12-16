@@ -11,18 +11,18 @@ function MainLayout() {
   const { state } = useLocation()
   const { logout, hasAuthToken } = useAuth()
 
-  useEffect(() => {
-    if (!hasAuthToken) {
-      Swal.fire({
-        position: 'top',
-        title: `請重新登入！`,
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      })
-      navigate('login')
-    }
-  })
+  // useEffect(() => {
+  //   if (!hasAuthToken) {
+  //     Swal.fire({
+  //       position: 'top',
+  //       title: `請重新登入！`,
+  //       timer: 1000,
+  //       icon: 'error',
+  //       showConfirmButton: false,
+  //     })
+  //     navigate('login')
+  //   }
+  // })
   // TODO send api here to get popularUsers
 
   // handle all event from clicking avatars and tweets
