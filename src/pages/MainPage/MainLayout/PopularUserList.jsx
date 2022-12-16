@@ -4,7 +4,7 @@ import db from '../../../db.json'
 import { useState } from 'react'
 function PopularUserList({ users, className, onClick }) {
   // TODO: get user's followingList(maybe from context), which is fake below
-  const [followings, setFollowings] = useState(db.loginUser.following)
+  const [followings, setFollowings] = useState(db.loginUser.Followings)
 
   // handle following checkbox toggle
   const handleToggle = (targetUserId, isFollowing) => {

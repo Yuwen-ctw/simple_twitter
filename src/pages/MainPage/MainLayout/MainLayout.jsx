@@ -1,14 +1,18 @@
-import { UserNavbar } from 'components/UI/Navbars'
-import { Outlet } from 'react-router-dom'
-import styles from 'assets/styles/pages/mainPage.module.scss'
+import { useNavigate, useLocation, Outlet } from 'react-router-dom'
 import PopularUserList from './PopularUserList'
+import { UserNavbar } from 'components/UI/Navbars'
+import { useAuth } from 'contexts/AuthContext'
+import styles from 'assets/styles/pages/mainPage.module.scss'
 import db from '../../../db.json'
-import { useLocation } from 'react-router-dom/dist/index'
-import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 function MainLayout() {
   const navigate = useNavigate()
   const { state } = useLocation()
+  const { logout, hasAuthToken } = useAuth()
+  useEffect(() => {
+    if (!hasAuthToken) navigate('login')
+  })
   // TODO send api here to get popularUsers
 
   // handle all event from clicking avatars and tweets
@@ -25,10 +29,9 @@ function MainLayout() {
       dataSet.userid && navigate(`/user/${dataSet.userid}/tweets`)
     }
   }
-
   return (
     <div className={styles.layout}>
-      <UserNavbar />
+      <UserNavbar onLogout={logout} />
       <Outlet context={{ handleUserOrTweetClick }} />
       {state !== 'setting' && (
         <PopularUserList
