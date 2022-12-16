@@ -22,7 +22,7 @@ function formatRelativeTime(dateString) {
   const hours = days * 24
   if (hours > 1) return `${Math.floor(hours)} 小時前`
   const mins = hours * 60
-  if (mins > 1) return `${Math.floor(mins)}分 鐘前`
+  if (mins > 1) return `${Math.floor(mins)} 分鐘前`
   if (mins < 1) return '幾秒鐘前'
 
   console.log('發生未預期的錯誤')

@@ -121,13 +121,14 @@
   }
 }
 
-/* text input */
+/* text input div*/
 .input__wrapper {
   position: relative;
   width: 100%;
   padding: 2px 0 4px;
   background: #f5f8fa;
 
+  /* bottom border */
   &:after {
     content: '';
     position: absolute;
@@ -139,11 +140,20 @@
     border-radius: 0px 0px 4px 4px;
   }
 
-  &[data-isvalid='true'] {
+  /* bottom border:focus */
+  &:has(input:focus),
+  &:has(textarea:focus) {
+    &:after {
+      background: $clr-focus;
+    }
+  }
+
+  /* bottom border which input is invalid */
+  &:has(input)[data-isvalid='true'],
+  &:has(textarea)[data-isvalid='true'] {
     &:after {
       background: $clr-error;
     }
-
     span {
       color: $clr-error;
 
@@ -153,12 +163,14 @@
     }
   }
 
+  /* input label */
   > label {
     position: absolute;
     padding-left: 18px;
     @include font(0.875rem, 400, 1.57, $text-placeholder);
   }
 
+  /* error message */
   span {
     position: absolute;
     bottom: 0px;

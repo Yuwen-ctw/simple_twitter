@@ -20,6 +20,7 @@
 
 .contentText {
   @include font(1rem, 400, 1.62);
+  word-break: break-all;
 }
 
 .replyTargetText {

@@ -23,6 +23,25 @@ export async function getUser(userId) {
     const { data: resData } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${userId}`
     )
+
+    const { success, data, message } = resData
+    if (success === true || success === 'true') {
+      return { success, data }
+    }
+    return { success: false, message }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get tweets failed]: ${err}`,
+    }
+  }
+}
+
+export async function EditUser(userData) {
+  try {
+    const { data: resData } = await axiosInstance.put(
+      `${baseUrl}/${basePath}/${userData.id}`
+    )
     const { success, data, message } = resData
     if (success === true || success === 'true') {
       return { success, data }

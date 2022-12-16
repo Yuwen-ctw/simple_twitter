@@ -106,22 +106,10 @@
     "account": "Mary",
     "cover": "",
     "avatar": "",
-    "introductionduction": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
-    "Followings": [
-      "123456",
-      "3345678",
-      "987654"
-    ],
-    "Followers": [
-      "33455hw2679",
-      "123sdd456",
-      "987654",
-      "789sdc45sdf"
-    ],
-    "Likes": [
-      "789wed45sdf",
-      "789sdc45sdf"
-    ],
+    "intro": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+    "Followings": ["123456", "3345678", "987654"],
+    "Followers": ["33455hw2679", "123sdd456", "987654", "789sdc45sdf"],
+    "Likes": ["789wed45sdf", "789sdc45sdf"],
     "tweetAmount": 10,
     "role": "user"
   },

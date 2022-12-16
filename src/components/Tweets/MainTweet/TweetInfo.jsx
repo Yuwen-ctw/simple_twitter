@@ -12,11 +12,11 @@ const TweetInfo = ({
   <div className={className}>
     <button onClick={onReplyClick}>
       <img src={replySvg} alt="reply" />
-      <span>{replyCount}</span>
+      <span>{replyCount || '0'}</span>
     </button>
     <button onClick={() => onLikeClick(id, isLiked)}>
       <img src={isLiked ? likingSvg : likeSvg} alt="like" />
-      <span>{likeCount}</span>
+      <span>{likeCount || '0'}</span>
     </button>
   </div>
 )

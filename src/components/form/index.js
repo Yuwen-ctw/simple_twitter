@@ -1,3 +1,3 @@
 import AuthInput from './AuthInput'
-
-export { AuthInput }
+import TweetInput from './TweetInput'
+export { AuthInput, TweetInput }

@@ -1,51 +1,24 @@
-import { useEffect, useState } from 'react'
 import { SectionTitle, Spinner } from 'components/share'
 import { MainTweet } from 'components/Tweets'
 import styles from 'assets/styles/pages/mainSection.module.scss'
-import { getAllTweets, likeTweet, dislikeTweet } from 'api/tweets'
 import { useOutletContext } from 'react-router-dom'
+import { TweetInput } from 'components/form'
+import { useAuth } from 'contexts/AuthContext'
+import { useMainTweets } from 'contexts/MainTweetsContext'
 
 function MainSection() {
   const { handleUserOrTweetClick } = useOutletContext()
-  const [tweets, setTweets] = useState([])
-  const [loading, setLoading] = useState(false)
+  const { currentUser } = useAuth()
+  const {
+    inputValue,
+    handleInputChange,
+    handleAddTweet,
+    mainTweetInputRef,
+    loading,
+    tweets,
+    handleLikeClick,
+  } = useMainTweets()
 
-  // TODO get data
-  useEffect(() => {
-    setLoading(true)
-    async function getData() {
-      const { success, data, message } = await getAllTweets()
-      if (success) {
-        // cancle the spinner
-        setLoading(false)
-        // update data
-        setTweets(data)
-      } else {
-        // handle error
-        console.error(message)
-      }
-    }
-    getData()
-  }, [])
-
-  async function handleLikeClick(likeId, isLiked) {
-    // send api
-    const { success, message } = isLiked
-      ? await dislikeTweet(likeId)
-      : await likeTweet(likeId)
-    // update tweets if success
-    if (success) {
-      setTweets((draft) =>
-        draft.map((tweet) => {
-          if (tweet.id === likeId) return { ...tweet, isLiked: !tweet.isLiked }
-          return tweet
-        })
-      )
-      // handle failed
-    } else {
-      console.error(message)
-    }
-  }
   // map data
   const tweetList = tweets.map((tweet) => {
     return (
@@ -59,12 +32,20 @@ function MainSection() {
   })
 
   return (
-    <section className={styles.sectionWrapper} onClick={handleUserOrTweetClick}>
+    <section className={styles.sectionWrapper}>
       <SectionTitle text="首頁" />
-      <h1 style={{ color: 'red' }}>這裡放TweetInput</h1>
+      <TweetInput
+        ref={mainTweetInputRef}
+        src={currentUser?.avatar}
+        value={inputValue}
+        onChange={handleInputChange}
+        onClick={handleAddTweet}
+      />
       <hr />
       {loading && <Spinner />}
-      <ul className="scrollbar">{tweetList}</ul>
+      <ul className="scrollbar" onClick={handleUserOrTweetClick}>
+        {tweetList}
+      </ul>
     </section>
   )
 }

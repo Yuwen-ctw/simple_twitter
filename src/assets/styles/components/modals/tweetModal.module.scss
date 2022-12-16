@@ -1,0 +1,9 @@
+.layout {
+  height: 243px;
+  > div {
+    height: 100%;
+    > textarea {
+      height: 75%;
+    }
+  }
+}

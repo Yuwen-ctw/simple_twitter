@@ -3,7 +3,7 @@ import Navbar from './share/Navbar'
 import NavItem from './share/NavItem'
 import { ClrButton } from '../Buttons'
 
-function UserNavbar({ onClick, onLogout, currentUserId }) {
+function UserNavbar({ onModalButtonClick, onLogout, currentUserId }) {
   const pathName = useLocation().pathname
   let check
   if (pathName === '/' && pathName.length === 1) check = 'home'
@@ -21,7 +21,7 @@ function UserNavbar({ onClick, onLogout, currentUserId }) {
         to={`user/${currentUserId}/tweets`}
       />
       <NavItem text="設定" value={'setting'} check={check} to="setting" />
-      <ClrButton text="推文" onClick={onClick} />
+      <ClrButton text="推文" onClick={onModalButtonClick} />
       <NavItem text="登出" value={'logout'} onClick={onLogout} to="login" />
     </Navbar>
   )

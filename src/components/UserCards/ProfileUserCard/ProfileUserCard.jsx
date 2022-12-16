@@ -7,7 +7,6 @@ import {
 } from './base'
 import { SwitchLink } from 'components/UI/Buttons'
 import styles from 'assets/styles/components/userCards/profileUserCard.module.scss'
-import { defaultCover } from 'assets/images'
 import db from 'db.json'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'

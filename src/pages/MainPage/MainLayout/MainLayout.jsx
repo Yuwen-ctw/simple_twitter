@@ -4,11 +4,14 @@ import { UserNavbar } from 'components/UI/Navbars'
 import { useAuth } from 'contexts/AuthContext'
 import styles from 'assets/styles/pages/mainPage.module.scss'
 import db from '../../../db.json'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { TweetModal } from 'components/UI/Modals'
+import { MainTweetsContextProvider } from 'contexts/MainTweetsContext'
 function MainLayout() {
   const navigate = useNavigate()
   const { state } = useLocation()
   const { logout, isAuthenticated, currentUser } = useAuth()
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -26,15 +29,26 @@ function MainLayout() {
     const dataSet = e.target.closest('[data-click]')?.dataset
     // navigate to tweet
     if (rolename === 'content') {
-      dataSet.tweetid && navigate(`/tweet/${dataSet.tweetid}`)
+      dataSet.tweetid && navigate(`/tweet/${dataSet?.tweetid}`)
     } else {
-      dataSet.userid && navigate(`/user/${dataSet.userid}/tweets`)
+      dataSet.userid && navigate(`/user/${dataSet?.userid}/tweets`)
     }
   }
+  function handleToggleModal() {
+    setShowModal(!showModal)
+  }
+
   return (
     <div className={styles.layout}>
-      <UserNavbar onLogout={logout} currentUserId={currentUser?.id} />
-      <Outlet context={{ handleUserOrTweetClick }} />
+      <MainTweetsContextProvider>
+        <UserNavbar
+          onLogout={logout}
+          currentUserId={currentUser?.id}
+          onModalButtonClick={handleToggleModal}
+        />
+        <Outlet context={{ handleUserOrTweetClick }} />
+        <TweetModal active={showModal} onClose={handleToggleModal} />
+      </MainTweetsContextProvider>
       {state !== 'setting' && (
         <PopularUserList
           users={db.popularUsers}

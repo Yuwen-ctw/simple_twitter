@@ -1,13 +1,7 @@
 import { login as loginAsync, register } from 'api/auth'
 import { getUser } from 'api/users'
 import * as jwt from 'jsonwebtoken'
-import {
-  useEffect,
-  useState,
-  createContext,
-  useContext,
-  useLayoutEffect,
-} from 'react'
+import { useEffect, useState, createContext, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
 const defaultAuthContext = {
