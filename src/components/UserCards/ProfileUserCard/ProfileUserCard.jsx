@@ -52,8 +52,8 @@ function ProfileUserCard({ user, onClickEdit }) {
       <SubText text={`@${user.account}`} />
       <IntroText text={user.introduction} />
       <UserFollowInfo
-        followingCount={user.Followings.length}
-        followerCount={user.Followers.length}
+        followingCount={user.Followings?.length}
+        followerCount={user.Followers?.length}
         userId={user.id}
         onClick={handleFollowInfoClick}
       />

@@ -1,16 +1,27 @@
 import { Outlet, useOutletContext, useParams } from 'react-router-dom'
 import { ProfileUserCard } from 'components/UserCards'
 import { EditProfileModal } from 'components/UI/Modals'
-import db from 'db.json'
 import SectionHeader from './SectionHeader'
 import styles from 'assets/styles/pages/userSection.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { getUser } from 'api/users'
 
 function UserSectionLayout() {
   const [showModal, setShowModal] = useState(false)
+  const [user, setUser] = useState({})
   const { userId } = useParams()
   console.log(`user#${userId}'s personal page`)
-
+  useEffect(() => {
+    async function getUserData() {
+      const { success, data, message } = await getUser(userId)
+      if (success) {
+        setUser(data)
+      } else {
+        console.error(message)
+      }
+    }
+    getUserData()
+  }, [userId])
   function handleToggleModal() {
     setShowModal(!showModal)
   }
@@ -21,11 +32,11 @@ function UserSectionLayout() {
 
   return (
     <section className={[styles.sectionWrapper, 'scrollbar'].join(' ')}>
-      <SectionHeader user={db.loginUser} />
-      <ProfileUserCard user={db.loginUser} onClickEdit={handleToggleModal} />
+      <SectionHeader user={user} />
+      <ProfileUserCard user={user} onClickEdit={handleToggleModal} />
       <Outlet context={useOutletContext()} />
       <EditProfileModal
-        user={db.loginUser}
+        user={user}
         showModal={showModal}
         onClose={handleToggleModal}
         onSave={handleSaveProfileInfo}
