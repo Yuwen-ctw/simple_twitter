@@ -10,7 +10,7 @@ import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
 
 function LoginPage() {
-  const { hasAuthToken, login } = useAuth()
+  const { isAuthenticated, login } = useAuth()
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -46,10 +46,10 @@ function LoginPage() {
   }
 
   useEffect(() => {
-    if (hasAuthToken) {
+    if (isAuthenticated) {
       navigate('/')
     }
-  }, [navigate, hasAuthToken])
+  }, [navigate, isAuthenticated])
 
   return (
     <>

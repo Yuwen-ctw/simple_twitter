@@ -1,4 +1,5 @@
 import { login as loginAsync, register } from 'api/auth'
+import { getUser } from 'api/users'
 import * as jwt from 'jsonwebtoken'
 import { useEffect, useState, createContext, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router'
@@ -15,26 +16,38 @@ const useAuth = () => useContext(AuthContext)
 
 function AuthContextProvider({ children }) {
   const navigate = useNavigate()
-  const [hasAuthToken, setHasAuthToken] = useState(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(null)
   const [payload, setPayload] = useState(null)
   const { pathname } = useLocation()
   // check authToken when route switched
   useEffect(() => {
-    const authToken = localStorage.getItem('authToken')
-    if (!authToken) {
-      setHasAuthToken(false)
-      setPayload(null)
-      return
+    async function checkPermission() {
+      // get token
+      const authToken = localStorage.getItem('authToken')
+      if (!authToken) {
+        setIsAuthenticated(false)
+        setPayload(null)
+        return
+      }
+      // decode token, and get currentUser data
+      const temPayload = jwt.decode(authToken)
+      if (!temPayload) return
+      const { success, data, message } = await getUser(temPayload.id)
+      if (success) {
+        setIsAuthenticated(true)
+        setPayload(data)
+      } else {
+        console.error(message)
+        setIsAuthenticated(false)
+        setPayload(null)
+      }
     }
-    const temPayload = jwt.decode(authToken)
-    console.log(temPayload)
-    setHasAuthToken(true)
-    setPayload(temPayload)
-  }, [pathname])
+    checkPermission()
+  }, [pathname, navigate])
 
   function logout() {
     localStorage.removeItem('authToken')
-    setHasAuthToken(false)
+    setIsAuthenticated(false)
     setPayload(null)
     navigate('/login')
   }
@@ -45,12 +58,12 @@ function AuthContextProvider({ children }) {
       password: data.password,
     })
     if (success) {
-      const temPayload = jwt.decode(token)
-      setHasAuthToken(true)
-      setPayload(temPayload)
+      // const temPayload = jwt.decode(token)
+      setIsAuthenticated(true)
+      setPayload(user)
       localStorage.setItem('authToken', token)
     } else {
-      setHasAuthToken(false)
+      setIsAuthenticated(false)
       setPayload(null)
     }
     return { success, errorMessage }
@@ -58,7 +71,7 @@ function AuthContextProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
-        hasAuthToken,
+        isAuthenticated,
         currentUser: payload,
         register: register,
         login: login,

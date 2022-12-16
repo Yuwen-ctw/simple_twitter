@@ -5,6 +5,7 @@ const basePath = 'tweets'
 
 const axiosInstance = axios.create({
   baseURL: `${baseUrl}`,
+  validateStatus: (status) => status >= 200 && status <= 500,
 })
 axiosInstance.interceptors.request.use(
   (config) => {

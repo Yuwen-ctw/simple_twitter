@@ -5,8 +5,8 @@ const basePath = 'users'
 
 const axiosInstance = axios.create({
   baseURL: `${baseUrl}`,
+  validateStatus: (status) => status >= 200 && status <= 500,
 })
-
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken')
@@ -20,8 +20,14 @@ axiosInstance.interceptors.request.use(
 
 export async function getUser(userId) {
   try {
-    const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/${userId}`)
-    return data
+    const { data: resData } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${userId}`
+    )
+    const { success, data, message } = resData
+    if (success === true || success === 'true') {
+      return { success, data }
+    }
+    return { success: false, message }
   } catch (err) {
     return {
       success: false,
