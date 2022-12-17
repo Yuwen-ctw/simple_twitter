@@ -16,6 +16,8 @@ function MainRoutes() {
         <Route path="tweet/:tweetId" element={<TweetSection />} />
         <Route path="user/:userId/*" element={<UserRoutes />} />
       </Route>
+
+      
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

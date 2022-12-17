@@ -5,8 +5,7 @@ import { useAuth } from 'contexts/AuthContext'
 // components
 import {
   AuthContainer,
-  AccountInput,
-  PasswordInput,
+  AuthInput,
 } from 'components/form/AuthInput'
 import { Logo, PageTitle } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
@@ -64,7 +63,8 @@ function AdminLoginPage() {
         <Logo />
         <PageTitle>後台登入</PageTitle>
 
-        <AccountInput
+       <AuthInput
+          label="帳號"
           placeholder="請輸入帳號"
           value={account}
           showErr={showErr}
@@ -74,7 +74,7 @@ function AdminLoginPage() {
           }}
         />
 
-        <PasswordInput
+        <AuthInput
           label="密碼"
           type="password"
           placeholder="請輸入密碼"

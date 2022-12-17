@@ -6,10 +6,7 @@ import { useAuth } from 'contexts/AuthContext'
 import { Logo, PageTitle } from 'components/share'
 import {
   AuthContainer,
-  AccountInput,
-  NameInput,
-  EmailInput,
-  PasswordInput,
+  AuthInput,
 } from 'components/form/AuthInput'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
@@ -80,26 +77,28 @@ function RegisterPage() {
         <Logo />
         <PageTitle>建立您的帳號</PageTitle>
 
-        <AccountInput
+        <AuthInput
+          label="帳號"
           placeholder="請輸入帳號"
           value={account}
           onChange={(inputValues) => setAccount(inputValues)}
         />
 
-        <NameInput
+        <AuthInput
+          label="名稱"
           placeholder="請輸入使用者名稱"
           value={name}
           onChange={(inputValues) => setName(inputValues)}
         />
 
-        <EmailInput
+        <AuthInput
           label="Email"
           placeholder="請輸入 email"
           value={email}
           onChange={(inputValues) => setEmail(inputValues)}
         />
 
-        <PasswordInput
+        <AuthInput
           label="密碼"
           type="password"
           placeholder="請輸入密碼"
@@ -107,7 +106,8 @@ function RegisterPage() {
           onChange={(inputValues) => setPassword(inputValues)}
         />
 
-        <PasswordInput
+        <AuthInput
+          label="密碼確認"
           type="password"
           placeholder="請再次輸入密碼"
           value={checkPassword}
