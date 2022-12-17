@@ -1,23 +1,25 @@
+// hooks, api, utility
 import { useRef, useState } from 'react'
+import { EditUser } from 'api/users'
 import readImage from 'uitlities/readImage'
+// components
+import { ClrButton } from 'components/UI/Buttons'
+import Modal from '../share/Modal'
 import {
   IntroInput,
   NameInput,
   ProfileCoverInput,
   ProfileAvatarInput,
 } from './base'
-import { defaultCover } from 'assets/images'
 import styles from 'assets/styles/components/modals/editProfileModal.module.scss'
-import Modal from '../share/Modal'
-import { ClrButton } from 'components/UI/Buttons'
 
-function EditProfileModal({ user, showModal, onClose, onSave }) {
-  // store input valus
+function EditProfileModal({ user, showModal, onClose }) {
+  // store input values
   const [inputValues, setInputValues] = useState({
-    name: user.name,
-    intro: user.intro,
-    cover: defaultCover,
-    avatar: user.avatar,
+    name: user?.name || '',
+    intro: user?.introduction || '',
+    cover: user?.cover,
+    avatar: user?.avatar,
   })
   // ref the text inputs
   const refNameInput = useRef(null)
@@ -36,7 +38,7 @@ function EditProfileModal({ user, showModal, onClose, onSave }) {
 
   // handle discard image
   function handleDiscardCover() {
-    setInputValues({ ...inputValues, cover: defaultCover })
+    setInputValues({ ...inputValues, cover: null })
   }
 
   // handle text inputs changed
@@ -60,6 +62,19 @@ function EditProfileModal({ user, showModal, onClose, onSave }) {
       ? refElement.setAttribute('data-isvalid', valid)
       : refElement.setAttribute('data-isvalid', valid)
     setInputValues({ ...inputValues, [action]: payload })
+  }
+
+  async function handleSave() {
+    // TODO call api here
+    const abc = { success: true, data: '' }
+    // const { success, data, message } = EditUser(inputValues)
+    const { success, data, message } = abc
+    if (success) {
+      console.log(inputValues)
+      onClose()
+    } else {
+      console.error(message)
+    }
   }
 
   return (
@@ -87,7 +102,11 @@ function EditProfileModal({ user, showModal, onClose, onSave }) {
             value={inputValues.intro}
           />
         </div>
-        <ClrButton text="儲存" className={styles.saveBtn} onClick={onSave} />
+        <ClrButton
+          text="儲存"
+          className={styles.saveBtn}
+          onClick={handleSave}
+        />
       </Modal>
     </>
   )

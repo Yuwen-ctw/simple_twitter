@@ -31,11 +31,9 @@
   align-items: center;
   justify-content: center;
   gap: 34px;
-  background: linear-gradient(
-    0deg,
-    rgba(23, 23, 37, 0.5),
-    rgba(23, 23, 37, 0.5)
-  );
+  background-image: $defaultCover;
+  background-repeat: no-repeat;
+  background-size: cover;
 
   &:hover {
     opacity: 0.75;
@@ -71,14 +69,17 @@
   }
 
   .cover {
+    /* hide if no image url*/
+    &:not([src]) {
+      display: none;
+    }
+    background: #a7a7ac;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     object-fit: contain;
     height: 200px;
-    text-align: center;
-    line-height: 150px;
   }
 }
 

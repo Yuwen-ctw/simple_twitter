@@ -17,20 +17,19 @@ function UserSectionLayout() {
     async function getUserData() {
       const { success, data, message } = await getUser(userId)
       if (success) {
-        if (currentUser.id === userId) user.self = true
+        if (currentUser.id.toString() === userId) data.self = true
+        console.log(data)
         setUser(data)
       } else {
         console.error(message)
       }
     }
     getUserData()
-  }, [userId])
+  }, [userId, showModal])
+
+  // show modal or not
   function handleToggleModal() {
     setShowModal(!showModal)
-  }
-
-  function handleSaveProfileInfo() {
-    // TODO call api here
   }
 
   return (
@@ -42,7 +41,6 @@ function UserSectionLayout() {
         user={user}
         showModal={showModal}
         onClose={handleToggleModal}
-        onSave={handleSaveProfileInfo}
       />
     </section>
   )
