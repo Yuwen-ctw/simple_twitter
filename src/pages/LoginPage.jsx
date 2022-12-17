@@ -1,17 +1,14 @@
 // hooks & context
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
-import {
-  AuthContainer,
-  AuthInput,
-} from 'components/form/AuthInput'
+import { AuthContainer, AuthInput } from 'components/form/AuthInput'
 import { Logo, PageTitle } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
 
-function LoginPage() {
+function LoginPage({ user }) {
   const { isAuthenticated, login, role } = useAuth()
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
@@ -70,9 +67,9 @@ function LoginPage() {
           placeholder="請輸入帳號"
           value={account}
           showErr={showErr}
-          onChange={(inputValues) => {
+          onChange={(InputValues) => {
             setShowErr(false)
-            setAccount(inputValues)
+            setAccount(InputValues)
           }}
         />
 
@@ -81,7 +78,7 @@ function LoginPage() {
           type="password"
           placeholder="請輸入密碼"
           value={password}
-          onChange={(inputValues) => setPassword(inputValues)}
+          onChange={(InputValues) => setPassword(InputValues)}
         />
 
         <ClrButton text="登入" onClick={handleClick} />

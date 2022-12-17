@@ -4,10 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
 import { Logo, PageTitle } from 'components/share'
-import {
-  AuthContainer,
-  AuthInput,
-} from 'components/form/AuthInput'
+import { AuthContainer, AuthInput } from 'components/form/AuthInput'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
 
@@ -18,7 +15,10 @@ function RegisterPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [checkPassword, setcheckPassword] = useState('')
+  const [showErr, setShowErr] = useState(false)
   const navigate = useNavigate()
+
+  const refnameInput = useRef(null)
 
   const handleClick = async () => {
     event.preventDefault()
@@ -88,7 +88,10 @@ function RegisterPage() {
           label="名稱"
           placeholder="請輸入使用者名稱"
           value={name}
-          onChange={(inputValues) => setName(inputValues)}
+          onChange={(inputValues) => {
+            setShowError(false)
+            setName(inputValues)
+          }}
         />
 
         <AuthInput
