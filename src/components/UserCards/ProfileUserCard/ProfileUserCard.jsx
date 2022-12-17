@@ -56,7 +56,7 @@ function ProfileUserCard({ user, onClickEdit }) {
         userId={user.id}
         onClick={handleFollowInfoClick}
       />
-      <div>
+      <div className={styles.switcherWrapper}>
         <SwitchLink text="推文" to={`/user/${user.id}/tweets`} />
         <SwitchLink text="回覆" to={`/user/${user.id}/replies`} />
         <SwitchLink text="喜歡的內容" to={`/user/${user.id}/likes`} />

@@ -19,6 +19,10 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   display: grid;
   grid-template-columns: 1fr;
   place-items: start;
+  .switcherWrapper {
+    width: 100%;
+    border-bottom: 1px solid $listBorder;
+  }
 }
 
 .background {
