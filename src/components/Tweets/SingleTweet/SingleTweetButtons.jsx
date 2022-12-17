@@ -1,14 +1,20 @@
 import { replySvg } from 'assets/svgs'
 import { likingSvg, likeSvg } from 'assets/svgs'
-function SingleTweetButtons({ className, isLike, onReplyClick, onLikeClick }) {
+function SingleTweetButtons({
+  className,
+  isLiked,
+  onReplyClick,
+  onLikeClick,
+  tweetId,
+}) {
   return (
     <>
       <div className={className}>
         <button onClick={onReplyClick}>
           <img src={replySvg} alt="reply" />
         </button>
-        <button onClick={onLikeClick}>
-          <img src={isLike ? likingSvg : likeSvg} alt="like" />
+        <button onClick={() => onLikeClick(tweetId, isLiked)}>
+          <img src={isLiked ? likingSvg : likeSvg} alt="like" />
         </button>
       </div>
     </>

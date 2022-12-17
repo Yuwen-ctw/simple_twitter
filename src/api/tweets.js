@@ -5,6 +5,7 @@ const basePath = 'tweets'
 
 const axiosInstance = axios.create({
   baseURL: `${baseUrl}`,
+  validateStatus: (status) => status >= 200 && status <= 500,
 })
 axiosInstance.interceptors.request.use(
   (config) => {
@@ -20,7 +21,7 @@ axiosInstance.interceptors.request.use(
 export async function getAllTweets() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}`)
-    return data
+    return { success: true, data }
   } catch (err) {
     return {
       success: false,
@@ -34,11 +35,53 @@ export async function getTweet(tweetId) {
     const { data } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${tweetId}`
     )
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get tweet failed]: ${err}`,
+    }
+  }
+}
+
+export async function addTweet(description) {
+  try {
+    const { data } = await axiosInstance.post(`${baseUrl}/${basePath}`, {
+      description,
+    })
     return data
   } catch (err) {
     return {
       success: false,
       message: `[Get tweet failed]: ${err}`,
+    }
+  }
+}
+
+export async function likeTweet(tweetId) {
+  try {
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/like`
+    )
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Like tweet failed]: ${err}`,
+    }
+  }
+}
+
+export async function dislikeTweet(tweetId) {
+  try {
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/unlike`
+    )
+    return data
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Dislike tweet failed]: ${err}`,
     }
   }
 }

@@ -7,16 +7,16 @@ const TweetInfo = ({
   likeCount,
   onReplyClick,
   onLikeClick,
-  isLike,
+  isLiked,
 }) => (
   <div className={className}>
     <button onClick={onReplyClick}>
       <img src={replySvg} alt="reply" />
-      <span>{replyCount}</span>
+      <span>{replyCount || '0'}</span>
     </button>
-    <button onClick={() => onLikeClick(id)}>
-      <img src={isLike ? likingSvg : likeSvg} alt="like" />
-      <span>{likeCount}</span>
+    <button onClick={() => onLikeClick(id, isLiked)}>
+      <img src={isLiked ? likingSvg : likeSvg} alt="like" />
+      <span>{likeCount || '0'}</span>
     </button>
   </div>
 )

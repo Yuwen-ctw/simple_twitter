@@ -1,24 +1,31 @@
 // hooks & context
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
-import { AuthContainer, AuthInputContainer } from '../components/form/Auth'
+import {
+  AuthContainer,
+  AccountInput,
+  PasswordInput,
+} from 'components/form/AuthInput'
 import { Logo, PageTitle } from 'components/share'
-import { AuthInput } from 'components/form'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
 
 function LoginPage() {
-  const { hasAuthToken, login } = useAuth()
+  const { isAuthenticated, login, role } = useAuth()
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
+  const [showErr, setShowErr] = useState(false)
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   const handleClick = async () => {
     event.preventDefault()
     if (account.length === 0 || password.length === 0) return
-    const { success, errorMessage } = await login({
+    // get data
+    const { success, message } = await login({
+      role: role.user,
       account,
       password,
     })
@@ -33,11 +40,12 @@ function LoginPage() {
       })
       navigate('/')
     } else {
-      console.error(errorMessage)
+      console.error(message)
+      setShowErr(true)
       Swal.fire({
         position: 'top',
         title: `登入失敗！
-        ${errorMessage}`,
+        ${message}`,
         timer: 1000,
         icon: 'error',
         showConfirmButton: false,
@@ -46,10 +54,11 @@ function LoginPage() {
   }
 
   useEffect(() => {
-    if (hasAuthToken) {
-      navigate('/')
+    if (isAuthenticated) {
+      if (pathname.includes(process.env.PUBLIC_URL)) navigate(-1)
+      else navigate('/')
     }
-  }, [navigate, hasAuthToken])
+  }, [navigate, isAuthenticated])
 
   return (
     <>
@@ -57,24 +66,24 @@ function LoginPage() {
         <Logo />
         <PageTitle>登入 Alphitter</PageTitle>
 
-        <AuthInputContainer>
-          <AuthInput
-            label="帳號"
-            placeholder="請輸入帳號"
-            value={account}
-            onChange={(nameInputValue) => setAccount(nameInputValue)}
-          />
-        </AuthInputContainer>
+        <AccountInput
+          placeholder="請輸入帳號"
+          value={account}
+          showErr={showErr}
+          onChange={(inputValues) => {
+            setShowErr(false)
+            setAccount(inputValues)
+          }}
+        />
 
-        <AuthInputContainer>
-          <AuthInput
-            type="password"
-            label="密碼"
-            placeholder="請輸入密碼"
-            value={password}
-            onChange={(passwordInputValue) => setPassword(passwordInputValue)}
-          />
-        </AuthInputContainer>
+        <PasswordInput
+          label="密碼"
+          type="password"
+          placeholder="請輸入密碼"
+          value={password}
+          onChange={(inputValues) => setPassword(inputValues)}
+        />
+
         <ClrButton text="登入" onClick={handleClick} />
         <div>
           <BaseLink text="註冊" to="/register" />·

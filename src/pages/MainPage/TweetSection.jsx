@@ -7,13 +7,14 @@ import { backImage } from 'assets/images'
 import styles from 'assets/styles/pages/tweetSection.module.scss'
 import db from 'db.json'
 import { getTweet } from 'api/tweets'
-
+import { useMainTweets } from 'contexts/MainTweetsContext'
 function TweetSection() {
   const navigate = useNavigate()
   const { tweetId } = useParams()
   const [replys, setReplys] = useState([])
   const [tweet, setTweet] = useState({})
   const [loading, setLoading] = useState(false)
+  const { handleLikeClick } = useMainTweets()
 
   // TODO get tweet and replys data here
   useEffect(() => {
@@ -24,7 +25,7 @@ function TweetSection() {
         // cancle the spinner
         setLoading(false)
         // update data
-        setTweet(data.tweet)
+        setTweet(data)
       } else {
         // handle error
         console.error(message)
@@ -36,9 +37,6 @@ function TweetSection() {
 
   function handleHeaderClick() {
     navigate(-1)
-  }
-  function handleLikeClick() {
-    setTweet({ ...tweet, isLiked: !tweet.isLiked })
   }
 
   const replyList = replys.map((reply) => (

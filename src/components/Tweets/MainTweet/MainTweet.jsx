@@ -36,7 +36,7 @@ function MainTweet({ tweet, onLikeClick, onReplyClick }) {
         likeCount={likeCount}
         onReplyClick={onReplyClick}
         onLikeClick={onLikeClick}
-        isLike={isLiked}
+        isLiked={isLiked}
         id={tweetId}
       />
     </li>

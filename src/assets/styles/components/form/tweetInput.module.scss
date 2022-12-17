@@ -1,0 +1,51 @@
+@use '../../abstracts/index' as *;
+/* text input div*/
+.input__wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  padding: 16px 16px 0px 24px;
+  position: relative;
+  width: 100%;
+
+  /* bottom border which input is invalid */
+  &[data-tooMany='true'] {
+    span[data-rolename='tooMany-msg'] {
+      display: inline;
+    }
+  }
+  &[data-zeroSize='true'] {
+    span[data-rolename='zeroSize-msg'] {
+      display: inline;
+    }
+  }
+  /* error message */
+  span {
+    @include font(0.9375rem, 500, 1, $clr-error);
+    position: absolute;
+    right: 84px;
+    bottom: 48px;
+    display: none;
+    translate: 0 calc(100% + 4px);
+  }
+}
+
+.introInput {
+  @include font(1rem, 400, 26px, $text-dark);
+  padding: 0 64px 0 10px;
+  width: 100%;
+  height: 136px;
+  resize: none;
+  border: 0;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  font-size: 1rem;
+  width: 64px;
+}

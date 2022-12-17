@@ -23,7 +23,7 @@ function SingleTweet({ tweet, onLikeClick }) {
       />
       <SingleTweetButtons
         className={styles.tweetButtons}
-        isLike={isLiked}
+        isLiked={isLiked}
         onReplyClick={() => ''}
         onLikeClick={onLikeClick}
         tweetId={id}

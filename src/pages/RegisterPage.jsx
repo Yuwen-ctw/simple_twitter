@@ -3,14 +3,19 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
-import { AuthContainer, AuthInputContainer } from '../components/form/Auth'
 import { Logo, PageTitle } from 'components/share'
-import { AuthInput } from 'components/form'
+import {
+  AuthContainer,
+  AccountInput,
+  NameInput,
+  EmailInput,
+  PasswordInput,
+} from 'components/form/AuthInput'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
 
 function RegisterPage() {
-  const { hasAuthToken, register } = useAuth()
+  const { isAuthenticated, register } = useAuth()
   const [account, setAccount] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -26,13 +31,20 @@ function RegisterPage() {
     if (password.length === 0) return
     if (checkPassword.length === 0) return
 
-    const { success, errorMessage } = await register({
+    const { success, message } = await register({
       account,
       name,
       email,
       password,
       checkPassword,
     })
+
+    if (success) {
+      navigate('/login')
+    } else {
+      console.log(`註冊失敗: ${message}`)
+    }
+
     // pop modal
     if (success) {
       Swal.fire({
@@ -43,25 +55,24 @@ function RegisterPage() {
         icon: 'success',
         showConfirmButton: false,
       })
-      navigate('/login')
-    } else {
-      console.log(`註冊失敗: ${errorMessage}`)
-      Swal.fire({
-        position: 'top',
-        title: `註冊失敗！
-        ${errorMessage}`,
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      })
+      return
     }
+
+    Swal.fire({
+      position: 'top',
+      title: `註冊失敗！
+        ${message}`,
+      timer: 1000,
+      icon: 'error',
+      showConfirmButton: false,
+    })
   }
 
   useEffect(() => {
-    if (hasAuthToken) {
+    if (isAuthenticated) {
       navigate('/')
     }
-  }, [navigate, hasAuthToken])
+  }, [navigate, isAuthenticated])
 
   return (
     <>
@@ -69,51 +80,40 @@ function RegisterPage() {
         <Logo />
         <PageTitle>建立您的帳號</PageTitle>
 
-        <AuthInputContainer>
-          <AuthInput
-            label="帳號"
-            placeholder="請輸入帳號"
-            value={account}
-            onChange={(value) => setAccount(value)}
-          />
-        </AuthInputContainer>
+        <AccountInput
+          placeholder="請輸入帳號"
+          value={account}
+          onChange={(inputValues) => setAccount(inputValues)}
+        />
 
-        <AuthInputContainer>
-          <AuthInput
-            label="名稱"
-            placeholder="請輸入使用者名稱"
-            value={name}
-            onChange={(value) => setName(value)}
-          />
-        </AuthInputContainer>
+        <NameInput
+          placeholder="請輸入使用者名稱"
+          value={name}
+          onChange={(inputValues) => setName(inputValues)}
+        />
 
-        <AuthInputContainer>
-          <AuthInput
-            label="Email"
-            placeholder="請輸入 email"
-            value={email}
-            onChange={(value) => setEmail(value)}
-          />
-        </AuthInputContainer>
+        <EmailInput
+          label="Email"
+          placeholder="請輸入 email"
+          value={email}
+          onChange={(inputValues) => setEmail(inputValues)}
+        />
 
-        <AuthInputContainer>
-          <AuthInput
-            type="password"
-            label="密碼"
-            placeholder="請輸入密碼"
-            value={password}
-            onChange={(value) => setPassword(value)}
-          />
-        </AuthInputContainer>
+        <PasswordInput
+          label="密碼"
+          type="password"
+          placeholder="請輸入密碼"
+          value={password}
+          onChange={(inputValues) => setPassword(inputValues)}
+        />
 
-        <AuthInputContainer>
-          <AuthInput
-            label="確認密碼"
-            placeholder="請再次輸入密碼"
-            value={checkPassword}
-            onChange={(value) => setcheckPassword(value)}
-          />
-        </AuthInputContainer>
+        <PasswordInput
+          type="password"
+          placeholder="請再次輸入密碼"
+          value={checkPassword}
+          onChange={(inputValue) => setcheckPassword(inputValue)}
+        />
+
         <ClrButton text="註冊" onClick={handleClick} />
         <BaseLink text="取消" to="/login" />
       </AuthContainer>

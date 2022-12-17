@@ -1,3 +1,2 @@
-import AuthInput from './AuthInput'
-
-export { AuthInput }
+import TweetInput from './TweetInput'
+export { TweetInput }
