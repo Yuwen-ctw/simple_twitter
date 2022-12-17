@@ -1,0 +1,9 @@
+.replyWrapper {
+  [data-rolename='tweetInput'] {
+    height: 243px;
+    padding-right: 60px;
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+}

@@ -1,15 +1,12 @@
 import { useState } from 'react'
 import { BaseButton } from 'components/UI/Buttons'
 import { FollowingCheckbox } from 'components/share'
-import { defaultCover } from 'assets/images'
 import styles from 'assets/styles/components/userCards/profileUserCard.module.scss'
 
 const ProfileBackground = ({ src }) => (
-  <img
-    className={styles.background}
-    src={src ? src : defaultCover}
-    alt="profile background"
-  />
+  <div className={styles.background}>
+    <img src={src} alt="profile background" />
+  </div>
 )
 
 const ProfileNameText = ({ name }) => <p className={styles.name}>{name}</p>

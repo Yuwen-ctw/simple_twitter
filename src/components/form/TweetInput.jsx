@@ -3,14 +3,21 @@ import { UserAvatar } from 'components/share'
 import { ClrButton } from 'components/UI/Buttons'
 import styles from 'assets/styles/components/form/tweetInput.module.scss'
 const TweetInput = forwardRef((props, ref) => {
-  const { value, onChange, src, onClick } = props
+  const {
+    value,
+    onChange,
+    src,
+    onClick,
+    placeholder = '有什麼新鮮事？',
+    className,
+  } = props
   return (
-    <div className={styles.input__wrapper} ref={ref}>
+    <div className={[styles.input__wrapper, className].join(' ')} ref={ref}>
       <UserAvatar src={src} />
       <textarea
         data-rolename="tweetInput"
-        placeholder="有甚麼新鮮事？"
-        className={styles.introInput}
+        placeholder={placeholder}
+        className={[styles.introInput]}
         id="profile-intro-input"
         value={value}
         onChange={(e) => onChange(e.target.value)}

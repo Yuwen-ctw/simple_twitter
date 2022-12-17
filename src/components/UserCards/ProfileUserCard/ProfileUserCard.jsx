@@ -13,8 +13,6 @@ import { useNavigate } from 'react-router-dom'
 
 function ProfileUserCard({ user, onClickEdit }) {
   const navigate = useNavigate()
-  //TODO get current user info
-  user.self = true
   const [followings, setFollowings] = useState(db.loginUser.Followings)
   user.isFollowing = followings.includes(user.id)
 
@@ -51,12 +49,12 @@ function ProfileUserCard({ user, onClickEdit }) {
       <SubText text={`@${user.account}`} />
       <IntroText text={user.introduction} />
       <UserFollowInfo
-        followingCount={user.Followings?.length}
-        followerCount={user.Followers?.length}
+        followingCount={user.followingCount}
+        followerCount={user.follwerCount}
         userId={user.id}
         onClick={handleFollowInfoClick}
       />
-      <div>
+      <div className={styles.switcherWrapper}>
         <SwitchLink text="推文" to={`/user/${user.id}/tweets`} />
         <SwitchLink text="回覆" to={`/user/${user.id}/replies`} />
         <SwitchLink text="喜歡的內容" to={`/user/${user.id}/likes`} />

@@ -1,45 +1,68 @@
+// hooks and context
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+// components
 import { SingleTweet } from 'components/Tweets'
-import { SectionTitle, Spinner } from 'components/share'
+import { getAllReplies, getTweet, likeTweet, dislikeTweet } from 'api/tweets'
 import Reply from 'components/Reply'
+import { SectionTitle, Spinner } from 'components/share'
+// assests
 import { backImage } from 'assets/images'
 import styles from 'assets/styles/pages/tweetSection.module.scss'
-import db from 'db.json'
-import { getTweet } from 'api/tweets'
-import { useMainTweets } from 'contexts/MainTweetsContext'
+
 function TweetSection() {
-  const navigate = useNavigate()
-  const { tweetId } = useParams()
-  const [replys, setReplys] = useState([])
+  const [replies, setReplies] = useState([])
   const [tweet, setTweet] = useState({})
   const [loading, setLoading] = useState(false)
-  const { handleLikeClick } = useMainTweets()
+  const { tweetId } = useParams()
+  const navigate = useNavigate()
 
-  // TODO get tweet and replys data here
   useEffect(() => {
+    // show loading spinner
     setLoading(true)
-    async function getData() {
-      const { success, data, message } = await getTweet(tweetId)
-      if (success) {
+
+    async function getTweetAndReplies() {
+      const tweetPromise = getTweet(tweetId)
+      const repliesPromise = getAllReplies(tweetId)
+      const [tweetResult, repliesResult] = await Promise.all([
+        tweetPromise,
+        repliesPromise,
+      ])
+
+      if (tweetResult.success && repliesResult.success) {
         // cancle the spinner
         setLoading(false)
         // update data
-        setTweet(data)
+        setTweet(tweetResult.data)
+        setReplies(repliesResult.data)
       } else {
-        // handle error
-        console.error(message)
+        const errMsg = tweetResult.message || repliesResult.message
+        console.error(errMsg)
       }
     }
-    getData()
-    setReplys(db.replys)
+    getTweetAndReplies()
   }, [])
+
+  async function handleLikeClick(tweetId, isLiked) {
+    const { success, message } = isLiked
+      ? await dislikeTweet(tweetId)
+      : await likeTweet(tweetId)
+    if (success) {
+      setTweet({
+        ...tweet,
+        isLiked: !tweet.isLiked,
+        likeCount: isLiked ? tweet.likeCount - 1 : tweet.likeCount + 1,
+      })
+    } else {
+      console.error(message)
+    }
+  }
 
   function handleHeaderClick() {
     navigate(-1)
   }
 
-  const replyList = replys.map((reply) => (
+  const replyList = replies.map((reply) => (
     <Reply key={reply.id} reply={reply} />
   ))
 

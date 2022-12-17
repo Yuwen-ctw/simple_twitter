@@ -15,7 +15,7 @@ function SectionHeader({ user }) {
       <img src={backImage} alt="A left direction arrow" />
       <div>
         <p>{user?.name}</p>
-        <span>{user?.tweetAmount} 推文</span>
+        <span>{user?.tweetCount} 推文</span>
       </div>
     </div>
   )

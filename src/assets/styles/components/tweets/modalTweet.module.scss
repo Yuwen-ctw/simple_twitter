@@ -1,0 +1,56 @@
+@use '../../abstracts/index' as *;
+
+.layout {
+  position: relative;
+  padding: 16px 24px;
+  display: grid;
+  column-gap: 8px;
+  grid-template-columns: 50px auto 1fr;
+  grid-template-areas:
+    'img name account'
+    'line content content'
+    'line target target';
+  * {
+    place-self: center start;
+  }
+
+  /* connect line */
+  & > div:first-child {
+    margin-top: 16px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    grid-area: line;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0px;
+      translate: -50% 0;
+      width: 2px;
+      height: 100%;
+      background: #b5b5be;
+    }
+  }
+
+  [data-rolename='avatarWrapper'] {
+    grid-area: img;
+    cursor: default;
+  }
+
+  [data-rolename='name'] {
+    grid-area: name;
+  }
+
+  [data-rolename='account'] {
+    grid-area: account;
+  }
+
+  [data-rolename='content'] {
+    grid-area: content;
+  }
+
+  :last-child {
+    grid-area: target;
+  }
+}

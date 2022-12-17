@@ -1,8 +1,9 @@
 function formatRelativeTime(dateString) {
+  if (!dateString) return
   const past = new Date(dateString).getTime()
   const now = new Date().getTime()
   const relative = now - past
-  // return without handle if invalid
+  // return ,if invalid
   if (isNaN(past)) {
     console.log(`無法處理的時間格式: ${dateString}`)
     return dateString
