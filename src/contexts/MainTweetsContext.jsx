@@ -12,15 +12,16 @@ const defaultContextValue = {
   modalTweetInputRef: null,
 }
 const MainTweetsContext = createContext(defaultContextValue)
+
 export const useMainTweets = () => useContext(MainTweetsContext)
 
 export function MainTweetsContextProvider({ children }) {
+  const { currentUser } = useAuth()
   const [tweetInput, setTweetInput] = useState('')
-  const mainTweetInputRef = useRef(null)
-  const modalTweetInputRef = useRef(null)
   const [tweets, setTweets] = useState([])
   const [loading, setLoading] = useState(false)
-  const { currentUser } = useAuth()
+  const mainTweetInputRef = useRef(null)
+  const modalTweetInputRef = useRef(null)
 
   useEffect(() => {
     setLoading(true)
@@ -58,21 +59,28 @@ export function MainTweetsContextProvider({ children }) {
     if (tweetInput.trim().length === 0) {
       mainTweetInputRef.current?.setAttribute('data-zeroSize', 'true')
       modalTweetInputRef.current?.setAttribute('data-zeroSize', 'true')
-      return
+      return { isCreated: false }
     }
+    if (tweetInput.trim().length > 140) return
+
+    // send api
     setLoading(true)
     const { success, tweet, message } = await addTweet(tweetInput)
     if (success) {
       // update data
       tweet.User = currentUser
       setLoading(false)
+      setTweetInput('')
       setTweets([tweet, ...tweets])
+      return { isCreated: true }
     } else {
       // handle error
       setLoading(false)
       console.error(message)
+      return { isCreated: false }
     }
   }
+
   async function handleLikeClick(likeId, isLiked) {
     // send api
     const { success, message } = isLiked

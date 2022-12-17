@@ -35,7 +35,7 @@ export async function getTweet(tweetId) {
     const { data } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${tweetId}`
     )
-    return data
+    return { success: true, data }
   } catch (err) {
     return {
       success: false,

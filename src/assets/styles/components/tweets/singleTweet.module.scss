@@ -27,6 +27,8 @@
 .contentText {
   @include font(1.5rem, 400, 1.5, $text-dark);
   grid-area: text;
+  word-break: break-all;
+  white-space: break-spaces;
 }
 
 .timeText {

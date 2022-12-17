@@ -6,25 +6,26 @@ import Reply from 'components/Reply'
 import { backImage } from 'assets/images'
 import styles from 'assets/styles/pages/tweetSection.module.scss'
 import db from 'db.json'
-import { getTweet, likeTweet, dislikeTweet } from 'api/tweets'
-
+import { getTweet } from 'api/tweets'
+import { useMainTweets } from 'contexts/MainTweetsContext'
 function TweetSection() {
   const navigate = useNavigate()
   const { tweetId } = useParams()
   const [replys, setReplys] = useState([])
   const [tweet, setTweet] = useState({})
   const [loading, setLoading] = useState(false)
+  const { handleLikeClick } = useMainTweets()
 
   // TODO get tweet and replys data here
   useEffect(() => {
     setLoading(true)
     async function getData() {
-      const { success, tweet, message } = await getTweet(tweetId)
+      const { success, data, message } = await getTweet(tweetId)
       if (success) {
         // cancle the spinner
         setLoading(false)
         // update data
-        setTweet(tweet)
+        setTweet(data)
       } else {
         // handle error
         console.error(message)
@@ -36,21 +37,6 @@ function TweetSection() {
 
   function handleHeaderClick() {
     navigate(-1)
-  }
-  async function handleLikeClick(likeId, isLiked) {
-    console.log(likeId)
-    // send api
-    const { success, message } = isLiked
-      ? await dislikeTweet(likeId)
-      : await likeTweet(likeId)
-    // update tweets if success
-    if (success) {
-      setTweet({ ...tweet, isLiked: !tweet.isLiked })
-    }
-    // handle failed
-    else {
-      console.error(message)
-    }
   }
 
   const replyList = replys.map((reply) => (

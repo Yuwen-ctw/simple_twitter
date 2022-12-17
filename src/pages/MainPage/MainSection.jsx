@@ -10,7 +10,7 @@ function MainSection() {
   const { handleUserOrTweetClick } = useOutletContext()
   const { currentUser } = useAuth()
   const {
-    inputValue,
+    tweetInput,
     handleInputChange,
     handleAddTweet,
     mainTweetInputRef,
@@ -18,7 +18,6 @@ function MainSection() {
     tweets,
     handleLikeClick,
   } = useMainTweets()
-
   // map data
   const tweetList = tweets.map((tweet) => {
     return (
@@ -37,7 +36,7 @@ function MainSection() {
       <TweetInput
         ref={mainTweetInputRef}
         src={currentUser?.avatar}
-        value={inputValue}
+        value={tweetInput}
         onChange={handleInputChange}
         onClick={handleAddTweet}
       />
