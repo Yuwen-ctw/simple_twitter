@@ -1,19 +1,29 @@
-// import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import Reply from 'components/Reply'
-import db from 'db.json'
 import { useOutletContext } from 'react-router-dom'
+import { getAllReplies } from 'api/tweets'
+import Reply from 'components/Reply'
 
 function UserRepliesSection() {
   const { handleUserOrTweetClick } = useOutletContext()
-  // const { userId } = useParams()
-  // TODO get Data and likeList...  same as MainSection
-  const [data, setData] = useState([])
+  const [replies, setReplies] = useState([])
+  const { userId } = useParams()
+  // TODO you need change 1924 to userId
   useEffect(() => {
-    setData(db.replys)
-  }, [])
+    async function getReplies() {
+      const { success, data, message } = await getAllReplies(1924)
+      if (success) {
+        setReplies(data)
+      } else {
+        console.error(message)
+      }
+    }
+    getReplies()
+  })
 
-  const dataList = data.map((reply) => <Reply key={reply.id} reply={reply} />)
+  const dataList = replies.map((reply) => (
+    <Reply key={reply.id} reply={reply} />
+  ))
 
   return <ul onClick={handleUserOrTweetClick}>{dataList}</ul>
 }

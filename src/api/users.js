@@ -20,15 +20,9 @@ axiosInstance.interceptors.request.use(
 
 export async function getUser(userId) {
   try {
-    const { data: resData } = await axiosInstance.get(
-      `${baseUrl}/${basePath}/${userId}`
-    )
-
-    const { success, data, message } = resData
-    if (success === true || success === 'true') {
-      return { success, data }
-    }
-    return { success: false, message }
+    const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/${userId}`)
+    if (data.success === false) return { ...data }
+    return { success: true, data }
   } catch (err) {
     return {
       success: false,
@@ -39,14 +33,11 @@ export async function getUser(userId) {
 
 export async function EditUser(userData) {
   try {
-    const { data: resData } = await axiosInstance.put(
+    const { data } = await axiosInstance.put(
       `${baseUrl}/${basePath}/${userData.id}`
     )
-    const { success, data, message } = resData
-    if (success === true || success === 'true') {
-      return { success, data }
-    }
-    return { success: false, message }
+    if (data.success === false) return { ...data }
+    return { success: true, data }
   } catch (err) {
     return {
       success: false,

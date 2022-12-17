@@ -24,6 +24,7 @@ export function MainTweetsContextProvider({ children }) {
   const modalTweetInputRef = useRef(null)
 
   useEffect(() => {
+    console.log('MTContext')
     setLoading(true)
     async function getData() {
       const { success, data, message } = await getAllTweets()
@@ -69,9 +70,14 @@ export function MainTweetsContextProvider({ children }) {
     if (success) {
       // update data
       tweet.User = currentUser
-      setLoading(false)
+      tweet.likeCount = 0
+      tweet.replyCount = 0
       setTweetInput('')
-      setTweets([tweet, ...tweets])
+      setTimeout(() => {
+        setTweets([tweet, ...tweets])
+        setLoading(false)
+      }, 1000)
+
       return { isCreated: true }
     } else {
       // handle error
@@ -81,16 +87,16 @@ export function MainTweetsContextProvider({ children }) {
     }
   }
 
-  async function handleLikeClick(likeId, isLiked) {
+  async function handleLikeTweet(tweetId, isLiked) {
     // send api
     const { success, message } = isLiked
-      ? await dislikeTweet(likeId)
-      : await likeTweet(likeId)
+      ? await dislikeTweet(tweetId)
+      : await likeTweet(tweetId)
     // update tweets if success
     if (success) {
       setTweets((draft) =>
         draft.map((tweet) => {
-          if (tweet.id === likeId)
+          if (tweet.id === tweetId)
             return {
               ...tweet,
               isLiked: !tweet.isLiked,
@@ -113,7 +119,7 @@ export function MainTweetsContextProvider({ children }) {
         tweetInput,
         handleInputChange,
         handleAddTweet,
-        handleLikeClick,
+        handleLikeTweet,
         mainTweetInputRef,
         modalTweetInputRef,
       }}

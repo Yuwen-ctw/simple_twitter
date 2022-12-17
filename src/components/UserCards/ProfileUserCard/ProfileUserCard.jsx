@@ -13,8 +13,6 @@ import { useNavigate } from 'react-router-dom'
 
 function ProfileUserCard({ user, onClickEdit }) {
   const navigate = useNavigate()
-  //TODO get current user info
-  user.self = true
   const [followings, setFollowings] = useState(db.loginUser.Followings)
   user.isFollowing = followings.includes(user.id)
 
@@ -51,8 +49,8 @@ function ProfileUserCard({ user, onClickEdit }) {
       <SubText text={`@${user.account}`} />
       <IntroText text={user.introduction} />
       <UserFollowInfo
-        followingCount={user.Followings?.length}
-        followerCount={user.Followers?.length}
+        followingCount={user.followingCount}
+        followerCount={user.follwerCount}
         userId={user.id}
         onClick={handleFollowInfoClick}
       />

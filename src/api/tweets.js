@@ -21,6 +21,8 @@ axiosInstance.interceptors.request.use(
 export async function getAllTweets() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}`)
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
     return { success: true, data }
   } catch (err) {
     return {
@@ -35,6 +37,8 @@ export async function getTweet(tweetId) {
     const { data } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${tweetId}`
     )
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
     return { success: true, data }
   } catch (err) {
     return {
@@ -82,6 +86,36 @@ export async function dislikeTweet(tweetId) {
     return {
       success: false,
       message: `[Dislike tweet failed]: ${err}`,
+    }
+  }
+}
+
+export async function getAllReplies(tweetId) {
+  try {
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${tweetId}/replies`
+    )
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get Replies failed]: ${err}`,
+    }
+  }
+}
+
+export async function addReply(tweetId) {
+  try {
+    const { data } = await axiosInstance.post(
+      `${baseUrl}/${basePath}/${tweetId}/replies`
+    )
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get Replies failed]: ${err}`,
     }
   }
 }

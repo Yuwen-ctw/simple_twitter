@@ -6,15 +6,20 @@ import {
   UserNameText,
 } from './share'
 import styles from 'assets/styles/components/reply.module.scss'
+import formatRelativeTime from 'uitlities/formatRelativeTime'
 
 function Reply({ reply }) {
   return (
-    <li className={styles.layout} data-userid={reply.userId} data-click>
-      <UserAvatar src={reply.avatar} />
-      <UserNameText name={reply.name} />
-      <SubText text={`@${reply.account}．${reply.time}`} />
-      <ReplyTargetText name={reply.target} />
-      <ContentText text={reply.content} />
+    <li className={styles.layout} data-userid={reply.UserId} data-click>
+      <UserAvatar src={reply?.User?.avatar} />
+      <UserNameText name={reply?.User?.name} />
+      <SubText
+        text={`@${reply?.User?.account}．${formatRelativeTime(
+          reply?.createdAt
+        )}`}
+      />
+      <ReplyTargetText name={reply?.Tweet?.User?.account} />
+      <ContentText text={reply?.comment} />
     </li>
   )
 }

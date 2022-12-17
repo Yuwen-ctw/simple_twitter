@@ -16,7 +16,7 @@ function MainSection() {
     mainTweetInputRef,
     loading,
     tweets,
-    handleLikeClick,
+    handleLikeTweet,
   } = useMainTweets()
   // map data
   const tweetList = tweets.map((tweet) => {
@@ -24,7 +24,7 @@ function MainSection() {
       <MainTweet
         key={tweet.id}
         tweet={tweet}
-        onLikeClick={handleLikeClick}
+        onLikeClick={handleLikeTweet}
         onReplyClick={() => ''}
       />
     )

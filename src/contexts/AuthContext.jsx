@@ -24,8 +24,10 @@ function AuthContextProvider({ children }) {
     user: 'user',
     admin: 'admin',
   }
+
   // check authToken when route switched
   useEffect(() => {
+    console.log({ isAuthenticated })
     async function checkPermission() {
       // get token
       const authToken = localStorage.getItem('authToken')
@@ -36,7 +38,11 @@ function AuthContextProvider({ children }) {
       }
       // decode token, and get currentUser data
       const temPayload = jwt.decode(authToken)
-      if (!temPayload) return
+      if (!temPayload) {
+        setIsAuthenticated(false)
+        setPayload(null)
+        return
+      }
       const { success, data, message } = await getUser(temPayload.id)
       if (success) {
         setIsAuthenticated(true)
