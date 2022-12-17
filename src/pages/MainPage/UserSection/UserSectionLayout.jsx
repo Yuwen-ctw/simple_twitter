@@ -18,7 +18,6 @@ function UserSectionLayout() {
       const { success, data, message } = await getUser(userId)
       if (success) {
         if (currentUser.id.toString() === userId) data.self = true
-        console.log(data)
         setUser(data)
       } else {
         console.error(message)

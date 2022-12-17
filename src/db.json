@@ -60,23 +60,18 @@
     }
   },
   "tweet1": {
-    "success": true,
-    "data": {
-      "tweet": {
-        "id": 55,
-        "description": "Good!",
-        "replyCount": 2,
-        "likeCount": 3,
-        "createdAt": "2022-12-12T13:04:55.000Z",
-        "User": {
-          "id": 2,
-          "name": "Red",
-          "account": "redddd1",
-          "avatar": ""
-        },
-        "isLiked": true
-      }
-    }
+    "id": 55,
+    "description": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusantium debitis assumenda nobis voluptatum velit quidem ducimus nihil pariatu.",
+    "replyCount": 2,
+    "likeCount": 3,
+    "createdAt": "2022-12-12T13:04:55.000Z",
+    "User": {
+      "id": 2,
+      "name": "Red",
+      "account": "redddd1",
+      "avatar": ""
+    },
+    "isLiked": true
   },
   "tweet2": {
     "status": "error",

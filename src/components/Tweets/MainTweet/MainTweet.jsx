@@ -34,7 +34,7 @@ function MainTweet({ tweet, onLikeClick, onReplyClick }) {
         className={styles.tweetInfo}
         replyCount={replyCount}
         likeCount={likeCount}
-        onReplyClick={onReplyClick}
+        onReplyClick={() => onReplyClick(tweet)}
         onLikeClick={onLikeClick}
         isLiked={isLiked}
         id={tweetId}

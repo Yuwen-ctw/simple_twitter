@@ -28,7 +28,7 @@ function TweetSection() {
         tweetPromise,
         repliesPromise,
       ])
-      console.log(tweetResult, repliesResult)
+
       if (tweetResult.success && repliesResult.success) {
         // cancle the spinner
         setLoading(false)

@@ -9,6 +9,7 @@ function TweetModal({ active, onClose }) {
     useMainTweets()
   const { currentUser } = useAuth()
   const navigate = useNavigate()
+
   async function handleClickAddTweet() {
     const { isCreated } = await handleAddTweet()
     if (isCreated) onClose()

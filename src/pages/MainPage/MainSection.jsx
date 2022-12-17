@@ -5,9 +5,11 @@ import { useOutletContext } from 'react-router-dom'
 import { TweetInput } from 'components/form'
 import { useAuth } from 'contexts/AuthContext'
 import { useMainTweets } from 'contexts/MainTweetsContext'
+import { useReply } from 'contexts/ReplyContext'
 
 function MainSection() {
   const { handleUserOrTweetClick } = useOutletContext()
+  const { handleOpenModal } = useReply()
   const { currentUser } = useAuth()
   const {
     tweetInput,
@@ -19,13 +21,14 @@ function MainSection() {
     handleLikeTweet,
   } = useMainTweets()
   // map data
+
   const tweetList = tweets.map((tweet) => {
     return (
       <MainTweet
         key={tweet.id}
         tweet={tweet}
         onLikeClick={handleLikeTweet}
-        onReplyClick={() => ''}
+        onReplyClick={handleOpenModal}
       />
     )
   })

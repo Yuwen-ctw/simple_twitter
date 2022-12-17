@@ -1,3 +1,4 @@
 import EditProfileModal from './EditProfileModal/EditProfileModal'
 import TweetModal from './TweetModal'
-export { EditProfileModal, TweetModal }
+import ReplyModal from './EditProfileModal/ReplyModal'
+export { EditProfileModal, TweetModal, ReplyModal }
