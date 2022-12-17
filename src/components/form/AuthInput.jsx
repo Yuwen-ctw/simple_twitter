@@ -8,7 +8,7 @@ const AuthContainer = ({ children }) => (
 )
 
 const AccountInput = forwardRef((props, ref) => {
-  const { value, placeholder, onChange, errorMessage } = props
+  const { value, placeholder, onChange, showErr } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
       <label htmlFor="profile-account-input">帳號</label>
@@ -21,7 +21,7 @@ const AccountInput = forwardRef((props, ref) => {
         max={10}
       />
       <div className={styles.underline}></div>
-      <span className={styles.error}>{errorMessage}</span>
+      <span className={styles.error}>{showErr ? '帳號不存在' : ''}</span>
       <span className={styles.maxLen}>{value?.length}/10</span>
     </div>
   )
@@ -77,6 +77,7 @@ const PasswordInput = forwardRef((props, ref) => {
         placeholder={placeholder}
         type={type || 'text'}
         onChange={(e) => onChange(e.target.value)}
+        autoComplete="off"
       />
       <div className={styles.underline}></div>
       <span className={styles.error}>{errorMessage}</span>

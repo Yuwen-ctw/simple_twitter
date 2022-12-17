@@ -1,39 +1,62 @@
+// hooks & context
+import { useState, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuth } from 'contexts/AuthContext'
+// components
 import {
   AuthContainer,
   AccountInput,
   PasswordInput,
 } from 'components/form/AuthInput'
 import { Logo, PageTitle } from 'components/share'
-import { useState } from 'react'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
-import { login } from '../api/auth'
-import { useNavigate } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 function AdminLoginPage() {
+  const { isAuthenticated, login, role } = useAuth()
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
-
+  const [showErr, setShowErr] = useState(false)
   const navigate = useNavigate()
+
   const handleClick = async () => {
+    event.preventDefault()
     if (account.length === 0 || password.length === 0) return
     // get data
-    const {
-      success,
-      token: Authtoken,
-      user,
-      errorMessage,
-    } = await login({
+    const { success, message } = await login({
+      role: role.admin,
       account,
       password,
     })
-    // store token if success, then redirect to '/'
+
+    // pop modal
     if (success) {
-      localStorage.setItem('authToken', Authtoken)
-      navigate('admin/*')
+      Swal.fire({
+        position: 'top',
+        title: `登入成功！`,
+        timer: 800,
+        icon: 'success',
+        showConfirmButton: false,
+      })
+      navigate('/admin/tweets')
     } else {
-      console.log(`登入失敗: ${errorMessage}`)
+      setShowErr(true)
+      console.error(message)
+      Swal.fire({
+        position: 'top',
+        title: `登入失敗！
+        ${message}`,
+        timer: 1000,
+        icon: 'error',
+        showConfirmButton: false,
+      })
     }
   }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/admin')
+    }
+  }, [navigate, isAuthenticated])
 
   return (
     <>
@@ -44,7 +67,11 @@ function AdminLoginPage() {
         <AccountInput
           placeholder="請輸入帳號"
           value={account}
-          onChange={(inputValues) => setAccount(inputValues)}
+          showErr={showErr}
+          onChange={(inputValues) => {
+            setShowErr(false)
+            setAccount(inputValues)
+          }}
         />
 
         <PasswordInput

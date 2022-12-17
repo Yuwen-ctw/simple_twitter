@@ -1,4 +1,4 @@
-import { login as loginAsync, register } from 'api/auth'
+import { userLogin, adminLogin, register } from 'api/auth'
 import { getUser } from 'api/users'
 import * as jwt from 'jsonwebtoken'
 import { useEffect, useState, createContext, useContext } from 'react'
@@ -10,6 +10,7 @@ const defaultAuthContext = {
   register: null,
   login: null,
   logout: null,
+  role: null,
 }
 const AuthContext = createContext(defaultAuthContext)
 const useAuth = () => useContext(AuthContext)
@@ -19,6 +20,10 @@ function AuthContextProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(null)
   const [payload, setPayload] = useState(null)
   const { pathname } = useLocation()
+  const role = {
+    user: 'user',
+    admin: 'admin',
+  }
   // check authToken when route switched
   useEffect(() => {
     async function checkPermission() {
@@ -53,12 +58,12 @@ function AuthContextProvider({ children }) {
   }
 
   async function login(data) {
-    const { success, token, user, errorMessage } = await loginAsync({
+    const loginFunc = data.role === role.admin ? adminLogin : userLogin
+    const { success, token, user, message } = await loginFunc({
       account: data.account,
       password: data.password,
     })
     if (success) {
-      // const temPayload = jwt.decode(token)
       setIsAuthenticated(true)
       setPayload(user)
       localStorage.setItem('authToken', token)
@@ -66,16 +71,17 @@ function AuthContextProvider({ children }) {
       setIsAuthenticated(false)
       setPayload(null)
     }
-    return { success, errorMessage }
+    return { success, message }
   }
   return (
     <AuthContext.Provider
       value={{
         isAuthenticated,
         currentUser: payload,
-        register: register,
-        login: login,
-        logout: logout,
+        register,
+        login,
+        logout,
+        role,
       }}
     >
       {children}

@@ -2,7 +2,8 @@
 
 .AuthContainer {
   position: relative;
-  margin: 69px auto 0;
+  padding-top: 69px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,7 +60,7 @@
     }
 
     &.error {
-      display: none;
+      // display: none;
       left: 0px;
       @include font(0.75rem, 500, 1.67, $clr-error);
     }

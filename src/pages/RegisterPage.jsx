@@ -31,7 +31,7 @@ function RegisterPage() {
     if (password.length === 0) return
     if (checkPassword.length === 0) return
 
-    const { success, errorMessage } = await register({
+    const { success, message } = await register({
       account,
       name,
       email,
@@ -42,7 +42,7 @@ function RegisterPage() {
     if (success) {
       navigate('/login')
     } else {
-      console.log(`註冊失敗: ${errorMessage}`)
+      console.log(`註冊失敗: ${message}`)
     }
 
     // pop modal
@@ -61,7 +61,7 @@ function RegisterPage() {
     Swal.fire({
       position: 'top',
       title: `註冊失敗！
-        ${errorMessage}`,
+        ${message}`,
       timer: 1000,
       icon: 'error',
       showConfirmButton: false,
@@ -109,7 +109,6 @@ function RegisterPage() {
 
         <PasswordInput
           type="password"
-          label="確認密碼"
           placeholder="請再次輸入密碼"
           value={checkPassword}
           onChange={(inputValue) => setcheckPassword(inputValue)}
