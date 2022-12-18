@@ -4,30 +4,86 @@ import styles from 'assets/styles/pages/mainSection.module.scss'
 import { useOutletContext } from 'react-router-dom'
 import { TweetInput } from 'components/form'
 import { useAuth } from 'contexts/AuthContext'
-import { useMainTweets } from 'contexts/MainTweetsContext'
+import { useNewTweet } from 'contexts/NewTweetContext'
 import { useReply } from 'contexts/ReplyContext'
+import { useEffect, useState } from 'react'
+import { getAllTweets } from 'api/tweets'
 
 function MainSection() {
-  const { handleUserOrTweetClick } = useOutletContext()
-  const { handleOpenModal } = useReply()
+  const { handleUserOrTweetClick, showTweetModal } = useOutletContext()
   const { currentUser } = useAuth()
   const {
     tweetInput,
     handleInputChange,
     handleAddTweet,
     mainTweetInputRef,
-    loading,
-    tweets,
-    handleLikeTweet,
-  } = useMainTweets()
-  // map data
+    handleToggleLikeTweet,
+  } = useNewTweet()
+  const { handleOpenModal, isReplyCreated } = useReply()
+  const [tweets, setTweets] = useState([])
+  const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    // return if no newTweet add
+    if (showTweetModal) return
+    setLoading(true)
+    async function getData() {
+      const { success, data, message } = await getAllTweets()
+      if (success) {
+        // cancle the spinner
+        setLoading(false)
+        // update data
+        setTweets(data)
+      } else {
+        // handle error
+        console.error(message)
+      }
+    }
+    getData()
+    // refresh when add reply
+  }, [isReplyCreated, showTweetModal])
+
+  async function handleAddTweetClick() {
+    const { success, tweet, message } = await handleAddTweet()
+    if (success) {
+      setLoading(true)
+      setTimeout(() => {
+        setTweets([tweet, ...tweets])
+        setLoading(false)
+      }, 1000)
+    } else {
+      // handle error
+      setLoading(false)
+      console.error(message)
+    }
+  }
+
+  async function handleLikeClick(tweetId, isLiked) {
+    const { success, message } = await handleToggleLikeTweet(tweetId, isLiked)
+    if (success) {
+      setTweets((draft) =>
+        draft.map((tweet) => {
+          if (tweet.id === tweetId)
+            return {
+              ...tweet,
+              isLiked: !tweet.isLiked,
+              likeCount: isLiked ? tweet.likeCount - 1 : tweet.likeCount + 1,
+            }
+          return tweet
+        })
+      )
+      // handle failed
+    } else {
+      console.error(message)
+    }
+  }
+  // map data
   const tweetList = tweets.map((tweet) => {
     return (
       <MainTweet
         key={tweet.id}
         tweet={tweet}
-        onLikeClick={handleLikeTweet}
+        onLikeClick={handleLikeClick}
         onReplyClick={handleOpenModal}
       />
     )
@@ -41,7 +97,7 @@ function MainSection() {
         src={currentUser?.avatar}
         value={tweetInput}
         onChange={handleInputChange}
-        onClick={handleAddTweet}
+        onClick={handleAddTweetClick}
       />
       <hr />
       {loading && <Spinner />}

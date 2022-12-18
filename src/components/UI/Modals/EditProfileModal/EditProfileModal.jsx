@@ -12,19 +12,20 @@ import {
   ProfileAvatarInput,
 } from './base'
 import styles from 'assets/styles/components/modals/editProfileModal.module.scss'
-
-function EditProfileModal({ user, showModal, onClose }) {
+import { useAuth } from 'contexts/AuthContext'
+function EditProfileModal({ showModal, onSave, onClose }) {
+  const { currentUser } = useAuth()
   // store input values
   const [inputValues, setInputValues] = useState({
-    name: user?.name || '',
-    intro: user?.introduction || '',
-    cover: user?.cover,
-    avatar: user?.avatar,
+    name: currentUser?.name || '',
+    introduction: currentUser?.introduction || '',
+    cover: currentUser?.cover,
+    avatar: currentUser?.avatar,
   })
+
   // ref the text inputs
   const refNameInput = useRef(null)
   const refIntroInput = useRef(null)
-
   // handle image changed
   function handleImageChange(action, files) {
     const file = files[0]
@@ -50,7 +51,7 @@ function EditProfileModal({ user, showModal, onClose }) {
         refElement = refNameInput.current
         valid = payload?.length <= 50 ? 'false' : 'true'
         break
-      case 'intro':
+      case 'introduction':
         refElement = refIntroInput.current
         valid = payload?.length <= 160 ? 'false' : 'true'
         break
@@ -66,12 +67,9 @@ function EditProfileModal({ user, showModal, onClose }) {
 
   async function handleSave() {
     // TODO call api here
-    const abc = { success: true, data: '' }
-    // const { success, data, message } = EditUser(inputValues)
-    const { success, data, message } = abc
+    const { success, message } = await EditUser(currentUser.id, inputValues)
     if (success) {
-      console.log(inputValues)
-      onClose()
+      onSave(inputValues)
     } else {
       console.error(message)
     }
@@ -99,7 +97,7 @@ function EditProfileModal({ user, showModal, onClose }) {
           <IntroInput
             ref={refIntroInput}
             onChange={handleInputChange}
-            value={inputValues.intro}
+            value={inputValues.introduction}
           />
         </div>
         <ClrButton

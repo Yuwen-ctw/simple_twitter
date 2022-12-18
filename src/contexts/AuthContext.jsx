@@ -5,7 +5,7 @@ import { useEffect, useState, createContext, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 
 const defaultAuthContext = {
-  hasAuthToken: false,
+  isAuthenticated: false,
   currentUser: null,
   register: null,
   login: null,

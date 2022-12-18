@@ -2,7 +2,11 @@ import { PopularUserCard } from 'components/UserCards'
 import { SectionTitle } from 'components/share'
 import db from '../../../db.json'
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 function PopularUserList({ users, className, onClick }) {
+  const { state } = useLocation()
+  if (state === 'setting') return
+
   // TODO: get user's followingList(maybe from context), which is fake below
   const [followings, setFollowings] = useState(db.loginUser.Followings)
 
@@ -32,7 +36,7 @@ function PopularUserList({ users, className, onClick }) {
         key={user.id}
         popularUser={user}
         onChange={handleToggle}
-        isFollowing={isFollowing}
+        isFollowed={isFollowing}
       />
     )
   })

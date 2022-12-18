@@ -106,10 +106,12 @@ export async function getAllReplies(tweetId) {
   }
 }
 
-export async function addReply(tweetId) {
+export async function addReply(data) {
+  const { tweetId, comment } = data
   try {
     const { data } = await axiosInstance.post(
-      `${baseUrl}/${basePath}/${tweetId}/replies`
+      `${baseUrl}/${basePath}/${tweetId}/replies`,
+      { comment }
     )
     return { success: true, data }
   } catch (err) {

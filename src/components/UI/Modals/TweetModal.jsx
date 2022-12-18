@@ -1,18 +1,18 @@
 import Modal from './share/Modal'
 import { TweetInput } from 'components/form'
 import styles from 'assets/styles/components/modals/tweetModal.module.scss'
-import { useMainTweets } from 'contexts/MainTweetsContext'
+import { useNewTweet } from 'contexts/NewTweetContext'
 import { useAuth } from 'contexts/AuthContext'
 import { useNavigate } from 'react-router-dom'
 function TweetModal({ active, onClose }) {
   const { tweetInput, handleInputChange, handleAddTweet, modalTweetInputRef } =
-    useMainTweets()
+    useNewTweet()
   const { currentUser } = useAuth()
   const navigate = useNavigate()
 
   async function handleClickAddTweet() {
-    const { isCreated } = await handleAddTweet()
-    if (isCreated) onClose()
+    const { isTweetCreated } = await handleAddTweet()
+    if (isTweetCreated) onClose()
     navigate('/')
   }
 

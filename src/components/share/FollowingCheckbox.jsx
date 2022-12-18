@@ -1,14 +1,14 @@
 import styles from 'assets/styles/components/share/followingCheckbox.module.scss'
-const FollowingCheckbox = ({ userId, isFollowing, onChange, hide }) => {
+const FollowingCheckbox = ({ userId, isFollowed, onChange, hide }) => {
   if (hide) return
-  const text = isFollowing ? '正在跟隨' : '跟隨'
+  const text = isFollowed ? '正在跟隨' : '跟隨'
   return (
     <div className={styles.followingCheckbox}>
       <input
         type="checkbox"
         id={`ppl-${userId}`}
-        checked={isFollowing}
-        onChange={() => onChange(userId, isFollowing)}
+        checked={isFollowed}
+        onChange={() => onChange(userId, isFollowed)}
       />
       <label htmlFor={`ppl-${userId}`}>{text}</label>
     </div>

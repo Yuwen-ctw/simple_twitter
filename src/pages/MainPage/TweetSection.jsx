@@ -1,6 +1,7 @@
 // hooks and context
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useReply } from 'contexts/ReplyContext'
 // components
 import { SingleTweet } from 'components/Tweets'
 import { getAllReplies, getTweet, likeTweet, dislikeTweet } from 'api/tweets'
@@ -11,6 +12,7 @@ import { backImage } from 'assets/images'
 import styles from 'assets/styles/pages/tweetSection.module.scss'
 
 function TweetSection() {
+  const { handleOpenModal, isReplyCreated } = useReply()
   const [replies, setReplies] = useState([])
   const [tweet, setTweet] = useState({})
   const [loading, setLoading] = useState(false)
@@ -41,7 +43,7 @@ function TweetSection() {
       }
     }
     getTweetAndReplies()
-  }, [])
+  }, [isReplyCreated])
 
   async function handleLikeClick(tweetId, isLiked) {
     const { success, message } = isLiked
@@ -76,7 +78,11 @@ function TweetSection() {
         <Spinner />
       ) : (
         <>
-          <SingleTweet tweet={tweet} onLikeClick={handleLikeClick} />
+          <SingleTweet
+            tweet={tweet}
+            onLikeClick={handleLikeClick}
+            onReplyClick={handleOpenModal}
+          />
           <ul>{replyList}</ul>
         </>
       )}

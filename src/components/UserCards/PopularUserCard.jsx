@@ -1,7 +1,7 @@
 import { UserAvatar, UserNameText, FollowingCheckbox } from 'components/share'
 import styles from 'assets/styles/components/userCards/popularUserCard.module.scss'
 
-function PopularUserCard({ popularUser, onChange, isFollowing }) {
+function PopularUserCard({ popularUser, onChange, isFollowed }) {
   const { name, avatar, account, id, isLoginUser } = popularUser
 
   return (
@@ -11,7 +11,7 @@ function PopularUserCard({ popularUser, onChange, isFollowing }) {
       <span data-rolename="account">@{account}</span>
       <FollowingCheckbox
         userId={id}
-        isFollowing={isFollowing}
+        isFollowed={isFollowed}
         onChange={onChange}
         hide={isLoginUser}
       />

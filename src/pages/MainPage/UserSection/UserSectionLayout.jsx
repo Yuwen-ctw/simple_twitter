@@ -4,12 +4,12 @@ import { EditProfileModal } from 'components/UI/Modals'
 import SectionHeader from './SectionHeader'
 import styles from 'assets/styles/pages/userSection.module.scss'
 import { useEffect, useState } from 'react'
-import { getUser } from 'api/users'
+import { getUser, followUser, unfollowUser } from 'api/users'
 import { useAuth } from 'contexts/AuthContext'
 
 function UserSectionLayout() {
   const { currentUser } = useAuth()
-  const [showModal, setShowModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
   const [user, setUser] = useState({})
   const { userId } = useParams()
 
@@ -24,22 +24,40 @@ function UserSectionLayout() {
       }
     }
     getUserData()
-  }, [userId, showModal])
+  }, [userId])
 
   // show modal or not
-  function handleToggleModal() {
-    setShowModal(!showModal)
+  function handleToggleEditModal() {
+    setShowEditModal(!showEditModal)
+  }
+  function handleEditInfomation(data) {
+    setShowEditModal(!showEditModal)
+    setUser({ ...user, ...data })
+  }
+  async function handleToggleFollow(userId, isFollowed) {
+    const { success, message } = isFollowed
+      ? await unfollowUser(userId)
+      : await followUser(userId)
+    if (success) {
+      setUser({ ...user, isFollowed: !isFollowed })
+    } else {
+      console.error(message)
+    }
   }
 
   return (
     <section className={[styles.sectionWrapper, 'scrollbar'].join(' ')}>
       <SectionHeader user={user} />
-      <ProfileUserCard user={user} onClickEdit={handleToggleModal} />
+      <ProfileUserCard
+        user={user}
+        onClickEdit={handleToggleEditModal}
+        onToggleFollow={handleToggleFollow}
+      />
       <Outlet context={useOutletContext()} />
       <EditProfileModal
-        user={user}
-        showModal={showModal}
-        onClose={handleToggleModal}
+        showModal={showEditModal}
+        onSave={handleEditInfomation}
+        onClose={handleToggleEditModal}
       />
     </section>
   )
