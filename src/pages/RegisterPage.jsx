@@ -1,5 +1,5 @@
 // hooks & context
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
@@ -8,17 +8,31 @@ import { AuthContainer, AuthInput } from 'components/form/AuthInput'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
 
-function RegisterPage() {
+function RegisterPage({ user }) {
   const { isAuthenticated, register } = useAuth()
+
+  const [inputValues, setInputValues] = useState({
+    name: user.name,
+  })
+
   const [account, setAccount] = useState('')
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [checkPassword, setcheckPassword] = useState('')
-  const [showErr, setShowErr] = useState(false)
+  const [state, setState] = useState(true)
   const navigate = useNavigate()
 
-  const refnameInput = useRef(null)
+  const refNameInput = useRef(null)
+
+  function handleInputChange() {
+    let refElement = refNameInput.current
+    if (refElement.length >= 50) {
+      setState(true)
+    } else {
+      setInputValues(...inputValues)
+    }
+    // ...建立新物件
+  }
 
   const handleClick = async () => {
     event.preventDefault()
@@ -81,24 +95,22 @@ function RegisterPage() {
           label="帳號"
           placeholder="請輸入帳號"
           value={account}
-          onChange={(inputValues) => setAccount(inputValues)}
+          onChange={(accountInputValues) => setAccount(accountInputValues)}
         />
 
         <AuthInput
           label="名稱"
           placeholder="請輸入使用者名稱"
-          value={name}
-          onChange={(inputValues) => {
-            setShowError(false)
-            setName(inputValues)
-          }}
+          value={inputValues.name}
+          onChange={handleInputChange}
+          state={state}
         />
 
         <AuthInput
           label="Email"
           placeholder="請輸入 email"
           value={email}
-          onChange={(inputValues) => setEmail(inputValues)}
+          onChange={(emailInputValues) => setEmail(emailInputValues)}
         />
 
         <AuthInput
@@ -106,7 +118,7 @@ function RegisterPage() {
           type="password"
           placeholder="請輸入密碼"
           value={password}
-          onChange={(inputValues) => setPassword(inputValues)}
+          onChange={(passwordInputValues) => setPassword(passwordInputValues)}
         />
 
         <AuthInput
@@ -114,7 +126,9 @@ function RegisterPage() {
           type="password"
           placeholder="請再次輸入密碼"
           value={checkPassword}
-          onChange={(inputValue) => setcheckPassword(inputValue)}
+          onChange={(checkPassswordInputValue) =>
+            setcheckPassword(checkPassswordInputValue)
+          }
         />
 
         <ClrButton text="註冊" onClick={handleClick} />

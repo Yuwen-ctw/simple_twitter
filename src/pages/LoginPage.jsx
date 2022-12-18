@@ -8,7 +8,7 @@ import { Logo, PageTitle } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
 
-function LoginPage({ user }) {
+function LoginPage() {
   const { isAuthenticated, login, role } = useAuth()
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
