@@ -13,17 +13,17 @@ function ReplyModal() {
     showReplyModal,
     handleCloseModal,
   } = useReply()
-
+  const { isShow, tweet } = showReplyModal
   return (
-    <Modal active={showReplyModal.isShow} onClose={handleCloseModal}>
-      <ModalTweet tweet={showReplyModal.tweet} />
+    <Modal active={isShow} onClose={handleCloseModal}>
+      <ModalTweet tweet={tweet} />
       <div className={[styles.replyWrapper]}>
         <TweetInput
           ref={replyInputRef}
-          src={showReplyModal.tweet?.User?.avatar}
+          src={tweet?.User?.avatar}
           value={replyInputValue}
           onChange={handleReplyInputChange}
-          onClick={handleAddReply}
+          onClick={() => handleAddReply(tweet.id)}
           placeholder={'推你的回覆'}
         />
       </div>

@@ -6,7 +6,7 @@ import styles from 'assets/styles/pages/mainPage.module.scss'
 import db from '../../../db.json'
 import { useEffect, useState } from 'react'
 import { ReplyModal, TweetModal } from 'components/UI/Modals'
-import { MainTweetsContextProvider } from 'contexts/MainTweetsContext'
+import { NewTweetContextProvider } from 'contexts/NewTweetContext'
 import { ReplyContextProvider } from 'contexts/ReplyContext'
 
 function MainLayout() {
@@ -42,21 +42,21 @@ function MainLayout() {
 
   return (
     <div className={styles.layout}>
-      <MainTweetsContextProvider>
+      <NewTweetContextProvider>
         <ReplyContextProvider>
           <UserNavbar
             onLogout={logout}
             currentUserId={currentUser?.id}
             onModalButtonClick={handleToggleTweetModal}
           />
-          <Outlet context={{ handleUserOrTweetClick }} />
+          <Outlet context={{ handleUserOrTweetClick, showTweetModal }} />
           <TweetModal
             active={showTweetModal}
             onClose={handleToggleTweetModal}
           />
           <ReplyModal />
         </ReplyContextProvider>
-      </MainTweetsContextProvider>
+      </NewTweetContextProvider>
       {state !== 'setting' && (
         <PopularUserList
           users={db.popularUsers}

@@ -4,7 +4,7 @@ import SingleTweetButtons from './SingleTweetButtons'
 import styles from 'assets/styles/components/tweets/singleTweet.module.scss'
 import formatCreateTime from 'uitlities/formatCreateTime'
 
-function SingleTweet({ tweet, onLikeClick }) {
+function SingleTweet({ tweet, onLikeClick, onReplyClick }) {
   const { id, description, replyCount, likeCount, createdAt, User, isLiked } =
     tweet
   return (
@@ -24,7 +24,7 @@ function SingleTweet({ tweet, onLikeClick }) {
       <SingleTweetButtons
         className={styles.tweetButtons}
         isLiked={isLiked}
-        onReplyClick={() => ''}
+        onReplyClick={() => onReplyClick(tweet)}
         onLikeClick={onLikeClick}
         tweetId={id}
       />
