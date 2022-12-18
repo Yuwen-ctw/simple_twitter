@@ -20,7 +20,7 @@ function ModalTweet({ tweet }) {
         )}`}
       />
       <ContentText text={tweet?.description} />
-      <ReplyTargetText name={tweet?.User?.name} />
+      <ReplyTargetText name={tweet?.User?.name} preText="回覆給" />
     </div>
   )
 }
