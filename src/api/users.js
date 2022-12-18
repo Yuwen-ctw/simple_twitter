@@ -102,6 +102,37 @@ export async function getUserTweets(userId) {
     const { data } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${userId}/tweets`
     )
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Unfollow user failed]: ${err}`,
+    }
+  }
+}
+
+export async function getUserLikes(userId) {
+  try {
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${userId}/likes`
+    )
+    console.log(data)
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Unfollow user failed]: ${err}`,
+    }
+  }
+}
+
+export async function getUserReplies(userId) {
+  try {
+    const { data } = await axiosInstance.get(
+      `${baseUrl}/${basePath}/${userId}/replied_tweets`
+    )
     console.log(data)
     if (data.success === false) return { ...data }
     return { success: true, data }

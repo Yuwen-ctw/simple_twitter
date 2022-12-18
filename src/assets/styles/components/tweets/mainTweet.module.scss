@@ -31,14 +31,17 @@
   }
 
   [data-rolename='name'] {
+    cursor: pointer;
     grid-area: name;
   }
 
   [data-rolename='account'] {
+    cursor: pointer;
     grid-area: account;
   }
 
   [data-rolename='content'] {
+    cursor: pointer;
     grid-area: content;
   }
 

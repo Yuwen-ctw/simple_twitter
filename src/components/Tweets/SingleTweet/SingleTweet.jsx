@@ -3,13 +3,16 @@ import SingleTweetInfo from './SingleTweetInfo'
 import SingleTweetButtons from './SingleTweetButtons'
 import styles from 'assets/styles/components/tweets/singleTweet.module.scss'
 import formatCreateTime from 'uitlities/formatCreateTime'
+import { Link } from 'react-router-dom'
 
 function SingleTweet({ tweet, onLikeClick, onReplyClick }) {
   const { id, description, replyCount, likeCount, createdAt, User, isLiked } =
     tweet
   return (
     <li className={styles.layout}>
-      <UserAvatar src={User?.avatar} />
+      <Link to={`/user/${User?.id}/tweets`}>
+        <UserAvatar src={User?.avatar} />
+      </Link>
       <div>
         <UserNameText name={User?.name} />
         <SubText text={`@${User?.account}`} />
