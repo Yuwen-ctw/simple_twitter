@@ -60,7 +60,7 @@ const IntroInput = forwardRef((props, ref) => {
         className={styles.introInput}
         id="profile-intro-input"
         value={value}
-        onChange={(e) => onChange('intro', e.target.value)}
+        onChange={(e) => onChange('introduction', e.target.value)}
         max={160}
       />
       <span className={styles.error}>字數超出上限！</span>

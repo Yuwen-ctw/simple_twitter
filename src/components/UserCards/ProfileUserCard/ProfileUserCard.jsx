@@ -51,7 +51,7 @@ function ProfileUserCard({ user, onClickEdit, onToggleFollow }) {
       <IntroText text={user.introduction} />
       <UserFollowInfo
         followingCount={user.followingCount}
-        followerCount={user.follwerCount}
+        followerCount={user.followerCount}
         userId={user.id}
         onClick={handleFollowInfoClick}
       />

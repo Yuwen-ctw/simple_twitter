@@ -24,13 +24,16 @@ function UserSectionLayout() {
       }
     }
     getUserData()
-  }, [userId, showEditModal])
+  }, [userId])
 
   // show modal or not
   function handleToggleEditModal() {
     setShowEditModal(!showEditModal)
   }
-
+  function handleEditInfomation(data) {
+    setShowEditModal(!showEditModal)
+    setUser({ ...user, ...data })
+  }
   async function handleToggleFollow(userId, isFollowed) {
     const { success, message } = isFollowed
       ? await unfollowUser(userId)
@@ -52,8 +55,8 @@ function UserSectionLayout() {
       />
       <Outlet context={useOutletContext()} />
       <EditProfileModal
-        user={user}
         showModal={showEditModal}
+        onSave={handleEditInfomation}
         onClose={handleToggleEditModal}
       />
     </section>

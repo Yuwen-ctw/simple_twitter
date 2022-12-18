@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react'
 import { MainTweet } from 'components/Tweets'
 import { Spinner } from 'components/share'
-import { getAllTweets } from 'api/tweets'
+import { getUserTweets } from 'api/users'
 import { useOutletContext } from 'react-router-dom'
-
+import { useParams } from 'react-router-dom'
 function UserMainSection() {
-  // const { userId } = useParams()
+  const { userId } = useParams()
   const { handleUserOrTweetClick } = useOutletContext()
   const [tweets, setTweets] = useState([])
   const [loading, setLoading] = useState(false)
@@ -15,7 +15,7 @@ function UserMainSection() {
   useEffect(() => {
     setLoading(true)
     async function getData() {
-      const { success, data, message } = await getAllTweets()
+      const { success, data, message } = await getUserTweets(userId)
       if (success) {
         // cancle the spinner
         setLoading(false)
