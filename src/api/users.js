@@ -96,41 +96,11 @@ export async function unfollowUser(userId) {
     }
   }
 }
-
-export async function getUserTweets(userId) {
+// dataName: tweets, replied_tweets, likes, followings, followers
+export async function getUserInfoData(dataName, userId) {
   try {
     const { data } = await axiosInstance.get(
-      `${baseUrl}/${basePath}/${userId}/tweets`
-    )
-    if (data.success === false) return { ...data }
-    return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Unfollow user failed]: ${err}`,
-    }
-  }
-}
-
-export async function getUserLikes(userId) {
-  try {
-    const { data } = await axiosInstance.get(
-      `${baseUrl}/${basePath}/${userId}/likes`
-    )
-    if (data.success === false) return { ...data }
-    return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Unfollow user failed]: ${err}`,
-    }
-  }
-}
-
-export async function getUserReplies(userId) {
-  try {
-    const { data } = await axiosInstance.get(
-      `${baseUrl}/${basePath}/${userId}/replied_tweets`
+      `${baseUrl}/${basePath}/${userId}/${dataName}`
     )
     if (data.success === false) return { ...data }
     return { success: true, data }

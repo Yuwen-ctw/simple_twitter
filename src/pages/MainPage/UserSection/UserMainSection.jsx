@@ -1,7 +1,7 @@
 // hooks, apis, contexts,=
 import { useEffect, useState } from 'react'
 import { useParams, useLocation, useOutletContext } from 'react-router-dom'
-import { getUserTweets, getUserLikes } from 'api/users'
+import { getUserInfoData } from 'api/users'
 import { useNewTweet } from 'contexts/NewTweetContext'
 import { useReply } from 'contexts/ReplyContext'
 // components
@@ -26,7 +26,7 @@ function UserMainSection() {
       // const { success, data, message } = await getTweetsPromise[lastPath](
       //   userId
       // )
-      const { success, data, message } = await getUserTweets(userId)
+      const { success, data, message } = await getUserInfoData('tweets', userId)
       if (success) {
         // cancle the spinner
         setLoading(false)

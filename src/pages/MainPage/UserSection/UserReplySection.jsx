@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useOutletContext } from 'react-router-dom'
-import { getUserReplies } from 'api/users'
+import { getUserInfoData } from 'api/users'
 import Reply from 'components/Reply'
 import { Spinner } from 'components/share'
 
@@ -15,7 +15,10 @@ function UserRepliesSection() {
   useEffect(() => {
     setLoading(true)
     async function getReplies() {
-      const { success, data, message } = await getUserReplies(userId)
+      const { success, data, message } = await getUserInfoData(
+        'replied_tweets',
+        userId
+      )
       if (success) {
         setLoading(false)
         setReplies(data)
