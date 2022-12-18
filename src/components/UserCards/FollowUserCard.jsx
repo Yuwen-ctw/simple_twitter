@@ -6,7 +6,7 @@ import {
 } from 'components/share'
 import styles from 'assets/styles/components/userCards/followUserCard.module.scss'
 
-function FollowUserCard({ user, onChange, isFollowing }) {
+function FollowUserCard({ user, onChange, isFollowed }) {
   const { avatar, name, id, introduction, isLoginUser } = user
   return (
     <li className={styles.layout} data-userid={id} data-click>
@@ -14,7 +14,7 @@ function FollowUserCard({ user, onChange, isFollowing }) {
       <UserNameText name={name} />
       <FollowingCheckbox
         userId={id}
-        isFollowing={isFollowing}
+        isFollowed={isFollowed}
         onChange={onChange}
         hide={isLoginUser}
       />

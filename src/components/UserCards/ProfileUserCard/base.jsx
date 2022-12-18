@@ -13,7 +13,7 @@ const ProfileNameText = ({ name }) => <p className={styles.name}>{name}</p>
 
 const IntroText = ({ text }) => <p className={styles.intro}>{text}</p>
 
-const Interactions = ({ onChange, user }) => {
+const Interactions = ({ onToggle, user }) => {
   const [isPressed, setIsPressed] = useState(false)
   return (
     <>
@@ -27,19 +27,19 @@ const Interactions = ({ onChange, user }) => {
       />
       <FollowingCheckbox
         userId={user.id}
-        isFollowing={user.isFollowing}
-        onChange={onChange}
+        isFollowed={user.isFollowed}
+        onChange={onToggle}
       />
     </>
   )
 }
 
-const ButtonGroup = ({ user, onChange, onClickEdit, className }) => {
+const ButtonGroup = ({ user, onToggle, onClickEdit, className }) => {
   let result
   if (user.self) {
     result = <BaseButton text="編輯個人資料" onClick={onClickEdit} />
   } else {
-    result = <Interactions user={user} onChange={onChange} />
+    result = <Interactions user={user} onToggle={onToggle} />
   }
 
   return (

@@ -36,7 +36,7 @@ function PopularUserList({ users, className, onClick }) {
         key={user.id}
         popularUser={user}
         onChange={handleToggle}
-        isFollowing={isFollowing}
+        isFollowed={isFollowing}
       />
     )
   })
