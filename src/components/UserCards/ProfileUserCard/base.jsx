@@ -34,7 +34,7 @@ const Interactions = ({ onChange, user }) => {
   )
 }
 
-const ButtonGroup = ({ user, onChange, onClickEdit }) => {
+const ButtonGroup = ({ user, onChange, onClickEdit, className }) => {
   let result
   if (user.self) {
     result = <BaseButton text="編輯個人資料" onClick={onClickEdit} />
@@ -42,7 +42,9 @@ const ButtonGroup = ({ user, onChange, onClickEdit }) => {
     result = <Interactions user={user} onChange={onChange} />
   }
 
-  return <div className={styles.buttonGroup}>{result}</div>
+  return (
+    <div className={[styles.buttonGroup, className].join(' ')}>{result}</div>
+  )
 }
 
 export { ProfileBackground, ProfileNameText, IntroText, ButtonGroup }

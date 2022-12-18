@@ -1,4 +1,4 @@
-import { useNavigate, useLocation, Outlet } from 'react-router-dom'
+import { useNavigate, Outlet } from 'react-router-dom'
 import PopularUserList from './PopularUserList'
 import { UserNavbar } from 'components/UI/Navbars'
 import { useAuth } from 'contexts/AuthContext'
@@ -8,18 +8,17 @@ import { useEffect, useState } from 'react'
 import { ReplyModal, TweetModal } from 'components/UI/Modals'
 import { NewTweetContextProvider } from 'contexts/NewTweetContext'
 import { ReplyContextProvider } from 'contexts/ReplyContext'
-
 function MainLayout() {
   const navigate = useNavigate()
-  const { state } = useLocation()
-  const { logout, isAuthenticated, currentUser } = useAuth()
+  const { logout, currentUser, isAuthenticated } = useAuth()
   const [showTweetModal, setShowTweetModal] = useState(false)
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('login')
     }
-  })
+  }, [])
+
   // TODO send api here to get popularUsers
 
   // handle all event from clicking avatars and tweets
@@ -39,7 +38,6 @@ function MainLayout() {
   function handleToggleTweetModal() {
     setShowTweetModal(!showTweetModal)
   }
-
   return (
     <div className={styles.layout}>
       <NewTweetContextProvider>
@@ -50,6 +48,11 @@ function MainLayout() {
             onModalButtonClick={handleToggleTweetModal}
           />
           <Outlet context={{ handleUserOrTweetClick, showTweetModal }} />
+          <PopularUserList
+            users={db.popularUsers}
+            className={styles.userList}
+            onClick={handleUserOrTweetClick}
+          />
           <TweetModal
             active={showTweetModal}
             onClose={handleToggleTweetModal}
@@ -57,13 +60,6 @@ function MainLayout() {
           <ReplyModal />
         </ReplyContextProvider>
       </NewTweetContextProvider>
-      {state !== 'setting' && (
-        <PopularUserList
-          users={db.popularUsers}
-          className={styles.userList}
-          onClick={handleUserOrTweetClick}
-        />
-      )}
     </div>
   )
 }

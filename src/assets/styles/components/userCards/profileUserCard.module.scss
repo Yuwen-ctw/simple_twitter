@@ -73,7 +73,9 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   justify-content: flex-end;
   align-items: center;
   gap: 16px;
-
+  &.hide {
+    visibility: hide;
+  }
   .mailTo {
     @extend %iconWrapper;
     @extend %interactingShadow;

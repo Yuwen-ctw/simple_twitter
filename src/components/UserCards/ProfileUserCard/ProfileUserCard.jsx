@@ -44,6 +44,7 @@ function ProfileUserCard({ user, onClickEdit }) {
         user={user}
         onChange={handleToggle}
         onClickEdit={onClickEdit}
+        className={user.id ? '' : styles.hide}
       />
       <ProfileNameText name={user.name} />
       <SubText text={`@${user.account}`} />
