@@ -1,4 +1,9 @@
-import { Outlet, useOutletContext, useParams } from 'react-router-dom'
+import {
+  Outlet,
+  useOutletContext,
+  useParams,
+  useLocation,
+} from 'react-router-dom'
 import { ProfileUserCard } from 'components/UserCards'
 import { EditProfileModal } from 'components/UI/Modals'
 import SectionHeader from './SectionHeader'
@@ -12,6 +17,9 @@ function UserSectionLayout() {
   const [showEditModal, setShowEditModal] = useState(false)
   const [user, setUser] = useState({})
   const { userId } = useParams()
+  const pathnames = useLocation().pathname.split('/')
+  const lastPath = pathnames[pathnames.length - 1]
+  const isFollowSection = lastPath.match('follow')
 
   useEffect(() => {
     async function getUserData() {
@@ -48,11 +56,13 @@ function UserSectionLayout() {
   return (
     <section className={[styles.sectionWrapper, 'scrollbar'].join(' ')}>
       <SectionHeader user={user} />
-      <ProfileUserCard
-        user={user}
-        onClickEdit={handleToggleEditModal}
-        onToggleFollow={handleToggleFollow}
-      />
+      {!isFollowSection && (
+        <ProfileUserCard
+          user={user}
+          onClickEdit={handleToggleEditModal}
+          onToggleFollow={handleToggleFollow}
+        />
+      )}
       <Outlet context={useOutletContext()} />
       <EditProfileModal
         showModal={showEditModal}

@@ -1,64 +1,67 @@
-import { useParams, useLocation } from 'react-router-dom'
-import SectionHeader from './SectionHeader'
+import { useEffect, useState } from 'react'
+import { useParams, useLocation, useOutletContext } from 'react-router-dom'
+import { getUserInfoData, followUser, unfollowUser } from 'api/users'
 import SwitchLink from 'components/UI/Buttons/SwitchLink'
 import { FollowUserCard } from 'components/UserCards/index'
+import { Spinner } from 'components/share'
 import styles from 'assets/styles/pages/userSection.module.scss'
-import db from 'db.json'
-import { useEffect, useState } from 'react'
-import { useOutletContext } from 'react-router-dom'
 
 function UserFollowersSection() {
   const { handleUserOrTweetClick } = useOutletContext()
   const { userId } = useParams()
-  // TODO send api to get userList accroding lastPath,
   const pathnames = useLocation().pathname.split('/')
   const lastPath = pathnames[pathnames.length - 1]
-  // TODO: get user's followingList(maybe from context), which is fake below
-  const [followings, setFollowings] = useState(db.loginUser.Followings)
-  const [userList, setUserList] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [followList, setFollowList] = useState([])
 
   useEffect(() => {
-    setUserList(db[lastPath])
+    async function getFollowListData() {
+      // show Spinner
+      setLoading(true)
+      // get data
+      const { success, data, message } = await getUserInfoData(lastPath, userId)
+      if (success) {
+        // cancle the spinner
+        setLoading(false)
+        // update data
+        setFollowList(data)
+      } else {
+        // handle error
+        console.error(message)
+      }
+    }
+    // getFollowListData()
   }, [lastPath])
 
-  const handleToggle = (targetUserId, isFollowing) => {
-    // TODO send api
-    const nextFollowings = [...followings]
-    if (!isFollowing) {
-      // avoid to add same id
-      if (nextFollowings.includes(targetUserId)) return
-      nextFollowings.push(targetUserId)
-      return setFollowings(nextFollowings)
+  async function handleToggleFollow(userId, isFollowed) {
+    const { success, message } = isFollowed
+      ? await unfollowUser(userId)
+      : await followUser(userId)
+    if (success) {
+      setFollowList((draft) =>
+        draft.map((user) =>
+          user.id === userId ? { ...user, isFollowed: !user.isFollowed } : user
+        )
+      )
+    } else {
+      console.error(message)
     }
-    const index = nextFollowings.findIndex((id) => id === targetUserId)
-    index && nextFollowings.splice(index, 1)
-    return setFollowings(nextFollowings)
   }
 
   // map userList
-  const listData = userList.map((user) => {
-    // check if user is following
-    const isFollowing = followings.some((followId) => followId === user.id)
-    // check if the user is himself/herself
-    if (user.id === db.loginUser.id) user.isLoginUser = true
-
+  const listData = followList.map((user) => {
     return (
-      <FollowUserCard
-        key={user.id}
-        user={user}
-        isFollowing={isFollowing}
-        onChange={handleToggle}
-      />
+      <FollowUserCard key={user.id} user={user} onChange={handleToggleFollow} />
     )
   })
   return (
     <section className={styles.sectionWrapper}>
-      <SectionHeader user={db.loginUser} />
       <div className={styles.switchWrapper}>
         <SwitchLink text="追隨者" to={`/user/${userId}/followers`} />
         <SwitchLink text="正在追隨" to={`/user/${userId}/followings`} />
       </div>
       <ul className="scrollbar" onClick={handleUserOrTweetClick}>
+        {loading && <Spinner />}
         {listData}
       </ul>
     </section>
