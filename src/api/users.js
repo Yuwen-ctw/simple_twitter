@@ -117,7 +117,6 @@ export async function getUserLikes(userId) {
     const { data } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${userId}/likes`
     )
-    console.log(data)
     if (data.success === false) return { ...data }
     return { success: true, data }
   } catch (err) {
@@ -133,7 +132,6 @@ export async function getUserReplies(userId) {
     const { data } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${userId}/replied_tweets`
     )
-    console.log(data)
     if (data.success === false) return { ...data }
     return { success: true, data }
   } catch (err) {
