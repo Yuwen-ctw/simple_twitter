@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { ProfileAvatar, SubText, UserFollowInfo } from 'components/share'
 import {
   ProfileBackground,
@@ -7,30 +8,9 @@ import {
 } from './base'
 import { SwitchLink } from 'components/UI/Buttons'
 import styles from 'assets/styles/components/userCards/profileUserCard.module.scss'
-// import db from 'db.json'
-// import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
 function ProfileUserCard({ user, onClickEdit, onToggleFollow }) {
   const navigate = useNavigate()
-  // const [followings, setFollowings] = useState(db.loginUser.Followings)
-  // user.isFollowing = followings.includes(user.id)
-
-  // const handleToggleFollow = (targetUserId, isFollowing) => {
-  //   // TODO send api
-  //   const nextFollowings = [...followings]
-  //   // handle follow
-  //   if (!isFollowing) {
-  //     // avoid to add same id
-  //     return (
-  //       !nextFollowings.includes(targetUserId) &&
-  //       setFollowings([...nextFollowings, targetUserId])
-  //     )
-  //   }
-  //   // handle cancel
-  //   // TODO send api
-  //   setFollowings(nextFollowings.filter((id) => id !== targetUserId))
-  // }
 
   function handleFollowInfoClick(target) {
     navigate(`/user/${user.id}/${target}`)

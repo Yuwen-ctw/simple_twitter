@@ -20,6 +20,7 @@ function UserSectionLayout() {
   const pathnames = useLocation().pathname.split('/')
   const lastPath = pathnames[pathnames.length - 1]
   const isFollowSection = lastPath.match('follow')
+  const [followState, setFollowState] = useState(currentUser.isFollowed)
 
   useEffect(() => {
     async function getUserData() {
@@ -32,7 +33,7 @@ function UserSectionLayout() {
       }
     }
     getUserData()
-  }, [userId])
+  }, [userId, followState])
 
   // show modal or not
   function handleToggleEditModal() {
@@ -48,6 +49,7 @@ function UserSectionLayout() {
       : await followUser(userId)
     if (success) {
       setUser({ ...user, isFollowed: !isFollowed })
+      setFollowState(!followState)
     } else {
       console.error(message)
     }
