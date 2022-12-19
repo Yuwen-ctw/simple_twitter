@@ -38,7 +38,7 @@ function ProfileUserCard({ user, onClickEdit, onToggleFollow }) {
 
   return (
     <div className={styles.layout}>
-      <ProfileBackground src={user.src} />
+      <ProfileBackground src={user.cover} />
       <ProfileAvatar src={user.avatar} className={styles.avatar} />
       <ButtonGroup
         user={user}

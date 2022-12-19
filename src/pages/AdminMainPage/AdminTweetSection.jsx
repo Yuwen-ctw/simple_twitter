@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { getAllTweets, deleteTweet } from 'api/tweets'
 import { SectionTitle, Spinner } from 'components/share'
 import { AdminTweet } from 'components/Tweets'
-import styles from 'assets/styles/pages/adminTweetSection.module.scss'
+import styles from 'assets/styles/pages/adminMainSection.module.scss'
 
 function AdminTweetSection() {
   const [loading, setLoading] = useState(false)
@@ -40,7 +40,7 @@ function AdminTweetSection() {
   ))
 
   return (
-    <section className={[styles.layout, 'scrollbar'].join(' ')}>
+    <section className={[styles.tweetLayout, 'scrollbar'].join(' ')}>
       <SectionTitle text="推文清單" />
       {loading && <Spinner />}
       <ul>{tweetList}</ul>

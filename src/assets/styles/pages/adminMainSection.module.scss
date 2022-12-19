@@ -1,0 +1,27 @@
+@use '../abstracts/index' as *;
+
+.tweetLayout,
+.userLayout {
+  h4:first-child {
+    padding: 24px 0 24px 21px;
+    border-bottom: 1px solid $listBorder;
+  }
+}
+
+:global(#adminUserSection) {
+  @media screen and (min-width: 1500px) {
+    position: absolute;
+    left: 200px;
+    width: 1085px;
+  }
+}
+.userListContainer {
+  padding: 16px;
+  display: grid;
+  gap: 16px;
+  place-content: center center;
+  grid-template-columns: repeat(auto-fill, minmax(249px, 1fr));
+  li {
+    place-self: center;
+  }
+}
