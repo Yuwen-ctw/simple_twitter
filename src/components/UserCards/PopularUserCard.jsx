@@ -1,8 +1,8 @@
 import { UserAvatar, UserNameText, FollowingCheckbox } from 'components/share'
 import styles from 'assets/styles/components/userCards/popularUserCard.module.scss'
 
-function PopularUserCard({ popularUser, onChange, isFollowed }) {
-  const { name, avatar, account, id, isLoginUser } = popularUser
+function PopularUserCard({ popularUser, onChange }) {
+  const { name, avatar, account, id, isFollowed, isLoginUser } = popularUser
 
   return (
     <li className={styles.layout} data-userid={id} data-click>

@@ -33,6 +33,20 @@ export async function getAllUsers() {
   }
 }
 
+export async function getTop10Users() {
+  try {
+    const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/top`)
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get top10 users failed]: ${err}`,
+    }
+  }
+}
+
 export async function getUser(userId) {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/${userId}`)
