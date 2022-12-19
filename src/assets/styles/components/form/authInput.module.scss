@@ -23,11 +23,11 @@
     margin-top: 8px;
   }
 
-  & > :first-child {
+  &> :first-child {
     align-self: center;
   }
 
-  & > :last-child {
+  &> :last-child {
     margin-top: 22px;
     justify-content: flex-end;
     width: 100%;
@@ -42,7 +42,7 @@
   padding: 2px 4px;
   background: #f5f8fa;
 
-  > label {
+  >label {
     position: absolute;
     padding-left: 18px;
     @include font(0.875rem, 400, 1.57, $text-placeholder);
@@ -76,26 +76,21 @@
   height: 2px;
   background: #657786;
   border-radius: 0px 0px 4px 4px;
+
+  .true {
+    background: $clr-error;
+  }
 }
 
-input:focus ~ .underline {
+input:focus~.underline {
   background-color: #50b5ff;
 }
 
-input:hover ~ .underline {
+input:hover~.underline {
   background-color: #50b5ff;
 }
 
-input.error ~ .underline {
-  content: '';
-  position: absolute;
-  left: 0px;
-  bottom: 0px;
-  width: 100%;
-  height: 2px;
-  background: $clr-error;
-  border-radius: 0px 0px 4px 4px;
-}
+
 
 .textInput {
   @include font(1rem, 400, 26px, $text-dark);

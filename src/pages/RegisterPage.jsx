@@ -8,12 +8,10 @@ import { AuthContainer, AuthInput } from 'components/form/AuthInput'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Swal from 'sweetalert2'
 
-function RegisterPage({ user }) {
+function RegisterPage() {
   const { isAuthenticated, register } = useAuth()
 
-  const [inputValues, setInputValues] = useState({
-    name: user.name,
-  })
+  const [inputValues, setInputValues] = useState('')
 
   const [account, setAccount] = useState('')
   const [email, setEmail] = useState('')
@@ -25,13 +23,14 @@ function RegisterPage({ user }) {
   const refNameInput = useRef(null)
 
   function handleInputChange() {
-    let refElement = refNameInput.current
-    if (refElement.length >= 50) {
+    let refElement
+    refElement = refNameInput.current
+    if (inputValues.name?.length >= 50) {
       setState(true)
     } else {
-      setInputValues(...inputValues)
+      setInputValues(inputValues)
     }
-    // ...建立新物件
+    console.log(inputValues)
   }
 
   const handleClick = async () => {
@@ -104,6 +103,7 @@ function RegisterPage({ user }) {
           value={inputValues.name}
           onChange={handleInputChange}
           state={state}
+          ref={refNameInput}
         />
 
         <AuthInput
