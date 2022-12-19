@@ -107,7 +107,7 @@ export async function getUserInfoData(dataName, userId) {
   } catch (err) {
     return {
       success: false,
-      message: `[Unfollow user failed]: ${err}`,
+      message: `[Get user's ${dataName} failed]: ${err}`,
     }
   }
 }

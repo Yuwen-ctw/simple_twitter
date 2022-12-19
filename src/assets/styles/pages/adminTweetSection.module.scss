@@ -1,0 +1,8 @@
+@use '../abstracts/index' as *;
+
+.layout {
+  h4:first-child {
+    padding: 24px 0 24px 21px;
+    border-bottom: 1px solid $listBorder;
+  }
+}

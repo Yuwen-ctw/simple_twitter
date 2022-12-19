@@ -1,0 +1,20 @@
+@use '../abstracts/index' as *;
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  /* target: navbar */
+  > :first-child {
+    flex-shrink: 0;
+  }
+  /* target: section */
+  > :nth-child(2) {
+    position: relative;
+    flex-grow: 1;
+    max-width: 940px;
+    max-height: 100vh;
+    margin: 0 24px 0 24px;
+    border-left: 1px solid $listBorder;
+    border-right: 1px solid $listBorder;
+  }
+}

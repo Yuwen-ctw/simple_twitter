@@ -4,14 +4,8 @@ import { useNavigate } from '../../../../node_modules/react-router-dom/dist/inde
 
 function SectionHeader({ user }) {
   const navigate = useNavigate()
-
-  function handleClick() {
-    // TODO: 應該導去何處
-    navigate(-1)
-  }
-
   return (
-    <div className={styles.sectionHeader} onClick={handleClick}>
+    <div className={styles.sectionHeader} onClick={() => navigate(-1)}>
       <img src={backImage} alt="A left direction arrow" />
       <div>
         <p>{user?.name}</p>
