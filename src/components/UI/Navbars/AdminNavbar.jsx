@@ -10,7 +10,7 @@ function AdminNavbar({ onLogout }) {
     <Navbar>
       <NavItem text="推文清單" value={'tweets'} check={check} to="tweets" />
       <NavItem text="使用者列表" value={'users'} check={check} to="users" />
-      <NavItem text="登出" value={'logout'} onClick={onLogout} />
+      <NavItem text="登出" value={'logout'} onClick={onLogout} to="" />
     </Navbar>
   )
 }

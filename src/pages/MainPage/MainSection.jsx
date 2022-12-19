@@ -40,21 +40,17 @@ function MainSection() {
       }
     }
     getData()
-    // refresh when add reply
+    // refresh when add new tweet or reply
   }, [isReplyCreated, showTweetModal])
 
   async function handleAddTweetClick() {
-    const { success, tweet, message } = await handleAddTweet()
+    const { success, tweet } = await handleAddTweet()
     if (success) {
       setLoading(true)
       setTimeout(() => {
         setTweets([tweet, ...tweets])
         setLoading(false)
       }, 1000)
-    } else {
-      // handle error
-      setLoading(false)
-      console.error(message)
     }
   }
 

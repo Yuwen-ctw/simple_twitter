@@ -60,7 +60,7 @@ function AuthContextProvider({ children }) {
     localStorage.removeItem('authToken')
     setIsAuthenticated(false)
     setPayload(null)
-    navigate('/login')
+    // then the <Link> component in <Navbar> will navigate to login(or admin login) page via "to" prop
   }
 
   async function login(data) {

@@ -1,5 +1,62 @@
 @use '../../abstracts/index' as *;
 
-.adminCardAvatar {
-  @include circleAvatar(100px, 4px);
+.layout {
+  position: relative;
+  padding: 172px 24px 24px;
+  width: 249px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  background: #f6f7f8;
+  .cover {
+    border-radius: 10px 10px 0 0;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 140px;
+    img {
+      border-radius: 10px 10px 0 0;
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  .adminCardAvatar {
+    @include circleAvatar(100px, 4px);
+    position: absolute;
+    top: 64px;
+    left: 50%;
+    translate: -50% 0;
+  }
+
+  .tweetInfo {
+    padding: 16px 0 8px;
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+
+    span {
+      @include font(1rem, 500, 1, $text-pageTitle, 'Montserrat');
+      height: 24px;
+      padding-left: 32px;
+      line-height: 24px;
+      background-repeat: no-repeat;
+      background-position: left center;
+      &:first-child {
+        background-image: $adminTweetCount;
+      }
+      &:last-child {
+        background-image: $adminLikeCount;
+      }
+    }
+  }
+
+  /* UserFollowInfo */
+  & > :last-child {
+    gap: 8px;
+  }
 }

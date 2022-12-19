@@ -9,6 +9,7 @@ const TweetInput = forwardRef((props, ref) => {
     src,
     onClick,
     placeholder = '有什麼新鮮事？',
+    buttonText = '推文',
     className,
   } = props
   return (
@@ -24,7 +25,7 @@ const TweetInput = forwardRef((props, ref) => {
       />
       <span data-rolename="tooMany-msg">字數不可超過 140 字</span>
       <span data-rolename="zeroSize-msg">內容不可空白</span>
-      <ClrButton text="推文" className={styles.btn} onClick={onClick} />
+      <ClrButton text={buttonText} className={styles.btn} onClick={onClick} />
     </div>
   )
 })

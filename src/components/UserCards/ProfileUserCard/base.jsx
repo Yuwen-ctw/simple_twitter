@@ -22,7 +22,6 @@ const Interactions = ({ onToggle, user }) => {
         aria-label="notifaction"
         aria-pressed={isPressed}
         className={styles.notifaction}
-        // TODO notifaction logic
         onClick={() => setIsPressed(!isPressed)}
       />
       <FollowingCheckbox

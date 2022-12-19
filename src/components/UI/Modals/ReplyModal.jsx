@@ -1,4 +1,4 @@
-import Modal from '../share/Modal'
+import Modal from './share/Modal'
 import { ModalTweet } from 'components/Tweets'
 import { TweetInput } from 'components/form'
 import styles from 'assets/styles/components/modals/replyModal.module.scss'
@@ -24,7 +24,8 @@ function ReplyModal() {
           value={replyInputValue}
           onChange={handleReplyInputChange}
           onClick={() => handleAddReply(tweet.id)}
-          placeholder={'推你的回覆'}
+          placeholder="推你的回覆"
+          buttonText="回覆"
         />
       </div>
     </Modal>

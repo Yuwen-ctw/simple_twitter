@@ -15,9 +15,9 @@ function UserRoutes() {
         <Route path="tweets" element={<UserMainSection />} />
         <Route path="likes" element={<UserLikeSection />} />
         <Route path="replies" element={<UserReplySection />} />
+        <Route path="followers" element={<UserFollowSection />} />
+        <Route path="followings" element={<UserFollowSection />} />
       </Route>
-      <Route path="followers" element={<UserFollowSection />} />
-      <Route path="followings" element={<UserFollowSection />} />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )

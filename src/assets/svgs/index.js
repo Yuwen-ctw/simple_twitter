@@ -1,3 +1,4 @@
+import featherSvg from './feather.svg'
 import likeSvg from './like.svg'
 import replySvg from './reply.svg'
 import likingSvg from './like_fill.svg'
@@ -13,6 +14,7 @@ import profileMailSvg from './profile_mail.svg'
 import profileNotiTrueSvg from './profile_noti_true.svg'
 import profileNotiFalseSvg from './profile_noti_false.svg'
 export {
+  featherSvg,
   likeSvg,
   replySvg,
   likingSvg,

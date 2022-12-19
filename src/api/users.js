@@ -18,21 +18,34 @@ axiosInstance.interceptors.request.use(
   },
   (err) => console.error(err)
 )
-const axiosInstance1 = axios.create({
-  baseURL: `${baseUrl}`,
-  validateStatus: (status) => status >= 200 && status <= 500,
-})
-axiosInstance1.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('authToken')
-    if (token) {
-      config.headers['Authorization'] = 'Bearer ' + token
-      config.headers['content-type'] = 'multipart/form-data'
+
+export async function getAllUsers() {
+  try {
+    const { data } = await axiosInstance.get(`${baseUrl}/admin/${basePath}`)
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get users failed]: ${err}`,
     }
-    return config
-  },
-  (err) => console.error(err)
-)
+  }
+}
+
+export async function getTop10Users() {
+  try {
+    const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/top`)
+    // if fetch success: [], else {success: false, message: '...'}
+    if (data.success === false) return { ...data }
+    return { success: true, data }
+  } catch (err) {
+    return {
+      success: false,
+      message: `[Get top10 users failed]: ${err}`,
+    }
+  }
+}
 
 export async function getUser(userId) {
   try {
@@ -48,6 +61,7 @@ export async function getUser(userId) {
 }
 
 export async function EditUser(userId, userData) {
+  console.log('send', userData)
   try {
     const { data } = await axiosInstance.put(
       `${baseUrl}/${basePath}/${userId}`,
@@ -107,7 +121,7 @@ export async function getUserInfoData(dataName, userId) {
   } catch (err) {
     return {
       success: false,
-      message: `[Unfollow user failed]: ${err}`,
+      message: `[Get user's ${dataName} failed]: ${err}`,
     }
   }
 }
