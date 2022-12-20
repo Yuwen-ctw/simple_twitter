@@ -1,5 +1,5 @@
 // hooks & context
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
@@ -17,18 +17,14 @@ function RegisterPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [checkPassword, setcheckPassword] = useState('')
-  const [state, setState] = useState(true)
+  const [state, setState] = useState(false)
   const navigate = useNavigate()
 
-  const refNameInput = useRef(null)
-
-  function handleInputChange() {
-    let refElement
-    refElement = refNameInput.current
+  function handleInputChange(value) {
     if (inputValues.name?.length >= 50) {
       setState(true)
     } else {
-      setInputValues(inputValues)
+      setInputValues(value)
     }
     console.log(inputValues)
   }
@@ -103,7 +99,6 @@ function RegisterPage() {
           value={inputValues.name}
           onChange={handleInputChange}
           state={state}
-          ref={refNameInput}
         />
 
         <AuthInput
