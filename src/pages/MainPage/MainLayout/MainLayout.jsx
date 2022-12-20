@@ -33,7 +33,6 @@ function MainLayout() {
       const { success, data, message } = await getTop10Users()
       if (success) {
         // cancle the spinner
-        console.log(data)
         setLoading(false)
         // update data
         setPopularUsers(data)

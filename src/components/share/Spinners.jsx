@@ -8,4 +8,12 @@ function Spinner({ classname }) {
   )
 }
 
-export default Spinner
+function SmallSpinner({ classname }) {
+  return (
+    <div className={[styles.smallWrapper, classname].join(' ')}>
+      <span className={styles.smallLoader}></span>
+    </div>
+  )
+}
+
+export { Spinner, SmallSpinner }

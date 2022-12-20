@@ -2,10 +2,10 @@ import { Routes, Route } from 'react-router-dom'
 import {
   UserSectionLayout,
   UserMainSection,
-  UserLikeSection,
   UserReplySection,
   UserFollowSection,
   NotFoundPage,
+  // UserLikeSection,
 } from '../../pages'
 
 function UserRoutes() {
@@ -13,8 +13,8 @@ function UserRoutes() {
     <Routes>
       <Route path="/" element={<UserSectionLayout />}>
         <Route path="tweets" element={<UserMainSection />} />
-        <Route path="likes" element={<UserLikeSection />} />
-        <Route path="replies" element={<UserReplySection />} />
+        <Route path="likes" element={<UserMainSection />} />
+        <Route path="replied_tweets" element={<UserReplySection />} />
         <Route path="followers" element={<UserFollowSection />} />
         <Route path="followings" element={<UserFollowSection />} />
       </Route>

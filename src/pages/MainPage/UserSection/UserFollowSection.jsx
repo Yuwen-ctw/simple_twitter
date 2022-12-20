@@ -12,19 +12,22 @@ function UserFollowersSection() {
   const { currentUser } = useAuth()
   const { userId } = useParams()
   const pathnames = useLocation().pathname.split('/')
-  const lastPath = pathnames[pathnames.length - 1]
+  const sectionName = pathnames[pathnames.length - 1]
   const [loading, setLoading] = useState(false)
   const [followList, setFollowList] = useState([])
-  const fieldName = (function getFieldNameByLastPath() {
-    return lastPath === 'followings' ? 'followingId' : 'followerId'
-  })()
+  // const fieldName = (function getFieldNameByLastPath() {
+  //   return sectionName === 'followings' ? 'followingId' : 'followerId'
+  // })()
 
   useEffect(() => {
     async function getFollowListData() {
       // show Spinner
       setLoading(true)
       // get data
-      const { success, data, message } = await getUserInfoData(lastPath, userId)
+      const { success, data, message } = await getUserInfoData(
+        sectionName,
+        userId
+      )
       if (success) {
         // cancle the spinner
         setLoading(false)
@@ -36,7 +39,7 @@ function UserFollowersSection() {
       }
     }
     getFollowListData()
-  }, [lastPath])
+  }, [sectionName])
 
   async function handleToggleFollow(userId, isFollowed) {
     const { success, message } = isFollowed
@@ -55,15 +58,10 @@ function UserFollowersSection() {
 
   // map userList
   const listData = followList.map((user) => {
-    // check if the user is himself/herself
-    if (user[fieldName] === currentUser.id) user.isLoginUser = true
+    // check if login user
+    if (user.id === currentUser.id) user.isLoginUser = true
     return (
-      <FollowUserCard
-        key={user.fieldName}
-        user={user}
-        onChange={handleToggleFollow}
-        targetId={user[fieldName]}
-      />
+      <FollowUserCard key={user.id} user={user} onChange={handleToggleFollow} />
     )
   })
   return (

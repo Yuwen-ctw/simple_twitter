@@ -9,7 +9,7 @@ import {
 import { SwitchLink } from 'components/UI/Buttons'
 import styles from 'assets/styles/components/userCards/profileUserCard.module.scss'
 
-function ProfileUserCard({ user, onClickEdit, onToggleFollow }) {
+function ProfileUserCard({ user, onClickEdit, onToggleFollow, className }) {
   const navigate = useNavigate()
 
   function handleFollowInfoClick(target) {
@@ -17,7 +17,7 @@ function ProfileUserCard({ user, onClickEdit, onToggleFollow }) {
   }
 
   return (
-    <div className={styles.layout}>
+    <div className={[styles.layout, className].join(' ')}>
       <ProfileBackground src={user.cover} />
       <ProfileAvatar src={user.avatar} className={styles.avatar} />
       <ButtonGroup
@@ -37,7 +37,7 @@ function ProfileUserCard({ user, onClickEdit, onToggleFollow }) {
       />
       <div className={styles.switcherWrapper}>
         <SwitchLink text="推文" to={`/user/${user.id}/tweets`} />
-        <SwitchLink text="回覆" to={`/user/${user.id}/replies`} />
+        <SwitchLink text="回覆" to={`/user/${user.id}/replied_tweets`} />
         <SwitchLink text="喜歡的內容" to={`/user/${user.id}/likes`} />
       </div>
     </div>

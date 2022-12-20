@@ -3,7 +3,7 @@ import { ProfileAvatar } from 'components/share'
 
 import { forwardRef } from 'react'
 
-const ProfileAvatarInput = ({ src, className, onChange }) => {
+const ProfileAvatarInput = ({ src, className, onChange, disabled }) => {
   return (
     <div className={styles.avatarWrapper}>
       <ProfileAvatar src={src} className={className} />
@@ -13,12 +13,13 @@ const ProfileAvatarInput = ({ src, className, onChange }) => {
         id="profile-avatar-input"
         accept="image/*"
         onChange={(e) => onChange('avatar', e.target.files)}
+        disabled={disabled}
       />
     </div>
   )
 }
 
-const ProfileCoverInput = ({ src, onChange, onDiscard }) => {
+const ProfileCoverInput = ({ src, onChange, onDiscard, disabled }) => {
   return (
     <div className={styles.coverWrapper}>
       <img className={styles.cover} src={src} alt="請上傳個人頁面橫幅背景" />
@@ -29,13 +30,14 @@ const ProfileCoverInput = ({ src, onChange, onDiscard }) => {
         id="profile-cover-input"
         accept="image/*"
         onChange={(e) => onChange('cover', e.target.files)}
+        disabled={disabled}
       />
     </div>
   )
 }
 
 const NameInput = forwardRef((props, ref) => {
-  const { value, onChange } = props
+  const { value, onChange, disabled } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
       <label htmlFor="profile-name-input">名稱</label>
@@ -44,6 +46,7 @@ const NameInput = forwardRef((props, ref) => {
         id="profile-name-input"
         value={value}
         onChange={(e) => onChange('name', e.target.value)}
+        disabled={disabled}
       />
       <span className={styles.error}>字數超出上限！</span>
       <span className={styles.maxLen}>{value?.length}/50</span>
@@ -52,7 +55,7 @@ const NameInput = forwardRef((props, ref) => {
 })
 
 const IntroInput = forwardRef((props, ref) => {
-  const { value, onChange } = props
+  const { value, onChange, disabled } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
       <label htmlFor="profile-intro-input">自我介紹</label>
@@ -62,6 +65,7 @@ const IntroInput = forwardRef((props, ref) => {
         value={value}
         onChange={(e) => onChange('introduction', e.target.value)}
         max={160}
+        disabled={disabled}
       />
       <span className={styles.error}>字數超出上限！</span>
       <span className={styles.maxLen}>{props.value?.length}/160</span>

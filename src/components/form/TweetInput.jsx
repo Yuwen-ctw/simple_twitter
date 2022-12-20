@@ -1,5 +1,5 @@
 import { forwardRef } from 'react'
-import { UserAvatar } from 'components/share'
+import { SmallSpinner, UserAvatar } from 'components/share'
 import { ClrButton } from 'components/UI/Buttons'
 import styles from 'assets/styles/components/form/tweetInput.module.scss'
 const TweetInput = forwardRef((props, ref) => {
@@ -11,7 +11,9 @@ const TweetInput = forwardRef((props, ref) => {
     placeholder = '有什麼新鮮事？',
     buttonText = '推文',
     className,
+    disabled,
   } = props
+  console.log(disabled)
   return (
     <div className={[styles.input__wrapper, className].join(' ')} ref={ref}>
       <UserAvatar src={src} />
@@ -22,10 +24,17 @@ const TweetInput = forwardRef((props, ref) => {
         id="profile-intro-input"
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
       />
       <span data-rolename="tooMany-msg">字數不可超過 140 字</span>
       <span data-rolename="zeroSize-msg">內容不可空白</span>
-      <ClrButton text={buttonText} className={styles.btn} onClick={onClick} />
+      <ClrButton
+        text={
+          disabled ? <SmallSpinner classname={styles.smSpinner} /> : buttonText
+        }
+        className={styles.btn}
+        onClick={onClick}
+      />
     </div>
   )
 })

@@ -1,8 +1,10 @@
 import { useState, createContext, useContext, useRef } from 'react'
 import { addTweet, likeTweet, dislikeTweet } from 'api/tweets'
 import { useAuth } from './AuthContext'
+import Toast from 'components/UI/Toast'
 const defaultContextValue = {
   tweetInput: null,
+  disabled: null,
   mainTweetInputRef: null,
   modalTweetInputRef: null,
   handleInputChange: null,
@@ -17,6 +19,7 @@ export const useNewTweet = () => useContext(NewTweetContext)
 export function NewTweetContextProvider({ children }) {
   const { currentUser } = useAuth()
   const [tweetInput, setTweetInput] = useState('')
+  const [disabled, setDisabled] = useState(false)
   const [isTweetCreated, setIsTweetCreated] = useState(false)
   const mainTweetInputRef = useRef(null)
   const modalTweetInputRef = useRef(null)
@@ -44,19 +47,23 @@ export function NewTweetContextProvider({ children }) {
       return { isCreated: false }
     }
     if (tweetInput.trim().length > 140) return
-
+    setDisabled(true)
     // send api
     const { success, tweet, message } = await addTweet(tweetInput)
     if (success) {
+      Toast('推文發送成功', 'success').fire()
       // initial value
       tweet.User = currentUser
       tweet.likeCount = 0
       tweet.replyCount = 0
       // clean the tweet input
       setTweetInput('')
+      setDisabled(false)
       return { success, tweet, message, isTweetCreated: true }
     } else {
       console.error(message)
+      Toast(`推文發送失敗: ${message}`, 'error').fire()
+      setDisabled(false)
       return { isCreated: false }
     }
   }
@@ -72,6 +79,7 @@ export function NewTweetContextProvider({ children }) {
     <NewTweetContext.Provider
       value={{
         tweetInput,
+        disabled,
         mainTweetInputRef,
         modalTweetInputRef,
         handleInputChange,
