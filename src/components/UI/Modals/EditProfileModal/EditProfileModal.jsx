@@ -4,6 +4,8 @@ import { EditUser } from 'api/users'
 import readImage from 'uitlities/readImage'
 // components
 import { ClrButton } from 'components/UI/Buttons'
+import { SmallSpinner } from 'components/share'
+import Toast from 'components/UI/Toast'
 import Modal from '../share/Modal'
 import {
   IntroInput,
@@ -14,6 +16,7 @@ import {
 import styles from 'assets/styles/components/modals/editProfileModal.module.scss'
 
 function EditProfileModal({ user, onSave, onClose }) {
+  const [disabled, setDisabled] = useState(false)
   // ref the text inputs
   const refNameInput = useRef(null)
   const refIntroInput = useRef(null)
@@ -21,6 +24,8 @@ function EditProfileModal({ user, onSave, onClose }) {
   const [inputValues, setInputValues] = useState({
     name: user?.name || '',
     introduction: user?.introduction || '',
+    cover: user?.cover,
+    avatar: user?.avatar,
   })
   // store img uri to render preview photo
   const [imageUri, setImageUri] = useState({
@@ -48,6 +53,7 @@ function EditProfileModal({ user, onSave, onClose }) {
 
   // handle discard image
   function handleDiscardCover() {
+    if (disabled) return
     setInputValues({ ...inputValues, cover: null })
     setImageUri({ ...imageUri, cover: null })
   }
@@ -70,23 +76,31 @@ function EditProfileModal({ user, onSave, onClose }) {
     }
     // set data-attribute to show (or hide) the error message
     valid
-      ? refElement.setAttribute('data-isvalid', valid)
-      : refElement.setAttribute('data-isvalid', valid)
+      ? refElement.setAttribute('data-invalid', valid)
+      : refElement.setAttribute('data-invalid', valid)
     setInputValues({ ...inputValues, [action]: payload })
   }
 
   async function handleSave() {
+    if (inputValues.name.length > 50 || inputValues.introduction.length > 160) {
+      Toast('字數超出上限！', 'error').fire()
+      return
+    }
+    setDisabled(true)
     console.log(inputValues)
     const { success, message } = await EditUser(user.id, inputValues)
     if (success) {
+      Toast('設定成功', 'success').fire()
       onSave({
         name: inputValues.name,
         introduction: inputValues.introduction,
         ...imageUri,
       })
     } else {
+      Toast(message, 'error').fire()
       console.error(message)
     }
+    setDisabled(false)
   }
 
   function handleClose() {
@@ -110,25 +124,31 @@ function EditProfileModal({ user, onSave, onClose }) {
             src={imageUri.cover}
             onChange={handleImageChange}
             onDiscard={handleDiscardCover}
+            disabled={disabled}
           />
           <ProfileAvatarInput
             src={imageUri.avatar}
             className={styles.avatar}
             onChange={handleImageChange}
+            disabled={disabled}
           />
           <NameInput
             value={inputValues.name}
             onChange={handleInputChange}
             ref={refNameInput}
+            disabled={disabled}
           />
           <IntroInput
             ref={refIntroInput}
             onChange={handleInputChange}
             value={inputValues.introduction}
+            disabled={disabled}
           />
         </div>
         <ClrButton
-          text="儲存"
+          text={
+            disabled ? <SmallSpinner classname={styles.smSpinner} /> : '儲存'
+          }
           className={styles.saveBtn}
           onClick={handleSave}
         />

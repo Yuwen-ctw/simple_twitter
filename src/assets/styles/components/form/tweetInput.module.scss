@@ -19,13 +19,17 @@
     }
   }
   /* error message */
-  span {
+  > span {
     @include font(0.9375rem, 500, 1, $clr-error);
     position: absolute;
     right: 84px;
     bottom: 48px;
     display: none;
     translate: 0 calc(100% + 4px);
+  }
+  /* btn spinner*/
+  .smSpinner {
+    height: 24px;
   }
 }
 
@@ -39,6 +43,9 @@
 
   &:focus {
     outline: none;
+  }
+  &:disabled {
+    background: white;
   }
 }
 

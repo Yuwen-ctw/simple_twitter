@@ -8,7 +8,7 @@ const AuthContainer = ({ children }) => (
 )
 
 const AccountInput = forwardRef((props, ref) => {
-  const { value, placeholder, onChange, showErr } = props
+  const { value, placeholder, onChange, showErr, disabled } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
       <label htmlFor="profile-account-input">帳號</label>
@@ -19,6 +19,7 @@ const AccountInput = forwardRef((props, ref) => {
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         max={10}
+        disabled={disabled}
       />
       <div className={styles.underline}></div>
       <span className={styles.error}>{showErr ? '帳號不存在' : ''}</span>
@@ -28,7 +29,7 @@ const AccountInput = forwardRef((props, ref) => {
 })
 
 const NameInput = forwardRef((props, ref) => {
-  const { value, onChange, placeholder, errorMessage } = props
+  const { value, onChange, placeholder, errorMessage, disabled } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
       <label htmlFor="profile-name-input">名稱</label>
@@ -39,6 +40,7 @@ const NameInput = forwardRef((props, ref) => {
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
         max={10}
+        disabled={disabled}
       />
       <div className={styles.underline}></div>
       <span className={styles.error}>{errorMessage}</span>
@@ -48,7 +50,7 @@ const NameInput = forwardRef((props, ref) => {
 })
 
 const EmailInput = forwardRef((props, ref) => {
-  const { value, onChange, placeholder, errorMessage } = props
+  const { value, onChange, placeholder, errorMessage, disabled } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
       <label htmlFor="profile-email-input">Email</label>
@@ -58,6 +60,7 @@ const EmailInput = forwardRef((props, ref) => {
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
+        disabled={disabled}
       />
       <div className={styles.underline}></div>
       <span className={styles.error}>{errorMessage}</span>
@@ -66,18 +69,28 @@ const EmailInput = forwardRef((props, ref) => {
 })
 
 const PasswordInput = forwardRef((props, ref) => {
-  const { value, onChange, type, placeholder, errorMessage, label } = props
+  const {
+    value,
+    onChange,
+    type,
+    placeholder,
+    errorMessage,
+    labelName,
+    inputName,
+    disabled,
+  } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
-      <label htmlFor={`profile-password-input${label}`}>密碼</label>
+      <label htmlFor={`profile-password-input${inputName}`}>{labelName}</label>
       <input
         className={styles.textInput}
-        id={`profile-password-input${label}`}
+        id={`profile-password-input${inputName}`}
         value={value}
         placeholder={placeholder}
         type={type || 'text'}
         onChange={(e) => onChange(e.target.value)}
         autoComplete="off"
+        disabled={disabled}
       />
       <div className={styles.underline}></div>
       <span className={styles.error}>{errorMessage}</span>

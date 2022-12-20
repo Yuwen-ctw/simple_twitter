@@ -14,6 +14,7 @@ function MainSection() {
   const { currentUser } = useAuth()
   const {
     tweetInput,
+    disabled,
     handleInputChange,
     handleAddTweet,
     mainTweetInputRef,
@@ -94,6 +95,7 @@ function MainSection() {
         value={tweetInput}
         onChange={handleInputChange}
         onClick={handleAddTweetClick}
+        disabled={disabled}
       />
       <hr />
       {loading && <Spinner />}

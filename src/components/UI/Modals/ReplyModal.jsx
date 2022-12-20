@@ -1,13 +1,14 @@
+import { useReply } from 'contexts/ReplyContext'
 import Modal from './share/Modal'
 import { ModalTweet } from 'components/Tweets'
 import { TweetInput } from 'components/form'
 import styles from 'assets/styles/components/modals/replyModal.module.scss'
-import { useReply } from 'contexts/ReplyContext'
 
 function ReplyModal() {
   const {
     replyInputValue,
     replyInputRef,
+    disabled,
     handleReplyInputChange,
     handleAddReply,
     showReplyModal,
@@ -26,6 +27,7 @@ function ReplyModal() {
           onClick={() => handleAddReply(tweet.id)}
           placeholder="推你的回覆"
           buttonText="回覆"
+          disabled={disabled}
         />
       </div>
     </Modal>
