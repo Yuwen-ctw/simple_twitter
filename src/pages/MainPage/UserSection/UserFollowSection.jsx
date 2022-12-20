@@ -12,11 +12,11 @@ function UserFollowersSection() {
   const { currentUser } = useAuth()
   const { userId } = useParams()
   const pathnames = useLocation().pathname.split('/')
-  const lastPath = pathnames[pathnames.length - 1]
+  const sectionName = pathnames[pathnames.length - 1]
   const [loading, setLoading] = useState(false)
   const [followList, setFollowList] = useState([])
   const fieldName = (function getFieldNameByLastPath() {
-    return lastPath === 'followings' ? 'followingId' : 'followerId'
+    return sectionName === 'followings' ? 'followingId' : 'followerId'
   })()
 
   useEffect(() => {
@@ -24,7 +24,10 @@ function UserFollowersSection() {
       // show Spinner
       setLoading(true)
       // get data
-      const { success, data, message } = await getUserInfoData(lastPath, userId)
+      const { success, data, message } = await getUserInfoData(
+        sectionName,
+        userId
+      )
       if (success) {
         // cancle the spinner
         setLoading(false)
@@ -36,7 +39,7 @@ function UserFollowersSection() {
       }
     }
     getFollowListData()
-  }, [lastPath])
+  }, [sectionName])
 
   async function handleToggleFollow(userId, isFollowed) {
     const { success, message } = isFollowed

@@ -9,24 +9,22 @@ import { MainTweet } from 'components/Tweets'
 import { Spinner } from 'components/share'
 
 function UserMainSection() {
-  const { userId } = useParams()
-  // const pathnames = useLocation().pathname.split('/')
-  // const lastPath = pathnames[pathnames.length - 1]
   const { handleUserOrTweetClick } = useOutletContext()
+  const { userId } = useParams()
+  const pathnames = useLocation().pathname.split('/')
+  const sectionName = pathnames[pathnames.length - 1]
   const [tweets, setTweets] = useState([])
   const [loading, setLoading] = useState(false)
   const { handleToggleLikeTweet } = useNewTweet()
   const { handleOpenModal, isReplyCreated } = useReply()
-
   // get data
   useEffect(() => {
     setLoading(true)
     async function getData() {
-      // const getTweetsPromise = { tweets: getUserTweets, likes: getUserLikes }
-      // const { success, data, message } = await getTweetsPromise[lastPath](
-      //   userId
-      // )
-      const { success, data, message } = await getUserInfoData('tweets', userId)
+      const { success, data, message } = await getUserInfoData(
+        sectionName,
+        userId
+      )
       if (success) {
         // cancle the spinner
         setLoading(false)
@@ -38,7 +36,7 @@ function UserMainSection() {
       }
     }
     getData()
-  }, [isReplyCreated])
+  }, [isReplyCreated, sectionName])
 
   async function handleLikeClick(tweetId, isLiked) {
     const { success, message } = await handleToggleLikeTweet(tweetId, isLiked)
@@ -73,8 +71,7 @@ function UserMainSection() {
   })
   return (
     <ul onClick={handleUserOrTweetClick}>
-      {loading && <Spinner />}
-      {tweetList}
+      {loading ? <Spinner /> : <>{tweetList}</>}
     </ul>
   )
 }

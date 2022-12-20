@@ -77,11 +77,13 @@ function UserSectionLayout() {
         />
       )}
       <Outlet context={useOutletContext()} />
-      <EditProfileModal
-        showModal={showEditModal}
-        onSave={handleEditInfomation}
-        onClose={handleToggleEditModal}
-      />
+      {showEditModal && (
+        <EditProfileModal
+          user={user}
+          onSave={handleEditInfomation}
+          onClose={handleToggleEditModal}
+        />
+      )}
     </section>
   )
 }

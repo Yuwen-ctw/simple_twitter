@@ -12,21 +12,22 @@ import {
   ProfileAvatarInput,
 } from './base'
 import styles from 'assets/styles/components/modals/editProfileModal.module.scss'
-import { useAuth } from 'contexts/AuthContext'
-function EditProfileModal({ showModal, onSave, onClose }) {
-  const { currentUser } = useAuth()
-  // store input values
-  const [inputValues, setInputValues] = useState({
-    name: currentUser?.name || '',
-    introduction: currentUser?.introduction || '',
-  })
-  const [imageUri, setImageUri] = useState({
-    cover: currentUser?.cover,
-    avatar: currentUser?.avatar,
-  })
+
+function EditProfileModal({ user, onSave, onClose }) {
   // ref the text inputs
   const refNameInput = useRef(null)
   const refIntroInput = useRef(null)
+  // store input values
+  const [inputValues, setInputValues] = useState({
+    name: user?.name || '',
+    introduction: user?.introduction || '',
+  })
+  // store img uri to render preview photo
+  const [imageUri, setImageUri] = useState({
+    cover: user?.cover,
+    avatar: user?.avatar,
+  })
+
   // handle image changed
   function handleImageChange(action, files) {
     const file = files[0]
@@ -75,7 +76,7 @@ function EditProfileModal({ showModal, onSave, onClose }) {
 
   async function handleSave() {
     console.log(inputValues)
-    const { success, message } = await EditUser(currentUser.id, inputValues)
+    const { success, message } = await EditUser(user.id, inputValues)
     if (success) {
       onSave({
         name: inputValues.name,
@@ -90,19 +91,19 @@ function EditProfileModal({ showModal, onSave, onClose }) {
   function handleClose() {
     // back to initial values
     setInputValues({
-      name: currentUser?.name || '',
-      introduction: currentUser?.introduction || '',
+      name: user?.name || '',
+      introduction: user?.introduction || '',
     })
     setImageUri({
-      cover: currentUser?.cover,
-      avatar: currentUser?.avatar,
+      cover: user?.cover,
+      avatar: user?.avatar,
     })
     onClose()
   }
 
   return (
     <>
-      <Modal active={showModal} title={'編輯個人資料'} onClose={handleClose}>
+      <Modal active title={'編輯個人資料'} onClose={handleClose}>
         <div className={styles.modal__content}>
           <ProfileCoverInput
             src={imageUri.cover}
