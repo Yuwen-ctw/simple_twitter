@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getAllTweets, deleteTweet } from 'api/tweets'
+import { getAllTweets, deleteTweet } from 'api/admin'
 import { SectionTitle, Spinner } from 'components/share'
 import { AdminTweet } from 'components/Tweets'
 import styles from 'assets/styles/pages/adminMainSection.module.scss'

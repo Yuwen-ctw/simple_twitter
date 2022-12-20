@@ -8,21 +8,23 @@ import {
   AccountInput,
   PasswordInput,
 } from 'components/form/AuthInput'
-import { Logo, PageTitle } from 'components/share'
+import { Logo, PageTitle, SmallSpinner } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
-import Swal from 'sweetalert2'
+import Toast from 'components/UI/Toast'
 
 function AdminLoginPage() {
   const { isAuthenticated, login, role } = useAuth()
   const [account, setAccount] = useState('')
   const [password, setPassword] = useState('')
   const [showErr, setShowErr] = useState(false)
+  const [disabled, setDisabled] = useState(false)
   const navigate = useNavigate()
 
   const handleClick = async () => {
     event.preventDefault()
     if (account.length === 0 || password.length === 0) return
     // get data
+    setDisabled(true)
     const { success, message } = await login({
       role: role.admin,
       account,
@@ -31,26 +33,14 @@ function AdminLoginPage() {
 
     // pop modal
     if (success) {
-      Swal.fire({
-        position: 'top',
-        title: `登入成功！`,
-        timer: 800,
-        icon: 'success',
-        showConfirmButton: false,
-      })
+      Toast('登入成功', 'success').fire()
       navigate('/admin/tweets')
     } else {
       setShowErr(true)
       console.error(message)
-      Swal.fire({
-        position: 'top',
-        title: `登入失敗！
-        ${message}`,
-        timer: 1000,
-        icon: 'error',
-        showConfirmButton: false,
-      })
+      Toast(`登入失敗: ${message}`, 'error').fire()
     }
+    setDisabled(false)
   }
   useEffect(() => {
     if (isAuthenticated) {
@@ -72,17 +62,23 @@ function AdminLoginPage() {
             setShowErr(false)
             setAccount(inputValues)
           }}
+          disabled={disabled}
         />
 
         <PasswordInput
-          label="密碼"
+          inputName="password"
+          labelName="密碼"
           type="password"
           placeholder="請輸入密碼"
           value={password}
           onChange={(inputValues) => setPassword(inputValues)}
+          disabled={disabled}
         />
 
-        <ClrButton text="登入" onClick={handleClick} />
+        <ClrButton
+          text={disabled ? <SmallSpinner /> : '登入'}
+          onClick={handleClick}
+        />
         <div>
           <BaseLink text="前台登入" to="/login" />
         </div>

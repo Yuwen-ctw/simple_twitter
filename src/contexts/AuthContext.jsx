@@ -27,6 +27,7 @@ function AuthContextProvider({ children }) {
 
   // check authToken when route switched
   useEffect(() => {
+    if (pathname.includes('admin')) return
     console.log({ isAuthenticated })
     async function checkPermission() {
       // get token
@@ -72,7 +73,12 @@ function AuthContextProvider({ children }) {
     if (success) {
       setIsAuthenticated(true)
       setPayload(user)
-      localStorage.setItem('authToken', token)
+      // store the admin token in session storage
+      if (user.role === role.admin) {
+        sessionStorage.setItem('authToken', token)
+      } else {
+        localStorage.setItem('authToken', token)
+      }
     } else {
       setIsAuthenticated(false)
       setPayload(null)

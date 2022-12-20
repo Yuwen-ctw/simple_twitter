@@ -13,7 +13,6 @@ const TweetInput = forwardRef((props, ref) => {
     className,
     disabled,
   } = props
-  console.log(disabled)
   return (
     <div className={[styles.input__wrapper, className].join(' ')} ref={ref}>
       <UserAvatar src={src} />
