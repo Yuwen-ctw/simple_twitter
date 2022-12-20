@@ -19,10 +19,11 @@ function EditProfileModal({ showModal, onSave, onClose }) {
   const [inputValues, setInputValues] = useState({
     name: currentUser?.name || '',
     introduction: currentUser?.introduction || '',
+  })
+  const [imageUri, setImageUri] = useState({
     cover: currentUser?.cover,
     avatar: currentUser?.avatar,
   })
-
   // ref the text inputs
   const refNameInput = useRef(null)
   const refIntroInput = useRef(null)
@@ -31,11 +32,18 @@ function EditProfileModal({ showModal, onSave, onClose }) {
     const file = files[0]
     // return if load nothing
     if (!file) return
+    setInputValues({ ...inputValues, [action]: file })
     // read the file
     readImage(file)
-      .then((url) => setInputValues({ ...inputValues, [action]: url }))
+      .then((url) =>
+        setImageUri({
+          ...imageUri,
+          [action]: url,
+        })
+      )
       .catch((err) => alert(err))
   }
+  console.log(inputValues)
 
   // handle discard image
   function handleDiscardCover() {
@@ -66,26 +74,43 @@ function EditProfileModal({ showModal, onSave, onClose }) {
   }
 
   async function handleSave() {
-    // TODO call api here
+    console.log(inputValues)
     const { success, message } = await EditUser(currentUser.id, inputValues)
     if (success) {
-      onSave(inputValues)
+      onSave({
+        name: inputValues.name,
+        introduction: inputValues.introduction,
+        ...imageUri,
+      })
     } else {
       console.error(message)
     }
   }
 
+  function handleClose() {
+    // back to initial values
+    setInputValues({
+      name: currentUser?.name || '',
+      introduction: currentUser?.introduction || '',
+    })
+    setImageUri({
+      cover: currentUser?.cover,
+      avatar: currentUser?.avatar,
+    })
+    onClose()
+  }
+
   return (
     <>
-      <Modal active={showModal} title={'編輯個人資料'} onClose={onClose}>
+      <Modal active={showModal} title={'編輯個人資料'} onClose={handleClose}>
         <div className={styles.modal__content}>
           <ProfileCoverInput
-            src={inputValues.cover}
+            src={imageUri.cover}
             onChange={handleImageChange}
             onDiscard={handleDiscardCover}
           />
           <ProfileAvatarInput
-            src={inputValues.avatar}
+            src={imageUri.avatar}
             className={styles.avatar}
             onChange={handleImageChange}
           />

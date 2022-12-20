@@ -25,6 +25,10 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   }
 }
 
+:global(.hide) {
+  display: none;
+}
+
 .background {
   position: absolute;
   top: 0px;

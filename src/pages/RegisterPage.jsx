@@ -111,6 +111,7 @@ function RegisterPage() {
           type="password"
           placeholder="請再次輸入密碼"
           value={checkPassword}
+          label="check"
           onChange={(inputValue) => setcheckPassword(inputValue)}
         />
 

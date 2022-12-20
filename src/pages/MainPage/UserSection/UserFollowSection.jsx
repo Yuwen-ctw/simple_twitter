@@ -54,12 +54,12 @@ function UserFollowersSection() {
   }
 
   // map userList
-  const listData = followList.map((user) => {
-    // check if the user is himself/herself
+  const listData = followList.map((user, index) => {
+    // check if login user
     if (user[fieldName] === currentUser.id) user.isLoginUser = true
     return (
       <FollowUserCard
-        key={user.fieldName}
+        key={user.fieldName || index}
         user={user}
         onChange={handleToggleFollow}
         targetId={user[fieldName]}

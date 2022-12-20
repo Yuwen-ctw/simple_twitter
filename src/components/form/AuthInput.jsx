@@ -31,7 +31,7 @@ const NameInput = forwardRef((props, ref) => {
   const { value, onChange, placeholder, errorMessage } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
-      <label htmlFor="profile-name-input">帳號</label>
+      <label htmlFor="profile-name-input">名稱</label>
       <input
         className={styles.textInput}
         id="profile-name-input"
@@ -66,13 +66,13 @@ const EmailInput = forwardRef((props, ref) => {
 })
 
 const PasswordInput = forwardRef((props, ref) => {
-  const { value, onChange, type, placeholder, errorMessage } = props
+  const { value, onChange, type, placeholder, errorMessage, label } = props
   return (
     <div className={styles.input__wrapper} ref={ref}>
-      <label htmlFor="profile-password-input">密碼</label>
+      <label htmlFor={`profile-password-input${label}`}>密碼</label>
       <input
         className={styles.textInput}
-        id="profile-password-input"
+        id={`profile-password-input${label}`}
         value={value}
         placeholder={placeholder}
         type={type || 'text'}

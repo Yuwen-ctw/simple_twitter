@@ -9,7 +9,7 @@ import {
 import { SwitchLink } from 'components/UI/Buttons'
 import styles from 'assets/styles/components/userCards/profileUserCard.module.scss'
 
-function ProfileUserCard({ user, onClickEdit, onToggleFollow }) {
+function ProfileUserCard({ user, onClickEdit, onToggleFollow, className }) {
   const navigate = useNavigate()
 
   function handleFollowInfoClick(target) {
@@ -17,7 +17,7 @@ function ProfileUserCard({ user, onClickEdit, onToggleFollow }) {
   }
 
   return (
-    <div className={styles.layout}>
+    <div className={[styles.layout, className].join(' ')}>
       <ProfileBackground src={user.cover} />
       <ProfileAvatar src={user.avatar} className={styles.avatar} />
       <ButtonGroup
