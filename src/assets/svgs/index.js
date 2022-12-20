@@ -13,6 +13,10 @@ import profileMailClrSvg from './profile_mail_clr.svg'
 import profileMailSvg from './profile_mail.svg'
 import profileNotiTrueSvg from './profile_noti_true.svg'
 import profileNotiFalseSvg from './profile_noti_false.svg'
+import noti_successSvg from './noti_success.svg'
+import noti_warningSvg from './noti_warning.svg'
+import noti_disconnectedSvg from './noti_disconnected.svg'
+import noti_errorSvg from './noti_error.svg'
 export {
   featherSvg,
   likeSvg,
@@ -29,4 +33,8 @@ export {
   profileMailSvg,
   profileNotiTrueSvg,
   profileNotiFalseSvg,
+  noti_successSvg,
+  noti_warningSvg,
+  noti_disconnectedSvg,
+  noti_errorSvg,
 }

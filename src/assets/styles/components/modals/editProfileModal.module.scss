@@ -141,6 +141,13 @@
     border-radius: 0px 0px 4px 4px;
   }
 
+  /* bottom border:hover*/
+  &:hover {
+    &::after {
+      background: $clr-focus;
+    }
+  }
+
   /* bottom border:focus */
   &:has(input:focus),
   &:has(textarea:focus) {

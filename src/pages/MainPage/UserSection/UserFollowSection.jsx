@@ -15,9 +15,9 @@ function UserFollowersSection() {
   const sectionName = pathnames[pathnames.length - 1]
   const [loading, setLoading] = useState(false)
   const [followList, setFollowList] = useState([])
-  const fieldName = (function getFieldNameByLastPath() {
-    return sectionName === 'followings' ? 'followingId' : 'followerId'
-  })()
+  // const fieldName = (function getFieldNameByLastPath() {
+  //   return sectionName === 'followings' ? 'followingId' : 'followerId'
+  // })()
 
   useEffect(() => {
     async function getFollowListData() {
@@ -57,16 +57,11 @@ function UserFollowersSection() {
   }
 
   // map userList
-  const listData = followList.map((user, index) => {
+  const listData = followList.map((user) => {
     // check if login user
-    if (user[fieldName] === currentUser.id) user.isLoginUser = true
+    if (user.id === currentUser.id) user.isLoginUser = true
     return (
-      <FollowUserCard
-        key={user.fieldName || index}
-        user={user}
-        onChange={handleToggleFollow}
-        targetId={user[fieldName]}
-      />
+      <FollowUserCard key={user.id} user={user} onChange={handleToggleFollow} />
     )
   })
   return (

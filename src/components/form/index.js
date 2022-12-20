@@ -1,2 +1,3 @@
 import TweetInput from './TweetInput'
-export { TweetInput }
+import SettingInput from './SettingInput'
+export { TweetInput, SettingInput }
