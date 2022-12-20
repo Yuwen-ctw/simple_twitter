@@ -49,6 +49,7 @@ function EditProfileModal({ user, onSave, onClose }) {
   // handle discard image
   function handleDiscardCover() {
     setInputValues({ ...inputValues, cover: null })
+    setImageUri({ ...imageUri, cover: null })
   }
 
   // handle text inputs changed
