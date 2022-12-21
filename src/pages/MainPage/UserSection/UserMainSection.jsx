@@ -11,6 +11,7 @@ import { Spinner } from 'components/share'
 function UserMainSection() {
   const { handleUserOrTweetClick } = useOutletContext()
   const { userId } = useParams()
+  const { pathname } = useLocation()
   const pathnames = useLocation().pathname.split('/')
   const sectionName = pathnames[pathnames.length - 1]
   const [tweets, setTweets] = useState([])
@@ -19,6 +20,7 @@ function UserMainSection() {
   const { handleOpenModal, isReplyCreated } = useReply()
   // get data
   useEffect(() => {
+    console.log(pathname)
     setLoading(true)
     async function getData() {
       const { success, data, message } = await getUserInfoData(
@@ -36,7 +38,7 @@ function UserMainSection() {
       }
     }
     getData()
-  }, [isReplyCreated, sectionName])
+  }, [isReplyCreated, pathname])
 
   async function handleLikeClick(tweetId, isLiked) {
     const { success, message } = await handleToggleLikeTweet(tweetId, isLiked)

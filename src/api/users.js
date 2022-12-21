@@ -47,7 +47,6 @@ export async function getUser(userId) {
 }
 
 export async function EditUser(userId, userData) {
-  console.log('send', userData)
   try {
     const { data } = await axiosInstance.put(
       `${baseUrl}/${basePath}/${userId}`,
@@ -58,7 +57,6 @@ export async function EditUser(userId, userData) {
         },
       }
     )
-    console.log(data)
     if (data.success === false) return { ...data }
     return { success: true, data }
   } catch (err) {
