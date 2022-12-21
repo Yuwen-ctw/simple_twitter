@@ -43,6 +43,9 @@
   background-image: $defaultCover;
   background-repeat: no-repeat;
   background-size: cover;
+  &:has(> img[src]) {
+    background-image: none;
+  }
 
   &:hover {
     opacity: 0.75;
@@ -82,12 +85,12 @@
     &:not([src]) {
       display: none;
     }
-    background: #a7a7ac;
+    // background: #a7a7ac;
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
     height: 200px;
   }
 }

@@ -80,6 +80,10 @@ function SettingSection() {
 
   async function handleFormSubmit() {
     event.preventDefault()
+    const anyInvalid = inputNames.some(
+      (key) => inputRefs[key].getAttribute('data-invalid') === 'true'
+    )
+    if (anyInvalid) return
     const emptyInput = inputNames.find((key) => inputValues[key].length === 0)
     // check empty value
     if (emptyInput) {

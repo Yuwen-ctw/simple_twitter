@@ -46,7 +46,7 @@ export function NewTweetContextProvider({ children }) {
       modalTweetInputRef.current?.setAttribute('data-zeroSize', 'true')
       return { isCreated: false }
     }
-    if (tweetInput.trim().length > 140) return
+    if (tweetInput.trim().length > 140) return { isCreated: false }
     setDisabled(true)
     // send api
     const { success, tweet, message } = await addTweet(tweetInput)

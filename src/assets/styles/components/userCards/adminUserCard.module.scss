@@ -19,6 +19,10 @@
     background-image: $defaultCover;
     background-repeat: no-repeat;
     background-size: cover;
+    &:has(> img[src]) {
+      background-image: none;
+    }
+
     img {
       /* hide if no image url*/
       &:not([src]) {

@@ -52,6 +52,8 @@ export function ReplyContextProvider({ children }) {
   }
 
   function handleOpenModal(tweet) {
+    // clean the error message
+    replyInputRef.current?.setAttribute('data-zeroSize', 'false')
     setReplyModal({ isShow: true, tweet })
   }
 
