@@ -88,6 +88,10 @@ input:hover ~ .underline {
   background-color: #50b5ff;
 }
 
+input:invalid ~ .underline {
+  background-color: $clr-error;
+}
+
 .textInput {
   @include font(1rem, 400, 26px, $text-dark);
   width: 100%;

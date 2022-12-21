@@ -18,14 +18,17 @@ function RegisterPage() {
   const [password, setPassword] = useState('')
   const [checkPassword, setcheckPassword] = useState('')
   const [state, setState] = useState(false)
+  const [invalid, setInvalid] = useState(false)
   const navigate = useNavigate()
 
   function handleInputChange(value) {
-    if (inputValues.name?.length >= 50) {
+    if (inputValues?.length >= 50) {
+      setInvalid(true)
       setState(true)
     } else {
       setInputValues(value)
     }
+
     console.log(inputValues)
   }
 
@@ -99,6 +102,7 @@ function RegisterPage() {
           value={inputValues.name}
           onChange={handleInputChange}
           state={state}
+          invalid={invalid}
         />
 
         <AuthInput

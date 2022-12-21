@@ -22,7 +22,7 @@ const AuthInput = forwardRef((props, ref) => {
         max={50}
       />
 
-      <u className={styles.underline} errorStyle={{ color: $clr - error }}></u>
+      <u className={styles.underline}></u>
       <span className={styles.error}>{state ? '字數超過五十字' : ''}</span>
       <span className={styles.error}>{showErr ? '帳號不存在' : ''}</span>
       <span className={styles.maxLen}>{value?.length}/50</span>
