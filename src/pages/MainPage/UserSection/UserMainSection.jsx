@@ -18,9 +18,9 @@ function UserMainSection() {
   const [loading, setLoading] = useState(false)
   const { handleToggleLikeTweet } = useNewTweet()
   const { handleOpenModal, isReplyCreated } = useReply()
+
   // get data
   useEffect(() => {
-    console.log(pathname)
     setLoading(true)
     async function getData() {
       const { success, data, message } = await getUserInfoData(
