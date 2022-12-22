@@ -1,5 +1,6 @@
 import { userLogin, adminLogin, register } from 'api/auth'
 import { getUser } from 'api/users'
+import Toast from 'components/UI/Toast'
 import * as jwt from 'jsonwebtoken'
 import { useEffect, useState, createContext, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router'
@@ -25,33 +26,32 @@ function AuthContextProvider({ children }) {
     admin: 'admin',
   }
 
+  function kickout() {
+    setIsAuthenticated(false)
+    setPayload(null)
+    navigate('login')
+    Toast('請重新登入！', 'disconnected').fire()
+  }
   // check authToken when route switched
   useEffect(() => {
     if (pathname.includes('admin')) return
-    console.log({ isAuthenticated })
+
     async function checkPermission() {
       // get token
       const authToken = localStorage.getItem('authToken')
-      if (!authToken) {
-        setIsAuthenticated(false)
-        setPayload(null)
-        return
-      }
+      if (!authToken) return kickout()
+
       // decode token, and get currentUser data
       const temPayload = jwt.decode(authToken)
-      if (!temPayload) {
-        setIsAuthenticated(false)
-        setPayload(null)
-        return
-      }
+      if (!temPayload) return kickout()
+
       const { success, data, message } = await getUser(temPayload.id)
       if (success) {
         setIsAuthenticated(true)
         setPayload(data)
       } else {
         console.error(message)
-        setIsAuthenticated(false)
-        setPayload(null)
+        kickout()
       }
     }
     checkPermission()

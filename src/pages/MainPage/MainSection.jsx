@@ -51,7 +51,7 @@ function MainSection() {
       setTimeout(() => {
         setTweets([tweet, ...tweets])
         setLoading(false)
-      }, 1000)
+      }, 2000)
     }
   }
 
