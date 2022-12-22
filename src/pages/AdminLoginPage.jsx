@@ -1,34 +1,56 @@
 // hooks & context
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
-import {
-  AuthContainer,
-  AccountInput,
-  PasswordInput,
-} from 'components/form/AuthInput'
+import { AuthContainer, AuthInput } from 'components/form'
 import { Logo, PageTitle, SmallSpinner } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
 
+const initialInput = {
+  account: '',
+  password: '',
+}
+
+const actions = {
+  account: 'account',
+  password: 'password',
+}
+
+function inputReducer(state, action) {
+  switch (action.type) {
+    case actions.account:
+      return { ...state, account: action.payload }
+    case actions.password:
+      return { ...state, password: action.payload }
+    default:
+      return state
+  }
+}
+
 function AdminLoginPage() {
   const { isAuthenticated, login, role } = useAuth()
-  const [account, setAccount] = useState('')
-  const [password, setPassword] = useState('')
-  const [showErr, setShowErr] = useState(false)
+  const [inputPairs, dispatch] = useReducer(inputReducer, initialInput)
+  const [errMsg, setErrMsg] = useState('')
   const [disabled, setDisabled] = useState(false)
   const navigate = useNavigate()
 
-  const handleClick = async () => {
+  function handleInputChange(action) {
+    errMsg.length && setErrMsg('')
+    dispatch(action)
+  }
+
+  async function handleFormSubmit() {
     event.preventDefault()
-    if (account.length === 0 || password.length === 0) return
+    if (inputPairs.account.length === 0 || inputPairs.password.length === 0)
+      return
     // get data
     setDisabled(true)
     const { success, message } = await login({
       role: role.admin,
-      account,
-      password,
+      account: inputPairs.account,
+      password: inputPairs.password,
     })
 
     // pop modal
@@ -36,7 +58,7 @@ function AdminLoginPage() {
       Toast('登入成功', 'success').fire()
       navigate('/admin/tweets')
     } else {
-      setShowErr(true)
+      setErrMsg(message)
       console.error(message)
       Toast(`登入失敗: ${message}`, 'error').fire()
     }
@@ -54,30 +76,29 @@ function AdminLoginPage() {
         <Logo />
         <PageTitle>後台登入</PageTitle>
 
-        <AccountInput
+        <AuthInput
+          labelName="帳號"
+          inputName="account"
           placeholder="請輸入帳號"
-          value={account}
-          showErr={showErr}
-          onChange={(inputValues) => {
-            setShowErr(false)
-            setAccount(inputValues)
-          }}
+          value={inputPairs.account}
+          errMsg={errMsg}
+          onChange={handleInputChange}
           disabled={disabled}
         />
 
-        <PasswordInput
-          inputName="password"
+        <AuthInput
           labelName="密碼"
+          inputName="password"
           type="password"
           placeholder="請輸入密碼"
-          value={password}
-          onChange={(inputValues) => setPassword(inputValues)}
+          value={inputPairs.password}
+          onChange={handleInputChange}
           disabled={disabled}
         />
 
         <ClrButton
           text={disabled ? <SmallSpinner /> : '登入'}
-          onClick={handleClick}
+          onClick={handleFormSubmit}
         />
         <div>
           <BaseLink text="前台登入" to="/login" />

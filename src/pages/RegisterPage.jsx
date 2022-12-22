@@ -1,44 +1,92 @@
 // hooks & context
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
 import { Logo, PageTitle, SmallSpinner } from 'components/share'
-import {
-  AuthContainer,
-  AccountInput,
-  NameInput,
-  EmailInput,
-  PasswordInput,
-} from 'components/form/AuthInput'
+import { AuthContainer, AuthInput } from 'components/form'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
 
+const initialInput = {
+  account: '',
+  name: '',
+  email: '',
+  password: '',
+  checkPassword: '',
+}
+
+const actions = {
+  account: 'account',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  checkPassword: 'checkPassword',
+}
+
+function inputReducer(state, action) {
+  switch (action.type) {
+    case actions.account:
+      return { ...state, account: action.payload }
+    case actions.name:
+      return { ...state, name: action.payload }
+    case actions.email:
+      return { ...state, email: action.payload }
+    case actions.password:
+      return { ...state, password: action.payload }
+    case actions.checkPassword:
+      return { ...state, checkPassword: action.payload }
+    case actions.all:
+      return { ...state, ...action.payload }
+    default:
+      return state
+  }
+}
+
 function RegisterPage() {
   const { isAuthenticated, register } = useAuth()
-  const [account, setAccount] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [checkPassword, setcheckPassword] = useState('')
+  const [inputPairs, dispatch] = useReducer(inputReducer, initialInput)
   const [disabled, setDisabled] = useState(false)
   const navigate = useNavigate()
+  const inputNames = Object.keys(inputPairs)
+  const [errMsg, setErrMsg] = useState({})
 
-  const handleClick = async () => {
+  function handleInputChange(action) {
+    const { type, payload } = action
+    dispatch(action)
+    // clean error message if length > 0
+    if (payload.length >= 0) setErrMsg({ ...errMsg, [type]: '' })
+
+    if (type === actions.name && payload.length > 50) {
+      setErrMsg({ ...errMsg, name: '字數超出上限' })
+    }
+  }
+
+  async function handleFormSubmit() {
     event.preventDefault()
-    if (account.length === 0) return
-    if (name.length === 0) return
-    if (email.length === 0) return
-    if (password.length === 0) return
-    if (checkPassword.length === 0) return
+    // 檢查空白
+    const emptyInputName = inputNames.find(
+      (name) => inputPairs[name].length === 0
+    )
+    if (emptyInputName) {
+      setErrMsg({ ...errMsg, [emptyInputName]: '內容不可空白' })
+      return
+    }
+    // 檢查錯誤訊息
+    const anyInvalid = inputNames.some((key) => errMsg[key] !== '')
+    if (anyInvalid) return
+
+    // 檢查email格式
+    const emailRegExp = new RegExp(/^([\w\-.])+@([\w\-.])+\.[A-Za-z]+$/)
+    const validEmailFormat = emailRegExp.test(inputPairs.email)
+    if (!validEmailFormat) {
+      setErrMsg({ ...errMsg, email: 'Email 格式錯誤' })
+      return
+    }
+
+    // register process
     setDisabled(true)
-    const { success, message } = await register({
-      account,
-      name,
-      email,
-      password,
-      checkPassword,
-    })
+    const { success, message } = await register(inputPairs)
 
     if (success) {
       navigate('/login')
@@ -48,7 +96,19 @@ function RegisterPage() {
         'success'
       ).fire()
     } else {
-      console.log(`註冊失敗: ${message}`)
+      const accountMsg = message.match(/account.*/i)
+      const emailMsg = message.match(/email.*/i)
+      const pwMsg = message.match(/密碼.*/i)
+      try {
+        accountMsg && setErrMsg({ ...errMsg, account: accountMsg[0] })
+        emailMsg && setErrMsg({ ...errMsg, email: emailMsg[0] })
+        pwMsg &&
+          setErrMsg({ ...errMsg, password: pwMsg[0], checkPassword: pwMsg[0] })
+      } catch (err) {
+        console.error(err)
+      }
+      dispatch({ type: actions.password, payload: '' })
+      dispatch({ type: actions.checkPassword, payload: '' })
       Toast(
         `註冊失敗：
         ${message}`,
@@ -70,51 +130,58 @@ function RegisterPage() {
         <Logo />
         <PageTitle>建立你的帳號</PageTitle>
 
-        <AccountInput
+        <AuthInput
           placeholder="請輸入帳號"
-          value={account}
-          onChange={(inputValues) => setAccount(inputValues)}
+          labelName="帳號"
+          inputName="account"
+          value={inputPairs.account}
+          onChange={handleInputChange}
           disabled={disabled}
+          errMsg={errMsg.account}
         />
-
-        <NameInput
+        <AuthInput
           placeholder="請輸入使用者名稱"
-          value={name}
-          onChange={(inputValues) => setName(inputValues)}
+          labelName="名稱"
+          inputName="name"
+          value={inputPairs.name}
+          onChange={handleInputChange}
           disabled={disabled}
+          errMsg={errMsg.name}
         />
-
-        <EmailInput
-          label="Email"
+        <AuthInput
           placeholder="請輸入 email"
-          value={email}
-          onChange={(inputValues) => setEmail(inputValues)}
+          labelName="Email"
+          inputName="email"
+          type="email"
+          value={inputPairs.email}
+          onChange={handleInputChange}
           disabled={disabled}
+          errMsg={errMsg.email}
         />
-
-        <PasswordInput
-          labelName="密碼"
-          inputName="password"
+        <AuthInput
           type="password"
           placeholder="請輸入密碼"
-          value={password}
-          onChange={(inputValues) => setPassword(inputValues)}
+          labelName="密碼"
+          inputName="password"
+          value={inputPairs.password}
+          onChange={handleInputChange}
           disabled={disabled}
+          errMsg={errMsg.password}
         />
-
-        <PasswordInput
-          labelName="密碼確認"
-          inputName="checkPassword"
+        <AuthInput
           type="password"
           placeholder="請再次輸入密碼"
-          value={checkPassword}
-          onChange={(inputValue) => setcheckPassword(inputValue)}
+          labelName="密碼確認"
+          inputName="checkPassword"
+          value={inputPairs.checkPassword}
+          onChange={handleInputChange}
           disabled={disabled}
+          errMsg={errMsg.checkPassword}
         />
 
         <ClrButton
           text={disabled ? <SmallSpinner /> : '註冊'}
-          onClick={handleClick}
+          onClick={handleFormSubmit}
         />
         <BaseLink text="取消" to="/login" />
       </AuthContainer>

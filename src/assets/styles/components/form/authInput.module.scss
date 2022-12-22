@@ -118,5 +118,8 @@ input.error ~ .underline {
 
   &:focus {
     outline: none;
+    ~ .maxLen {
+      display: inline;
+    }
   }
 }
