@@ -1,6 +1,6 @@
 // hooks & context
 import { useState, useEffect, useReducer } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
 import { AuthContainer, AuthInput } from 'components/form'
@@ -8,6 +8,7 @@ import { Logo, PageTitle, SmallSpinner } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
 
+// reducer setting
 const initialInput = {
   account: '',
   password: '',
@@ -35,9 +36,9 @@ function LoginPage() {
   const [disabled, setDisabled] = useState(false)
   const [errMsg, setErrMsg] = useState('')
   const navigate = useNavigate()
-  const { pathname } = useLocation()
 
   function handleInputChange(action) {
+    // hide error message
     errMsg.length && setErrMsg('')
     dispatch(action)
   }
@@ -46,8 +47,9 @@ function LoginPage() {
     event.preventDefault()
     if (inputPairs.account.length === 0 || inputPairs.password.length === 0)
       return
+
+    // start login process
     setDisabled(true)
-    // get data
     const { success, message } = await login({
       role: role.user,
       account: inputPairs.account,
@@ -64,11 +66,11 @@ function LoginPage() {
     }
     setDisabled(false)
   }
-
+  // redirect if authenticated
   useEffect(() => {
     if (isAuthenticated) {
-      if (pathname.includes(process.env.PUBLIC_URL)) navigate(-1)
-      else navigate('/')
+      navigate('/')
+      Toast('登入成功', 'success').fire()
     }
   }, [navigate, isAuthenticated])
 

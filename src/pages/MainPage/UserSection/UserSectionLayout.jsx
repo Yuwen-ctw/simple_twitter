@@ -14,36 +14,46 @@ import styles from 'assets/styles/pages/userSection.module.scss'
 import { useFollowToggled } from 'contexts/FollowToggledContext'
 
 function UserSectionLayout() {
-  const { currentUser } = useAuth()
+  const { currentUser, isAuthenticated } = useAuth()
   const { toggledUser, handleToggleFollow } = useFollowToggled()
   const { userId } = useParams()
   const pathnames = useLocation().pathname.split('/')
   const lastPath = pathnames[pathnames.length - 1]
-  const [loading, setLoading] = useState(false)
   const [user, setUser] = useState({})
   const [showEditModal, setShowEditModal] = useState(false)
   const isFollowSection = lastPath.match('follow')
 
   useEffect(() => {
-    setLoading(true)
     async function getUserData() {
       const { success, data, message } = await getUser(userId)
       if (success) {
         if (currentUser?.id.toString() === userId) data.self = true
         setUser(data)
-        setLoading(false)
       } else {
         console.error(message)
       }
     }
     getUserData()
-  }, [userId])
+  }, [userId, currentUser])
 
   // update user data wherever current-user changed the follow state
   useEffect(() => {
-    if (toggledUser.id === user.id)
-      setUser({ ...user, isFollowed: !user.isFollowed })
+    if (!isAuthenticated) return
+    updateCurrentUser(toggledUser)
   }, [toggledUser])
+
+  function updateCurrentUser(toggledUser) {
+    const isIncrease = toggledUser.isFollowed ? 1 : -1
+    if (user.id === currentUser.id) {
+      setUser({ ...user, followingCount: user.followingCount + isIncrease })
+    } else if (toggledUser.id === user.id) {
+      setUser({
+        ...user,
+        isFollowed: !user.isFollowed,
+        followerCount: user.followerCount + isIncrease,
+      })
+    }
+  }
 
   // show modal or not
   function handleToggleEditModal() {
@@ -61,16 +71,12 @@ function UserSectionLayout() {
   return (
     <section className={[styles.sectionWrapper, 'scrollbar'].join(' ')}>
       <SectionHeader user={user} />
-      {loading ? (
-        ''
-      ) : (
-        <ProfileUserCard
-          user={user}
-          onClickEdit={handleToggleEditModal}
-          onToggleFollow={handleToggleFollow}
-          className={isFollowSection && 'hide'}
-        />
-      )}
+      <ProfileUserCard
+        user={user}
+        onClickEdit={handleToggleEditModal}
+        onToggleFollow={handleToggleFollow}
+        className={isFollowSection && 'hide'}
+      />
       <Outlet context={useOutletContext()} />
       {showEditModal && (
         <EditProfileModal

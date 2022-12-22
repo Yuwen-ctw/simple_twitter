@@ -17,16 +17,10 @@ import { useFollowToggled } from 'contexts/FollowToggledContext'
 function MainLayout() {
   const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
-  const { logout, currentUser, isAuthenticated } = useAuth()
+  const { logout, currentUser } = useAuth()
   const { toggledUser, handleToggleFollow } = useFollowToggled()
   const [popularUsers, setPopularUsers] = useState([])
   const [showTweetModal, setShowTweetModal] = useState(false)
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate('login')
-    }
-  }, [])
 
   useEffect(() => {
     setLoading(true)

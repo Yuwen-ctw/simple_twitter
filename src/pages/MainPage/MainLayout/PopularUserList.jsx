@@ -10,7 +10,7 @@ function PopularUserList({ users, className, onClick, onToggleFollow }) {
   // map popularUsers
   const popularLists = users.map((user) => {
     // check if the user is himself/herself
-    if (user.id === currentUser.id) user.isLoginUser = true
+    if (user.id === currentUser?.id) user.isLoginUser = true
     return (
       <PopularUserCard
         key={user.id}

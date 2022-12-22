@@ -44,7 +44,7 @@ function inputReducer(state, action) {
 }
 
 function SettingSection() {
-  const { currentUser } = useAuth()
+  const { currentUser, isAuthenticated } = useAuth()
   const [inputValues, dispatch] = useReducer(inputReducer, initialInput)
   const [errMessage, setErrMessage] = useState(null)
   const [disabled, setDisabled] = useState(false)
@@ -53,6 +53,7 @@ function SettingSection() {
   const inputNames = Object.keys(inputValues)
   // get initial values
   useEffect(() => {
+    if (!isAuthenticated) return
     dispatch({
       type: actions.all,
       payload: {
@@ -61,7 +62,7 @@ function SettingSection() {
         email: currentUser?.email,
       },
     })
-  }, [])
+  }, [isAuthenticated])
 
   function handleInputChange(action) {
     dispatch(action)
