@@ -1,3 +1,4 @@
+import { useAuth } from 'contexts/AuthContext'
 import { useReply } from 'contexts/ReplyContext'
 import Modal from './share/Modal'
 import { ModalTweet } from 'components/Tweets'
@@ -15,13 +16,14 @@ function ReplyModal() {
     handleCloseModal,
   } = useReply()
   const { isShow, tweet } = showReplyModal
+  const { currentUser } = useAuth()
   return (
     <Modal active={isShow} onClose={handleCloseModal}>
       <ModalTweet tweet={tweet} />
       <div className={[styles.replyWrapper]}>
         <TweetInput
           ref={replyInputRef}
-          src={tweet?.User?.avatar}
+          src={currentUser?.avatar}
           value={replyInputValue}
           onChange={handleReplyInputChange}
           onClick={() => handleAddReply(tweet.id)}
