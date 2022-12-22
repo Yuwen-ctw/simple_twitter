@@ -19,20 +19,6 @@ axiosInstance.interceptors.request.use(
   (err) => console.error(err)
 )
 
-export async function getAllUsers() {
-  try {
-    const { data } = await axiosInstance.get(`${baseUrl}/admin/${basePath}`)
-    // if fetch success: [], else {success: false, message: '...'}
-    if (data.success === false) return { ...data }
-    return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get users failed]: ${err}`,
-    }
-  }
-}
-
 export async function getTop10Users() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/top`)
@@ -61,7 +47,6 @@ export async function getUser(userId) {
 }
 
 export async function EditUser(userId, userData) {
-  console.log('send', userData)
   try {
     const { data } = await axiosInstance.put(
       `${baseUrl}/${basePath}/${userId}`,
@@ -72,7 +57,6 @@ export async function EditUser(userId, userData) {
         },
       }
     )
-    console.log(data)
     if (data.success === false) return { ...data }
     return { success: true, data }
   } catch (err) {

@@ -49,12 +49,11 @@ function EditProfileModal({ user, onSave, onClose }) {
       )
       .catch((err) => alert(err))
   }
-  console.log(inputValues)
 
   // handle discard image
   function handleDiscardCover() {
     if (disabled) return
-    setInputValues({ ...inputValues, cover: null })
+    setInputValues({ ...inputValues, cover: 'deleteCover' })
     setImageUri({ ...imageUri, cover: null })
   }
 
@@ -65,7 +64,7 @@ function EditProfileModal({ user, onSave, onClose }) {
     switch (action) {
       case 'name':
         refElement = refNameInput.current
-        valid = payload?.length <= 50 ? 'false' : 'true'
+        valid = payload?.length > 50 && payload?.length < 1 ? 'true' : 'false'
         break
       case 'introduction':
         refElement = refIntroInput.current
@@ -82,19 +81,23 @@ function EditProfileModal({ user, onSave, onClose }) {
   }
 
   async function handleSave() {
+    // check valid
+    if (inputValues.name.length === 0)
+      return Toast('請輸入名稱！', 'error').fire()
     if (inputValues.name.length > 50 || inputValues.introduction.length > 160) {
       Toast('字數超出上限！', 'error').fire()
       return
     }
+    // save start
     setDisabled(true)
-    console.log(inputValues)
-    const { success, message } = await EditUser(user.id, inputValues)
+    const { success, data, message } = await EditUser(user.id, inputValues)
     if (success) {
       Toast('設定成功', 'success').fire()
       onSave({
-        name: inputValues.name,
-        introduction: inputValues.introduction,
-        ...imageUri,
+        name: data.name,
+        introduction: data.introduction,
+        avatar: data.avatar,
+        cover: data.cover,
       })
     } else {
       Toast(message, 'error').fire()

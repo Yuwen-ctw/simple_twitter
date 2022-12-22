@@ -1,14 +1,8 @@
-import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function NotFoundPage() {
-  const locate = useLocation()
-  return (
-    <>
-      <h1 style={{ color: 'red' }}>
-        This is NotFoundPage on {locate.pathname}
-      </h1>
-    </>
-  )
+  const navigate = useNavigate()
+  navigate('/')
 }
 
 export default NotFoundPage

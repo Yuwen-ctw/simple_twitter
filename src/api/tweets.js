@@ -62,20 +62,6 @@ export async function addTweet(description) {
   }
 }
 
-export async function deleteTweet(tweetId) {
-  try {
-    const { data } = await axiosInstance.delete(
-      `${baseUrl}/admin/${basePath}/${tweetId}`
-    )
-    return data
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Detele tweet failed]: ${err}`,
-    }
-  }
-}
-
 export async function likeTweet(tweetId) {
   try {
     const { data } = await axiosInstance.post(

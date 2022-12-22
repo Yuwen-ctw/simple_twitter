@@ -12,7 +12,7 @@ function ModalTweet({ tweet }) {
   return (
     <div className={styles.layout}>
       <div className={styles.connectLine} />
-      <UserAvatar src={tweet?.User?.src} />
+      <UserAvatar src={tweet?.User?.avatar} />
       <UserNameText name={tweet?.User?.name} />
       <SubText
         text={`@${tweet?.User?.account}·${formatRelativeTime(
@@ -20,7 +20,7 @@ function ModalTweet({ tweet }) {
         )}`}
       />
       <ContentText text={tweet?.description} />
-      <ReplyTargetText name={tweet?.User?.name} preText="回覆給" />
+      <ReplyTargetText name={tweet?.User?.account} preText="回覆給" />
     </div>
   )
 }

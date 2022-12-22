@@ -38,6 +38,7 @@ const ProfileCoverInput = ({ src, onChange, onDiscard, disabled }) => {
 
 const NameInput = forwardRef((props, ref) => {
   const { value, onChange, disabled } = props
+  const errMsg = value.length === 0 ? '請輸入名稱！' : '字數超出上限！'
   return (
     <div className={styles.input__wrapper} ref={ref}>
       <label htmlFor="profile-name-input">名稱</label>
@@ -48,7 +49,7 @@ const NameInput = forwardRef((props, ref) => {
         onChange={(e) => onChange('name', e.target.value)}
         disabled={disabled}
       />
-      <span className={styles.error}>字數超出上限！</span>
+      <span className={styles.error}>{errMsg}</span>
       <span className={styles.maxLen}>{value?.length}/50</span>
     </div>
   )

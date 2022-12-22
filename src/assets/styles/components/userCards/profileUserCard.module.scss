@@ -38,6 +38,9 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   background-repeat: no-repeat;
   background-size: cover;
   height: 200px;
+  &:has(> img[src]) {
+    background-image: none;
+  }
   img {
     /* hide if no image url*/
     &:not([src]) {
@@ -45,8 +48,8 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
     }
     width: 100%;
     height: 200px;
-    background: #a7a7ac;
-    object-fit: contain;
+    // background: #a7a7ac;
+    object-fit: cover;
   }
 }
 

@@ -11,6 +11,8 @@ const SettingInput = forwardRef((props, ref) => {
     errMessage = '內容不可空白',
     disabled = false,
   } = props
+  const nameErr =
+    inputName === 'name' && value.length > 50 ? '字數超出上限' : errMessage
   return (
     <div className={styles.input__wrapper} ref={ref}>
       <label htmlFor={`setting-${inputName}-input`}>{labelName}</label>
@@ -25,7 +27,7 @@ const SettingInput = forwardRef((props, ref) => {
         autoComplete="off"
         disabled={disabled}
       />
-      <span className={styles.error}>{errMessage}</span>
+      <span className={styles.error}>{nameErr}</span>
       {inputName === 'name' && (
         <span className={styles.maxLen}>{value?.length}/50</span>
       )}

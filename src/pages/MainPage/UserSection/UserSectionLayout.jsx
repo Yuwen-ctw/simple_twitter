@@ -5,22 +5,23 @@ import {
   useLocation,
 } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getUser, followUser, unfollowUser } from 'api/users'
+import { getUser } from 'api/users'
 import { useAuth } from 'contexts/AuthContext'
 import SectionHeader from './SectionHeader'
 import { ProfileUserCard } from 'components/UserCards'
 import { EditProfileModal } from 'components/UI/Modals'
 import styles from 'assets/styles/pages/userSection.module.scss'
+import { useFollowToggled } from 'contexts/FollowToggledContext'
 
 function UserSectionLayout() {
   const { currentUser } = useAuth()
-  const [user, setUser] = useState({})
+  const { toggledUser, handleToggleFollow } = useFollowToggled()
   const { userId } = useParams()
   const pathnames = useLocation().pathname.split('/')
   const lastPath = pathnames[pathnames.length - 1]
   const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState({})
   const [showEditModal, setShowEditModal] = useState(false)
-  const [followState, setFollowState] = useState(currentUser?.isFollowed)
   const isFollowSection = lastPath.match('follow')
 
   useEffect(() => {
@@ -36,7 +37,13 @@ function UserSectionLayout() {
       }
     }
     getUserData()
-  }, [userId, followState])
+  }, [userId])
+
+  // update user data wherever current-user changed the follow state
+  useEffect(() => {
+    if (toggledUser.id === user.id)
+      setUser({ ...user, isFollowed: !user.isFollowed })
+  }, [toggledUser])
 
   // show modal or not
   function handleToggleEditModal() {
@@ -44,23 +51,11 @@ function UserSectionLayout() {
   }
 
   function handleEditInfomation(data) {
-    console.log(data)
     setShowEditModal(!showEditModal)
     setUser({
       ...user,
       ...data,
     })
-  }
-  async function handleToggleFollow(userId, isFollowed) {
-    const { success, message } = isFollowed
-      ? await unfollowUser(userId)
-      : await followUser(userId)
-    if (success) {
-      setUser({ ...user, isFollowed: !isFollowed })
-      setFollowState(!followState)
-    } else {
-      console.error(message)
-    }
   }
 
   return (

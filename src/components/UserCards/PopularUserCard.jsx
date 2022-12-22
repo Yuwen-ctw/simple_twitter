@@ -14,6 +14,7 @@ function PopularUserCard({ popularUser, onChange }) {
         isFollowed={isFollowed}
         onChange={onChange}
         hide={isLoginUser}
+        uniqueId="ppl"
       />
     </li>
   )

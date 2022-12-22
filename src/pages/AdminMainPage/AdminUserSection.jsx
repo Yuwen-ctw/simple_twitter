@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { SectionTitle, Spinner } from 'components/share'
 import styles from 'assets/styles/pages/adminMainSection.module.scss'
 import { AdminUserCard } from 'components/UserCards'
-import { getAllUsers } from 'api/users'
+import { getAllUsers } from 'api/admin'
+
 function AdminUserSetion() {
   const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState([])

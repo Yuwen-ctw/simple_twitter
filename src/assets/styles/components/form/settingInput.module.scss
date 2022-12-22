@@ -9,10 +9,10 @@
     visibility: visible;
   }
   50% {
-    transform: translateX(-15%);
+    transform: translateX(-10%);
   }
   100% {
-    transform: translateX(15%);
+    transform: translateX(10%);
   }
 }
 /* text input div*/
@@ -58,7 +58,7 @@
       &.maxLen,
       &.error {
         display: inline;
-        animation: shakeshake 0.1s linear 0s 3;
+        animation: shakeshake 0.1s linear 0s 1;
       }
     }
   }

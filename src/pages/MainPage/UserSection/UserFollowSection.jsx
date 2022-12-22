@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react'
 import { useParams, useLocation, useOutletContext } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
-import { getUserInfoData, followUser, unfollowUser } from 'api/users'
+import { getUserInfoData } from 'api/users'
 import { FollowUserCard } from 'components/UserCards/index'
 import { Spinner } from 'components/share'
 import SwitchLink from 'components/UI/Buttons/SwitchLink'
 import styles from 'assets/styles/pages/userSection.module.scss'
+import { useFollowToggled } from 'contexts/FollowToggledContext'
 
 function UserFollowersSection() {
   const { handleUserOrTweetClick } = useOutletContext()
   const { currentUser } = useAuth()
+  const { toggledUser, handleToggleFollow } = useFollowToggled()
   const { userId } = useParams()
   const pathnames = useLocation().pathname.split('/')
-  const sectionName = pathnames[pathnames.length - 1]
+  const fieldName = pathnames[pathnames.length - 1]
   const [loading, setLoading] = useState(false)
   const [followList, setFollowList] = useState([])
-  // const fieldName = (function getFieldNameByLastPath() {
-  //   return sectionName === 'followings' ? 'followingId' : 'followerId'
-  // })()
 
   useEffect(() => {
     async function getFollowListData() {
@@ -25,7 +24,7 @@ function UserFollowersSection() {
       setLoading(true)
       // get data
       const { success, data, message } = await getUserInfoData(
-        sectionName,
+        fieldName,
         userId
       )
       if (success) {
@@ -39,22 +38,19 @@ function UserFollowersSection() {
       }
     }
     getFollowListData()
-  }, [sectionName])
+  }, [fieldName])
 
-  async function handleToggleFollow(userId, isFollowed) {
-    const { success, message } = isFollowed
-      ? await unfollowUser(userId)
-      : await followUser(userId)
-    if (success) {
-      setFollowList((draft) =>
-        draft.map((user) =>
-          user.id === userId ? { ...user, isFollowed: !user.isFollowed } : user
-        )
+  function updateFollowList(targetUser) {
+    setFollowList((draft) =>
+      draft.map((user) =>
+        user.id === targetUser.id
+          ? { ...user, isFollowed: !user.isFollowed }
+          : user
       )
-    } else {
-      console.error(message)
-    }
+    )
   }
+  // update data wherever user changed the follow state
+  useEffect(() => updateFollowList(toggledUser), [toggledUser])
 
   // map userList
   const listData = followList.map((user) => {
