@@ -3,10 +3,11 @@ import { useState, useEffect, useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
-import { AuthContainer, AuthInput } from 'components/form'
+import { AuthInput } from 'components/form'
 import { Logo, PageTitle, SmallSpinner } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
+import styles from 'assets/styles/pages/loginPage.module.scss'
 
 // reducer setting
 const initialInput = {
@@ -34,8 +35,8 @@ function inputReducer(state, action) {
 function LoginPage() {
   const { isAuthenticated, login, role } = useAuth()
   const [inputPairs, dispatch] = useReducer(inputReducer, initialInput)
-  const [disabled, setDisabled] = useState(false)
   const [errMsg, setErrMsg] = useState('')
+  const [disabled, setDisabled] = useState(false)
   const navigate = useNavigate()
 
   function handleInputChange(action) {
@@ -76,11 +77,10 @@ function LoginPage() {
   }, [navigate, isAuthenticated])
 
   return (
-    <>
-      <AuthContainer>
-        <Logo />
-        <PageTitle>登入 Alphitter</PageTitle>
-
+    <div className={styles.layout}>
+      <Logo />
+      <PageTitle>登入 Alphitter</PageTitle>
+      <form className={styles.form}>
         <AuthInput
           labelName="帳號"
           inputName="account"
@@ -105,12 +105,12 @@ function LoginPage() {
           text={disabled ? <SmallSpinner /> : '登入'}
           onClick={handleFormSubmit}
         />
-        <div>
-          <BaseLink text="註冊" to="/register" />·
-          <BaseLink text="後台登入" to="/admin" />
-        </div>
-      </AuthContainer>
-    </>
+      </form>
+      <div className={styles.links}>
+        <BaseLink text="註冊" to="/register" />·
+        <BaseLink text="後台登入" to="/admin" />
+      </div>
+    </div>
   )
 }
 

@@ -1,0 +1,38 @@
+@use '../abstracts/index' as *;
+
+.layout {
+  position: relative;
+  padding-top: 69px;
+  margin: 0 auto;
+  max-width: 356px;
+  text-align: center;
+
+  h3 {
+    margin: 29px 0 40px;
+  }
+
+  & > :first-child {
+    margin: 0 auto;
+  }
+}
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+
+  button {
+    margin-top: 8px;
+  }
+}
+
+.links {
+  margin-top: 22px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+
+  &.center {
+    justify-content: center;
+  }
+}

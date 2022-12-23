@@ -1,11 +1,13 @@
-import { useEffect, useReducer, useRef, useState } from 'react'
-import { SectionTitle, SmallSpinner } from 'components/share'
-import { SettingInput } from 'components/form'
-import { ClrButton } from 'components/UI/Buttons'
-import styles from 'assets/styles/pages/settingSection.module.scss'
+// hooks, api
+import { useEffect, useReducer, useState } from 'react'
 import { useAuth } from 'contexts/AuthContext'
 import { EditUser } from 'api/users'
+// components
+import { SectionTitle, SmallSpinner } from 'components/share'
+import { AuthInput } from 'components/form'
+import { ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
+import styles from 'assets/styles/pages/settingSection.module.scss'
 
 const initialInput = {
   account: '',
@@ -46,14 +48,12 @@ function inputReducer(state, action) {
 function SettingSection() {
   const { currentUser, isAuthenticated } = useAuth()
   const [inputValues, dispatch] = useReducer(inputReducer, initialInput)
-  const [errMessage, setErrMessage] = useState(null)
-  const [disabled, setDisabled] = useState(false)
-  const inputContainersRef = useRef({})
-  const inputRefs = inputContainersRef.current
   const inputNames = Object.keys(inputValues)
+  const [disabled, setDisabled] = useState(false)
+  const [errMsg, setErrMsg] = useState({})
+
   // get initial values
   useEffect(() => {
-    if (!isAuthenticated) return
     dispatch({
       type: actions.all,
       payload: {
@@ -65,41 +65,60 @@ function SettingSection() {
   }, [isAuthenticated])
 
   function handleInputChange(action) {
+    const { type, payload } = action
     dispatch(action)
-    // hide error message if value changed
-    if (action.payload.length > 0) {
-      inputRefs[action.type].setAttribute('data-invalid', 'false')
-    }
+
+    // clean error message if length > 0
+    if (payload.length >= 0) setErrMsg({ ...errMsg, [type]: '' })
     // check name length
-    if (action.type === actions.name && action.payload.length > 50) {
-      inputRefs[action.type].setAttribute('data-invalid', 'true')
-      setErrMessage('字數超出上限')
-    } else {
-      inputRefs[action.type].setAttribute('data-invalid', 'false')
+    if (type === actions.name && payload.length > 50) {
+      setErrMsg({ ...errMsg, name: '字數超出上限' })
     }
   }
 
   async function handleFormSubmit() {
     event.preventDefault()
-    const anyInvalid = inputNames.some(
-      (key) => inputRefs[key].getAttribute('data-invalid') === 'true'
+    // 檢查空白
+    const emptyInputName = inputNames.find(
+      (name) => inputValues[name].length === 0
     )
-    if (anyInvalid) return
-    const emptyInput = inputNames.find((key) => inputValues[key].length === 0)
-    // check empty value
-    if (emptyInput) {
-      inputRefs[emptyInput].setAttribute('data-invalid', 'true')
-      setErrMessage('內容不可空白')
+    if (emptyInputName) {
+      setErrMsg({ ...errMsg, [emptyInputName]: '內容不可空白' })
       return
     }
-    // send Edit api
+    // 檢查錯誤訊息
+    const errMsgNames = Object.keys(errMsg)
+    const anyInvalid = errMsgNames.some((key) => errMsg[key] !== '')
+    if (anyInvalid) return
+
+    // 檢查email格式
+    const emailRegExp = new RegExp(/^([\w\-.])+@([\w\-.])+\.[A-Za-z]+$/)
+    const validEmailFormat = emailRegExp.test(inputValues.email)
+    if (!validEmailFormat) {
+      setErrMsg({ ...errMsg, email: 'Email 格式錯誤' })
+      return
+    }
+
+    // Edit user process
     setDisabled(true)
     const { success, message } = await EditUser(currentUser.id, inputValues)
     if (success) {
       Toast('設定成功', 'success').fire()
     } else {
-      Toast(message, 'error').fire()
-      console.error(message)
+      const accountMsg = message.match(/account.*/i)
+      const emailMsg = message.match(/email.*/i)
+      const pwMsg = message.match(/密碼.*/i)
+      try {
+        // 取出錯誤訊息
+        accountMsg && setErrMsg({ ...errMsg, account: accountMsg[0] })
+        emailMsg && setErrMsg({ ...errMsg, email: emailMsg[0] })
+        pwMsg &&
+          setErrMsg({ ...errMsg, password: pwMsg[0], checkPassword: pwMsg[0] })
+      } catch (err) {
+        console.error(err)
+      }
+      dispatch({ type: actions.password, payload: '' })
+      dispatch({ type: actions.checkPassword, payload: '' })
     }
     setDisabled(false)
   }
@@ -108,48 +127,51 @@ function SettingSection() {
     <section className={styles.layout}>
       <SectionTitle text="帳戶設定" />
       <form className={styles.form} onSubmit={handleFormSubmit}>
-        <SettingInput
+        <AuthInput
+          placeholder="請輸入帳號"
           labelName="帳號"
           inputName="account"
           value={inputValues.account}
           onChange={handleInputChange}
-          ref={(ref) => (inputContainersRef.current['account'] = ref)}
           disabled={disabled}
+          errMsg={errMsg.account}
         />
-        <SettingInput
+        <AuthInput
+          placeholder="請輸入使用者名稱"
           labelName="名稱"
           inputName="name"
           value={inputValues.name}
           onChange={handleInputChange}
-          errMessage={errMessage}
-          ref={(ref) => (inputContainersRef.current['name'] = ref)}
           disabled={disabled}
+          errMsg={errMsg.name}
         />
-        <SettingInput
+        <AuthInput
+          placeholder="請輸入 email"
           labelName="Email"
           inputName="email"
           value={inputValues.email}
           onChange={handleInputChange}
-          ref={(ref) => (inputContainersRef.current['email'] = ref)}
           disabled={disabled}
+          errMsg={errMsg.email}
         />
-        <SettingInput
+        <AuthInput
+          placeholder="請輸入密碼"
           labelName="密碼"
           inputName="password"
           type="password"
           value={inputValues.password}
           onChange={handleInputChange}
-          ref={(ref) => (inputContainersRef.current['password'] = ref)}
           disabled={disabled}
+          errMsg={errMsg.password}
         />
-        <SettingInput
-          labelName="密碼再確認"
+        <AuthInput
+          placeholder="請再次輸入密碼"
           inputName="checkPassword"
           type="password"
           value={inputValues.checkPassword}
           onChange={handleInputChange}
-          ref={(ref) => (inputContainersRef.current['checkPassword'] = ref)}
           disabled={disabled}
+          errMsg={errMsg.checkPassword}
         />
         <ClrButton
           text={disabled ? <SmallSpinner /> : '確認'}

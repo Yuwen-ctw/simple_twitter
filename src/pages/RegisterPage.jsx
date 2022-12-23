@@ -7,6 +7,7 @@ import { Logo, PageTitle, SmallSpinner } from 'components/share'
 import { AuthContainer, AuthInput } from 'components/form'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
+import styles from 'assets/styles/pages/loginPage.module.scss'
 
 const initialInput = {
   account: '',
@@ -45,10 +46,10 @@ function inputReducer(state, action) {
 
 function RegisterPage() {
   const { isAuthenticated, register } = useAuth()
-  const [inputPairs, dispatch] = useReducer(inputReducer, initialInput)
+  const [inputValues, dispatch] = useReducer(inputReducer, initialInput)
   const [disabled, setDisabled] = useState(false)
   const navigate = useNavigate()
-  const inputNames = Object.keys(inputPairs)
+  const inputNames = Object.keys(inputValues)
   const [errMsg, setErrMsg] = useState({})
 
   function handleInputChange(action) {
@@ -66,7 +67,7 @@ function RegisterPage() {
     event.preventDefault()
     // 檢查空白
     const emptyInputName = inputNames.find(
-      (name) => inputPairs[name].length === 0
+      (name) => inputValues[name].length === 0
     )
     if (emptyInputName) {
       setErrMsg({ ...errMsg, [emptyInputName]: '內容不可空白' })
@@ -78,7 +79,7 @@ function RegisterPage() {
 
     // 檢查email格式
     const emailRegExp = new RegExp(/^([\w\-.])+@([\w\-.])+\.[A-Za-z]+$/)
-    const validEmailFormat = emailRegExp.test(inputPairs.email)
+    const validEmailFormat = emailRegExp.test(inputValues.email)
     if (!validEmailFormat) {
       setErrMsg({ ...errMsg, email: 'Email 格式錯誤' })
       return
@@ -86,7 +87,7 @@ function RegisterPage() {
 
     // register process
     setDisabled(true)
-    const { success, message } = await register(inputPairs)
+    const { success, message } = await register(inputValues)
 
     if (success) {
       navigate('/login')
@@ -126,16 +127,15 @@ function RegisterPage() {
   }, [navigate, isAuthenticated])
 
   return (
-    <>
-      <AuthContainer>
-        <Logo />
-        <PageTitle>建立你的帳號</PageTitle>
-
+    <div className={styles.layout}>
+      <Logo />
+      <PageTitle>建立你的帳號</PageTitle>
+      <form className={styles.form}>
         <AuthInput
           placeholder="請輸入帳號"
           labelName="帳號"
           inputName="account"
-          value={inputPairs.account}
+          value={inputValues.account}
           onChange={handleInputChange}
           disabled={disabled}
           errMsg={errMsg.account}
@@ -144,7 +144,7 @@ function RegisterPage() {
           placeholder="請輸入使用者名稱"
           labelName="名稱"
           inputName="name"
-          value={inputPairs.name}
+          value={inputValues.name}
           onChange={handleInputChange}
           disabled={disabled}
           errMsg={errMsg.name}
@@ -154,7 +154,7 @@ function RegisterPage() {
           labelName="Email"
           inputName="email"
           type="email"
-          value={inputPairs.email}
+          value={inputValues.email}
           onChange={handleInputChange}
           disabled={disabled}
           errMsg={errMsg.email}
@@ -164,7 +164,7 @@ function RegisterPage() {
           placeholder="請輸入密碼"
           labelName="密碼"
           inputName="password"
-          value={inputPairs.password}
+          value={inputValues.password}
           onChange={handleInputChange}
           disabled={disabled}
           errMsg={errMsg.password}
@@ -174,7 +174,7 @@ function RegisterPage() {
           placeholder="請再次輸入密碼"
           labelName="密碼確認"
           inputName="checkPassword"
-          value={inputPairs.checkPassword}
+          value={inputValues.checkPassword}
           onChange={handleInputChange}
           disabled={disabled}
           errMsg={errMsg.checkPassword}
@@ -184,9 +184,11 @@ function RegisterPage() {
           text={disabled ? <SmallSpinner /> : '註冊'}
           onClick={handleFormSubmit}
         />
+      </form>
+      <div className={[styles.links, styles.center].join(' ')}>
         <BaseLink text="取消" to="/login" />
-      </AuthContainer>
-    </>
+      </div>
+    </div>
   )
 }
 

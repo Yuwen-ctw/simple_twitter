@@ -1,11 +1,5 @@
 import styles from '../../assets/styles/components/form/authInput.module.scss'
 
-const AuthContainer = ({ children }) => (
-  <form className={styles.AuthContainer} autoComplete="off">
-    {children}
-  </form>
-)
-
 const AuthInput = ({
   type = 'text',
   value,
@@ -17,19 +11,23 @@ const AuthInput = ({
   inputName,
 }) => {
   return (
-    <div className={styles.input__wrapper}>
+    <div
+      className={[
+        styles.input__wrapper,
+        errMsg?.length > 0 && styles.invalid,
+      ].join(' ')}
+    >
       <label htmlFor={`auth-${inputName}-input`}>{labelName}</label>
       <input
-        className={styles.textInput}
-        id={`auth-${inputName}-input`}
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange({ type: inputName, payload: e.target.value })}
-        disabled={disabled}
         type={type}
+        placeholder={placeholder}
+        id={`auth-${inputName}-input`}
+        className={styles.input}
+        value={value}
+        onChange={(e) => onChange({ type: inputName, payload: e.target.value })}
         autoComplete="off"
+        disabled={disabled}
       />
-      <div className={styles.underline}></div>
       <span className={styles.error}>{errMsg}</span>
       {inputName === 'name' && (
         <span className={styles.maxLen}>{value?.length}/50</span>
@@ -38,4 +36,4 @@ const AuthInput = ({
   )
 }
 
-export { AuthContainer, AuthInput }
+export default AuthInput

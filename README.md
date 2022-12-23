@@ -46,7 +46,7 @@ npm install
 npm start
 ```
 
-5.成功後會自動開啟網站，或透過 http://localhost:3000/simple_twitter/login 進入登入頁面。
+5.成功後會自動開啟網站
 
 <br/>
 
@@ -59,7 +59,7 @@ src\
 　| _ contexts \
 　| _ pages \
 　| _ routes \
-　| \_ utilities
+　| _ utilities
 
 <br/>
 
