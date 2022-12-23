@@ -30,7 +30,7 @@ function AuthContextProvider({ children }) {
     setIsAuthenticated(false)
     setPayload(null)
     navigate('login')
-    Toast('請重新登入！', 'disconnected').fire()
+    Toast('請進行登入！', 'disconnected').fire()
   }
   // check authToken when route switched
   useEffect(() => {
@@ -61,7 +61,6 @@ function AuthContextProvider({ children }) {
     localStorage.removeItem('authToken')
     setIsAuthenticated(false)
     setPayload(null)
-    // then the <Link> component in <Navbar> will navigate to login(or admin login) page via "to" prop
   }
 
   async function login(data) {

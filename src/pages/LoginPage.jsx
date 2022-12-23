@@ -30,6 +30,7 @@ function inputReducer(state, action) {
   }
 }
 
+// component
 function LoginPage() {
   const { isAuthenticated, login, role } = useAuth()
   const [inputPairs, dispatch] = useReducer(inputReducer, initialInput)
