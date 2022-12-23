@@ -1,70 +1,81 @@
-# Getting Started with Create React App
+# simple twitter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<a href="https://yuwen-ctw.github.io/simple_twitter/login" target="_blank">DEMO</a>
 
-## Available Scripts
+|                                                                                                  |                                                                                                        |
+| :----------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------: |
+|        <img width="1604" alt="screen-shot-login" src="./public/screenShotLogin.jpg"> 登入        |                <img width="1604" alt="screen-shot" src="./public/screenShot.jpg"> 首頁                 |
+|       <img width="1604" alt="screen-shot-tweet" src="./public/screenShotTweet.jpg"> 推文頁       |        <img width="1604" alt="screen-shot-profile" src="./public/screenShotProfile.jpg"> 個人頁        |
+| <img width="1604" alt="screen-shot-followlist" src="./public/screenShotFollowList.jpg"> 追隨清單 |        <img width="1604" alt="screen-shot-edit" src="./public/screenShotEdit.jpg"> 編輯個人自介        |
+|  <img width="1604" alt="screen-shot-setting" src="./public/screenShotSetting.jpg"> 編輯帳戶資訊  | <img width="1604" alt="screen-shot-adminTweet" src="./public/screenShotAdminTweet.jpg"> 管理者推文頁面 |
 
-In the project directory, you can run:
+# 功能
 
-### `npm start`
+- 使用者可以註冊新身分，並以此身分登入並使用網站。
+- 使用者能在首頁瀏覽所有推文、新增貼文、新增回覆、或對推文按愛心並加入收藏。
+- 使用者能在首頁的推薦跟隨名單，看見追隨者數量排列前 10 名的使用者，並進行追隨或取消追隨。
+- 點擊使用者頭像，能造訪該使用者個人頁面，檢視該使用者之個人簡介與活動情形，並可進行追隨或取消追隨。
+- 使用者能於導覽列造訪自己的個人頁面與設定頁面，以編輯自己的名稱、介紹、大頭照和個人頁橫幅背景或帳號密碼等註冊資料。
+- 管理者可透過後台登入頁面登入，並使用管理者相關功能。
+- 管理者可以瀏覽全站的推文清單，並快覽每則推文第 1 行或前 50 字。
+- 管理者可以瀏覽站內所有的使用者清單，並依使用者推文數由多至少進行排序。
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# 使用方法
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1.打開終端機，Clone 專案至本機
 
-### `npm test`
+```
+git clone https://github.com/Yuwen-ctw/simple_twitter.git
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2.進入專案資料夾
 
-### `npm run build`
+```
+cd simple_twitter
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3.安裝 npm 套件
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm install
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4.啟動專案
 
-### `npm run eject`
+```
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+5.成功後會自動開啟網站，或透過 http://localhost:3000/simple_twitter/login 進入登入頁面。
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# 資料夾結構
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+src\
+　| _ apis \
+　| _ assests - 管理 image, svg, style\
+　| _ components \
+　| _ contexts \
+　| _ pages \
+　| _ routes \
+　| \_ utilities
 
-## Learn More
+<br/>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 開發工具
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- creat-react-app - 框架
+- react-router-dom - 路由
+- scss - CSS 預處理器
+- axios - 處理 HTTP 請求
+- json-server - 模擬 API
+  <br/>
+  <br/>
+  <br/>
 
-### Code Splitting
+## 開發人員
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- 前端 - <a href="https://github.com/Yuwen-ctw" target="_blank">Yuwen</a>、
+  <a href="https://github.com/whps40333" target="_blank">whps40333</a>
+- 後端 - <a href="https://github.com/miaout11" target="_blank">Evelyn</a>、<a href="https://github.com/Coli-co" target="_blank">Timothy</a>

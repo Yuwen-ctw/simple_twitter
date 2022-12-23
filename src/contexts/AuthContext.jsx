@@ -29,9 +29,12 @@ function AuthContextProvider({ children }) {
   function kickout() {
     setIsAuthenticated(false)
     setPayload(null)
+    if (pathname.includes('register')) return
+    if (pathname.includes('login')) return
     navigate('login')
-    Toast('請重新登入！', 'disconnected').fire()
+    Toast('請進行登入！', 'disconnected').fire()
   }
+
   // check authToken when route switched
   useEffect(() => {
     if (pathname.includes('admin')) return
@@ -61,7 +64,6 @@ function AuthContextProvider({ children }) {
     localStorage.removeItem('authToken')
     setIsAuthenticated(false)
     setPayload(null)
-    // then the <Link> component in <Navbar> will navigate to login(or admin login) page via "to" prop
   }
 
   async function login(data) {

@@ -121,6 +121,7 @@ function RegisterPage() {
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/')
+      Toast('登入成功', 'success').fire()
     }
   }, [navigate, isAuthenticated])
 
