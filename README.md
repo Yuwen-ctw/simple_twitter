@@ -73,3 +73,9 @@ src\
   <br/>
   <br/>
   <br/>
+
+## 開發人員
+
+- 前端 - <a href="https://github.com/Yuwen-ctw" target="_blank">Yuwen</a>、
+  <a href="https://github.com/whps40333" target="_blank">whps40333</a>
+- 後端 - <a href="https://github.com/miaout11" target="_blank">Evelyn</a>、<a href="https://github.com/Coli-co" target="_blank">Timothy</a>

@@ -29,9 +29,12 @@ function AuthContextProvider({ children }) {
   function kickout() {
     setIsAuthenticated(false)
     setPayload(null)
+    if (pathname.includes('register')) return
+    if (pathname.includes('login')) return
     navigate('login')
     Toast('請進行登入！', 'disconnected').fire()
   }
+
   // check authToken when route switched
   useEffect(() => {
     if (pathname.includes('admin')) return
