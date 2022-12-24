@@ -48,7 +48,9 @@ function AuthContextProvider({ children }) {
       const temPayload = jwt.decode(authToken)
       if (!temPayload) return kickout()
 
-      const { success, data, message } = await getUser(temPayload.id)
+      const { success, data, message } = await getUser({
+        userId: temPayload.id,
+      })
       if (success) {
         setIsAuthenticated(true)
         setPayload(data)

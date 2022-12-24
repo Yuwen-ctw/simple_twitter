@@ -1,13 +1,8 @@
-import axios from 'axios'
+import { axiosInstance, baseUrl, handleAxiosError } from './axiosInstance'
 
-const baseUrl = 'https://quiet-mountain-47605.herokuapp.com/api'
 const basePath = 'users'
 const baseFollowPath = 'followships'
 
-const axiosInstance = axios.create({
-  baseURL: `${baseUrl}`,
-  validateStatus: (status) => status >= 200 && status <= 500,
-})
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken')
@@ -22,27 +17,20 @@ axiosInstance.interceptors.request.use(
 export async function getTop10Users() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/top`)
-    // if fetch success: [], else {success: false, message: '...'}
-    if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get top10 users failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
-export async function getUser(userId) {
+export async function getUser(data) {
+  const { userId } = data
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}/${userId}`)
     if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get User failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -59,11 +47,8 @@ export async function EditUser(userId, userData) {
     )
     if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Edit User failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -73,11 +58,8 @@ export async function followUser(userId) {
       id: userId,
     })
     return data
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Follow user failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -87,25 +69,19 @@ export async function unfollowUser(userId) {
       `${baseUrl}/${baseFollowPath}/${userId}`
     )
     return data
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Unfollow user failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 // dataName: tweets, replied_tweets, likes, followings, followers
-export async function getUserInfoData(dataName, userId) {
+export async function getUserInfoData(data) {
+  const { fieldName, userId } = data
   try {
     const { data } = await axiosInstance.get(
-      `${baseUrl}/${basePath}/${userId}/${dataName}`
+      `${baseUrl}/${basePath}/${userId}/${fieldName}`
     )
-    if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get user's ${dataName} failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }

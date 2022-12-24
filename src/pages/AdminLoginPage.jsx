@@ -7,7 +7,9 @@ import { AuthContainer, AuthInput } from 'components/form'
 import { Logo, PageTitle, SmallSpinner } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
+import styles from 'assets/styles/pages/loginPage.module.scss'
 
+// reducer setting
 const initialInput = {
   account: '',
   password: '',
@@ -31,26 +33,27 @@ function inputReducer(state, action) {
 
 function AdminLoginPage() {
   const { isAuthenticated, login, role } = useAuth()
-  const [inputPairs, dispatch] = useReducer(inputReducer, initialInput)
+  const [inputValues, dispatch] = useReducer(inputReducer, initialInput)
   const [errMsg, setErrMsg] = useState('')
   const [disabled, setDisabled] = useState(false)
   const navigate = useNavigate()
 
   function handleInputChange(action) {
+    // hide error message
     errMsg.length && setErrMsg('')
     dispatch(action)
   }
 
   async function handleFormSubmit() {
     event.preventDefault()
-    if (inputPairs.account.length === 0 || inputPairs.password.length === 0)
+    if (inputValues.account.length === 0 || inputValues.password.length === 0)
       return
-    // get data
+    // start login process
     setDisabled(true)
     const { success, message } = await login({
       role: role.admin,
-      account: inputPairs.account,
-      password: inputPairs.password,
+      account: inputValues.account,
+      password: inputValues.password,
     })
 
     // pop modal
@@ -71,16 +74,15 @@ function AdminLoginPage() {
   }, [navigate, isAuthenticated])
 
   return (
-    <>
-      <AuthContainer>
-        <Logo />
-        <PageTitle>後台登入</PageTitle>
-
+    <div className={styles.layout}>
+      <Logo />
+      <PageTitle>後台登入</PageTitle>
+      <form className={styles.form}>
         <AuthInput
           labelName="帳號"
           inputName="account"
           placeholder="請輸入帳號"
-          value={inputPairs.account}
+          value={inputValues.account}
           errMsg={errMsg}
           onChange={handleInputChange}
           disabled={disabled}
@@ -91,7 +93,7 @@ function AdminLoginPage() {
           inputName="password"
           type="password"
           placeholder="請輸入密碼"
-          value={inputPairs.password}
+          value={inputValues.password}
           onChange={handleInputChange}
           disabled={disabled}
         />
@@ -100,11 +102,11 @@ function AdminLoginPage() {
           text={disabled ? <SmallSpinner /> : '登入'}
           onClick={handleFormSubmit}
         />
-        <div>
-          <BaseLink text="前台登入" to="/login" />
-        </div>
-      </AuthContainer>
-    </>
+      </form>
+      <div className={styles.links}>
+        <BaseLink text="前台登入" to="/login" />
+      </div>
+    </div>
   )
 }
 

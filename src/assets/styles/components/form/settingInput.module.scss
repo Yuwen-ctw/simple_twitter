@@ -83,7 +83,7 @@
     }
 
     &.error {
-      display: none;
+      // display: none;
       left: 0px;
       @include font(0.75rem, 500, 1.67, $clr-error);
     }

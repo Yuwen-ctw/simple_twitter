@@ -9,8 +9,10 @@ function formatRelativeTime(dateString) {
     return dateString
   }
   // return without handle if confused
-  if (relative < 0) {
-    console.log(`時間超出範圍，這是一個來自未來的時間: ${dateString}`)
+  if (relative < 0 && relative > -10000) {
+    return '幾秒鐘前'
+  } else if (relative < -10000) {
+    console.log(`時間超出範圍，這是一個來自未來10秒後的時間: ${dateString}`)
     return dateString
   }
 

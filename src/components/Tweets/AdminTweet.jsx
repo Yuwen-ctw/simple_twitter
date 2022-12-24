@@ -1,5 +1,4 @@
-// hook, utilities
-import { useState } from 'react'
+// utilities
 import shortenDescription from 'uitlities/shortenDescription'
 import formatRelativeTime from 'uitlities/formatRelativeTime'
 // components, styles
@@ -12,15 +11,8 @@ import {
 import { Spinner } from 'components/share'
 import styles from 'assets/styles/components/tweets/adminTweet.module.scss'
 
-function AdminTweet({ tweet, onDelete }) {
-  const [deleting, setDeleting] = useState(false)
-
-  async function handleDeleteClick(tweetId) {
-    setDeleting(true)
-    const { completed } = await onDelete(tweetId)
-    completed && setDeleting(false)
-  }
-
+function AdminTweet({ tweet, onDelete, deleteState }) {
+  let showSpinner = deleteState.id === tweet.id && deleteState
   return (
     <li className={styles.layout} data-tweetid={tweet.id}>
       <UserAvatar src={tweet?.User?.avatar} />
@@ -31,13 +23,10 @@ function AdminTweet({ tweet, onDelete }) {
         )}`}
       />
       <ContentText text={shortenDescription(tweet?.description)} />
-      {deleting ? (
+      {showSpinner ? (
         <Spinner classname={styles.spinner} />
       ) : (
-        <button
-          className={styles.delBtn}
-          onClick={() => handleDeleteClick(tweet.id)}
-        />
+        <button className={styles.delBtn} onClick={() => onDelete(tweet.id)} />
       )}
     </li>
   )

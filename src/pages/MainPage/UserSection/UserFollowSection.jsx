@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useParams, useLocation, useOutletContext } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
+import { useFollowToggled } from 'contexts/FollowToggledContext'
+import useFetch from 'customHooks/useFetch'
 import { getUserInfoData } from 'api/users'
 import { FollowUserCard } from 'components/UserCards/index'
 import { Spinner } from 'components/share'
 import SwitchLink from 'components/UI/Buttons/SwitchLink'
 import styles from 'assets/styles/pages/userSection.module.scss'
-import { useFollowToggled } from 'contexts/FollowToggledContext'
 
 function UserFollowersSection() {
   const { handleUserOrTweetClick } = useOutletContext()
@@ -15,30 +16,28 @@ function UserFollowersSection() {
   const { userId } = useParams()
   const pathnames = useLocation().pathname.split('/')
   const fieldName = pathnames[pathnames.length - 1]
-  const [loading, setLoading] = useState(false)
   const [followList, setFollowList] = useState([])
+  const { data, loading, refetch } = useFetch(getUserInfoData, {
+    fieldName,
+    userId,
+  })
 
   useEffect(() => {
-    async function getFollowListData() {
-      // show Spinner
-      setLoading(true)
-      // get data
-      const { success, data, message } = await getUserInfoData(
-        fieldName,
-        userId
-      )
-      if (success) {
-        // cancle the spinner
-        setLoading(false)
-        // update data
-        setFollowList(data)
-      } else {
-        // handle error
-        console.error(message)
-      }
-    }
-    getFollowListData()
+    if (!data) return
+    setFollowList(data)
+  }, [loading])
+
+  // effect from switch route
+  useEffect(() => {
+    if (!data) return
+    refetch(getUserInfoData, {
+      fieldName,
+      userId,
+    })
   }, [fieldName])
+
+  // update data wherever user changed the follow state
+  useEffect(() => updateFollowList(toggledUser), [toggledUser])
 
   function updateFollowList(targetUser) {
     setFollowList((draft) =>
@@ -49,8 +48,6 @@ function UserFollowersSection() {
       )
     )
   }
-  // update data wherever user changed the follow state
-  useEffect(() => updateFollowList(toggledUser), [toggledUser])
 
   // map userList
   const listData = followList.map((user) => {

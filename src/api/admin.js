@@ -1,10 +1,8 @@
 import axios from 'axios'
-
-const baseUrl = 'https://quiet-mountain-47605.herokuapp.com/api'
+import { baseUrl, handleAxiosError } from './axiosInstance'
 
 const axiosInstance = axios.create({
   baseURL: `${baseUrl}`,
-  validateStatus: (status) => status >= 200 && status <= 500,
 })
 
 axiosInstance.interceptors.request.use(
@@ -21,28 +19,18 @@ axiosInstance.interceptors.request.use(
 export async function getAllUsers() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/admin/users`)
-    // if fetch success: [], else {success: false, message: '...'}
-    if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get users failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
 export async function getAllTweets() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/tweets`)
-    // if fetch success: [], else {success: false, message: '...'}
-    if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get tweets failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -52,10 +40,7 @@ export async function deleteTweet(tweetId) {
       `${baseUrl}/admin/tweets/${tweetId}`
     )
     return data
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Detele tweet failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }

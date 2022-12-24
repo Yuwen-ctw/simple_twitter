@@ -8,9 +8,10 @@ import { useNewTweet } from 'contexts/NewTweetContext'
 import { useReply } from 'contexts/ReplyContext'
 import { useEffect, useState } from 'react'
 import { getAllTweets } from 'api/tweets'
+import useFetch from 'customHooks/useFetch'
 
 function MainSection() {
-  const { handleUserOrTweetClick, showTweetModal } = useOutletContext()
+  const { handleUserOrTweetClick } = useOutletContext()
   const { currentUser } = useAuth()
   const {
     tweetInput,
@@ -19,41 +20,22 @@ function MainSection() {
     handleAddTweet,
     mainTweetInputRef,
     handleToggleLikeTweet,
+    isTweetCreated,
   } = useNewTweet()
   const { handleOpenModal, isReplyCreated } = useReply()
   const [tweets, setTweets] = useState([])
-  const [loading, setLoading] = useState(false)
+  const { data, loading, refetch } = useFetch(getAllTweets)
 
   useEffect(() => {
-    // return if no newTweet add
-    if (showTweetModal) return
-    setLoading(true)
-    async function getData() {
-      const { success, data, message } = await getAllTweets()
-      if (success) {
-        // cancle the spinner
-        setLoading(false)
-        // update data
-        setTweets(data)
-      } else {
-        // handle error
-        console.error(message)
-      }
-    }
-    getData()
-    // refresh when add new tweet or reply
-  }, [isReplyCreated, showTweetModal])
+    if (!data) return
+    setTweets(data)
+  }, [loading])
 
-  async function handleAddTweetClick() {
-    const { success, tweet } = await handleAddTweet()
-    if (success) {
-      setLoading(true)
-      setTimeout(() => {
-        setTweets([tweet, ...tweets])
-        setLoading(false)
-      }, 2000)
-    }
-  }
+  // effect when add new tweet or reply
+  useEffect(() => {
+    if (!isReplyCreated && !isTweetCreated) return
+    refetch(getAllTweets)
+  }, [isReplyCreated, isTweetCreated])
 
   async function handleLikeClick(tweetId, isLiked) {
     const { success, message } = await handleToggleLikeTweet(tweetId, isLiked)
@@ -94,7 +76,7 @@ function MainSection() {
         src={currentUser?.avatar}
         value={tweetInput}
         onChange={handleInputChange}
-        onClick={handleAddTweetClick}
+        onClick={handleAddTweet}
         disabled={disabled}
       />
       <hr />

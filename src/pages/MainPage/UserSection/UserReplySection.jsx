@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useOutletContext } from 'react-router-dom'
+import { useEdit } from 'contexts/EditContext'
+import useFetch from 'customHooks/useFetch'
 import { getUserInfoData } from 'api/users'
 import Reply from 'components/Reply'
 import { Spinner } from 'components/share'
@@ -8,26 +10,26 @@ import { Spinner } from 'components/share'
 function UserRepliesSection() {
   const { userId } = useParams()
   const { handleUserOrTweetClick } = useOutletContext()
+  const { isEdited } = useEdit()
   const [replies, setReplies] = useState([])
-  const [loading, setLoading] = useState(false)
+  const { data, loading, refetch } = useFetch(getUserInfoData, {
+    fieldName: 'replied_tweets',
+    userId,
+  })
 
-  // get data
   useEffect(() => {
-    setLoading(true)
-    async function getReplies() {
-      const { success, data, message } = await getUserInfoData(
-        'replied_tweets',
-        userId
-      )
-      if (success) {
-        setLoading(false)
-        setReplies(data)
-      } else {
-        console.error(message)
-      }
-    }
-    getReplies()
-  }, [])
+    if (!data) return
+    setReplies(data)
+  }, [loading])
+
+  // refetch user edited profile
+  useEffect(() => {
+    if (!isEdited) return
+    refetch(getUserInfoData, {
+      fieldName: 'replied_tweets',
+      userId,
+    })
+  }, [isEdited])
 
   const dataList = replies.map((reply) => (
     <Reply key={reply.id} reply={reply} />
