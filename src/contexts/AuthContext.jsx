@@ -64,6 +64,7 @@ function AuthContextProvider({ children }) {
 
   function logout() {
     localStorage.removeItem('authToken')
+    sessionStorage.removeItem('authToken')
     setIsAuthenticated(false)
     setPayload(null)
   }

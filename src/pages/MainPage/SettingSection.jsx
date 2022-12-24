@@ -5,9 +5,10 @@ import { EditUser } from 'api/users'
 // components
 import { SectionTitle, SmallSpinner } from 'components/share'
 import { AuthInput } from 'components/form'
-import { ClrButton } from 'components/UI/Buttons'
+import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
 import styles from 'assets/styles/pages/settingSection.module.scss'
+import useRWD from 'customHooks/useRWD'
 
 const initialInput = {
   account: '',
@@ -46,7 +47,8 @@ function inputReducer(state, action) {
 }
 
 function SettingSection() {
-  const { currentUser, isAuthenticated } = useAuth()
+  const { isOnMobile } = useRWD()
+  const { currentUser, isAuthenticated, logout } = useAuth()
   const [inputValues, dispatch] = useReducer(inputReducer, initialInput)
   const inputNames = Object.keys(inputValues)
   const [disabled, setDisabled] = useState(false)
@@ -180,6 +182,14 @@ function SettingSection() {
           className={styles.saveBtn}
         />
       </form>
+      {isOnMobile && (
+        <BaseLink
+          text="登出"
+          className={styles.logoutBtn}
+          onClick={logout}
+          to="/login"
+        />
+      )}
     </section>
   )
 }

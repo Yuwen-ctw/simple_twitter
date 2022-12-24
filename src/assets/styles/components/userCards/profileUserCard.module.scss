@@ -15,13 +15,27 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
 
 .layout {
   position: relative;
-  padding: 200px 16px 16px;
+  padding: 124px 24px 24px;
   display: grid;
   grid-template-columns: 1fr;
   place-items: start;
+
+  @include for-pad {
+    padding: 200px 16px 16px;
+  }
   .switcherWrapper {
     width: 100%;
     border-bottom: 1px solid $listBorder;
+    a {
+      width: 80px;
+      text-align: center;
+      @include for-pad {
+        width: 110px;
+      }
+      @include for-tablet {
+        width: 130px;
+      }
+    }
   }
 }
 
@@ -34,10 +48,10 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   top: 0px;
   left: 0px;
   width: 100%;
+  height: 124px;
   background-image: $defaultCover;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 200px;
   &:has(> img[src]) {
     background-image: none;
   }
@@ -47,39 +61,66 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
       display: none;
     }
     width: 100%;
-    height: 200px;
-    // background: #a7a7ac;
+    height: 124px;
     object-fit: cover;
+  }
+  @include for-pad {
+    height: 200px;
+    img {
+      height: 200px;
+    }
   }
 }
 
 .avatar {
+  @include circleAvatar(80px, 0px);
   position: absolute;
-  left: 16px;
-  top: 200px;
-  translate: 0 -50%;
+  left: 24px;
+  top: 84px;
+  @include for-pad {
+    @include circleAvatar(140px, 4px);
+    left: 16px;
+    top: 200px;
+    translate: 0 -50%;
+  }
 }
 
 %iconWrapper {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   border: 1px solid $brand;
   border-radius: 50%;
   cursor: pointer;
   background-size: 24px;
   background-repeat: no-repeat;
   background-position: center;
+  @include for-pad {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 .buttonGroup {
+  margin-top: 8px;
   width: 100%;
-  height: 72px;
+  height: 48px;
   display: grid;
   grid-template-columns: auto auto 96px;
   justify-content: flex-end;
   align-items: center;
   gap: 16px;
+
+  @include for-pad {
+    margin-top: 0px;
+    gap: 12px;
+    height: 72px;
+  }
+
+  @include for-tablet {
+    gap: 16px;
+  }
+
   &.hide {
     visibility: hide;
   }
@@ -115,6 +156,13 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
 
   & :nth-child(3) {
     text-align: start;
+    label {
+      padding: 4px 8px;
+
+      @include for-pad {
+        padding: 8px 16px;
+      }
+    }
   }
   /* EditButton */
   & > :only-child {
