@@ -57,7 +57,7 @@ export async function addTweet(description) {
   } catch (err) {
     return {
       success: false,
-      message: `[Get tweet failed]: ${err}`,
+      message: `[Add tweet failed]: ${err}`,
     }
   }
 }

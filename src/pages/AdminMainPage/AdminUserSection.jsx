@@ -1,28 +1,21 @@
 import { useEffect, useState } from 'react'
-import { SectionTitle, Spinner } from 'components/share'
-import styles from 'assets/styles/pages/adminMainSection.module.scss'
-import { AdminUserCard } from 'components/UserCards'
 import { getAllUsers } from 'api/admin'
+import { SectionTitle, Spinner } from 'components/share'
+import { AdminUserCard } from 'components/UserCards'
+import Toast from 'components/UI/Toast'
+import styles from 'assets/styles/pages/adminMainSection.module.scss'
+import useFetch from 'api/useFetch'
 
 function AdminUserSetion() {
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState([])
+  const { data, loading, error } = useFetch(getAllUsers)
 
   useEffect(() => {
-    // show spinner
-    setLoading(true)
-    // get data
-    async function getAllTweetsByAdminAsync() {
-      const { success, data, message } = await getAllUsers()
-      if (success) {
-        setLoading(false)
-        setUsers(data)
-      } else {
-        console.error(message)
-      }
-    }
-    getAllTweetsByAdminAsync()
-  }, [])
+    if (error) Toast(error, 'error').fire()
+    if (!data) return
+    setUsers(data)
+  }, [loading])
 
   // map data
   const userList = users.map((user) => (
