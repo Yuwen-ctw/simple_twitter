@@ -2,8 +2,11 @@ import { useLocation } from 'react-router-dom'
 import Navbar from './share/Navbar'
 import NavItem from './share/NavItem'
 import { ClrButton } from '../Buttons'
+import useRWD from 'customHooks/useRWD'
+import styles from 'assets/styles/components/ui/navbars.module.scss'
 
 function UserNavbar({ onModalButtonClick, onLogout, currentUserId }) {
+  const { isOnMobile, isOnDesktop } = useRWD()
   const pathName = useLocation().pathname
   let check
   if (pathName === '/' && pathName.length === 1) check = 'home'
@@ -21,8 +24,14 @@ function UserNavbar({ onModalButtonClick, onLogout, currentUserId }) {
         to={`user/${currentUserId}/tweets`}
       />
       <NavItem text="設定" value={'setting'} check={check} to="setting" />
-      <ClrButton text="推文" onClick={onModalButtonClick} />
-      <NavItem text="登出" value={'logout'} onClick={onLogout} to="login" />
+      <ClrButton
+        text={isOnDesktop ? '推文' : ''}
+        onClick={onModalButtonClick}
+        className={!isOnDesktop && styles.userNavbar__button}
+      />
+      {!isOnMobile && (
+        <NavItem text="登出" value={'logout'} onClick={onLogout} to="login" />
+      )}
     </Navbar>
   )
 }

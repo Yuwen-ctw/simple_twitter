@@ -23,15 +23,17 @@
 }
 
 .clrButton {
-  @include font(1.25rem, 400, 1.5, #ffffff);
+  border: 0;
+  background: transparent;
   width: 100%;
+  border-radius: 50px;
+  cursor: pointer;
+
+  @include font(1.25rem, 400, 1.5, #ffffff);
   max-width: 640px;
   padding: 8px 16px;
-  border-radius: 50px;
-  border: 0;
   background: $brand;
   transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-  cursor: pointer;
   &:hover {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
       $brand;
