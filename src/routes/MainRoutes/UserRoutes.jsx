@@ -5,7 +5,6 @@ import {
   UserReplySection,
   UserFollowSection,
   NotFoundPage,
-  // UserLikeSection,
 } from '../../pages'
 
 function UserRoutes() {

@@ -4,16 +4,14 @@ import { SectionTitle, Spinner } from 'components/share'
 import { AdminTweet } from 'components/Tweets'
 import Toast from 'components/UI/Toast'
 import styles from 'assets/styles/pages/adminMainSection.module.scss'
-import useFetch from 'api/useFetch'
+import useFetch from 'customHooks/useFetch'
 
 function AdminTweetSection() {
-  // const [loading, setLoading] = useState(false)
   const [tweets, setTweets] = useState([])
   const { data, loading, error } = useFetch(getAllTweets)
   const [deleteState, setDeleteState] = useState({})
 
   useEffect(() => {
-    if (error) Toast(error, 'error').fire()
     if (!data) return
     setTweets(data)
   }, [loading])

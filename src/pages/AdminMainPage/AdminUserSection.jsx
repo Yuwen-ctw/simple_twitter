@@ -1,18 +1,15 @@
 import { useEffect, useState } from 'react'
+import useFetch from 'customHooks/useFetch'
 import { getAllUsers } from 'api/admin'
 import { SectionTitle, Spinner } from 'components/share'
 import { AdminUserCard } from 'components/UserCards'
-import Toast from 'components/UI/Toast'
 import styles from 'assets/styles/pages/adminMainSection.module.scss'
-import useFetch from 'api/useFetch'
 
 function AdminUserSetion() {
-  // const [loading, setLoading] = useState(false)
   const [users, setUsers] = useState([])
-  const { data, loading, error } = useFetch(getAllUsers)
+  const { data, loading } = useFetch(getAllUsers)
 
   useEffect(() => {
-    if (error) Toast(error, 'error').fire()
     if (!data) return
     setUsers(data)
   }, [loading])

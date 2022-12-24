@@ -27,14 +27,9 @@ export async function getTweet(tweetId) {
     const { data } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${tweetId}`
     )
-    // if fetch success: [], else {success: false, message: '...'}
-    if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get tweet failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -76,14 +71,9 @@ export async function getAllReplies(tweetId) {
     const { data } = await axiosInstance.get(
       `${baseUrl}/${basePath}/${tweetId}/replies`
     )
-    // if fetch success: [], else {success: false, message: '...'}
-    if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get Replies failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 

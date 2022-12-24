@@ -105,9 +105,11 @@ function SettingSection() {
     if (success) {
       Toast('設定成功', 'success').fire()
     } else {
+      Toast(message, 'error').fire()
       const accountMsg = message.match(/account.*/i)
       const emailMsg = message.match(/email.*/i)
       const pwMsg = message.match(/密碼.*/i)
+
       try {
         // 取出錯誤訊息
         accountMsg && setErrMsg({ ...errMsg, account: accountMsg[0] })

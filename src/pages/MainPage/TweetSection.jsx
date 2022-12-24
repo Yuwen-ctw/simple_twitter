@@ -2,11 +2,12 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useReply } from 'contexts/ReplyContext'
-// components
-import { SingleTweet } from 'components/Tweets'
 import { getAllReplies, getTweet, likeTweet, dislikeTweet } from 'api/tweets'
-import Reply from 'components/Reply'
+// components
 import { SectionTitle, Spinner } from 'components/share'
+import { SingleTweet } from 'components/Tweets'
+import Reply from 'components/Reply'
+import Toast from 'components/UI/Toast'
 // assests
 import { backImage } from 'assets/images'
 import styles from 'assets/styles/pages/tweetSection.module.scss'
@@ -30,7 +31,6 @@ function TweetSection() {
         tweetPromise,
         repliesPromise,
       ])
-
       if (tweetResult.success && repliesResult.success) {
         // cancle the spinner
         setLoading(false)
@@ -39,6 +39,7 @@ function TweetSection() {
         setReplies(repliesResult.data)
       } else {
         const errMsg = tweetResult.message || repliesResult.message
+        Toast(errMsg, 'error').fire()
         console.error(errMsg)
       }
     }

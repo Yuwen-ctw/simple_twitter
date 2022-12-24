@@ -8,8 +8,7 @@ import { useNewTweet } from 'contexts/NewTweetContext'
 import { useReply } from 'contexts/ReplyContext'
 import { useEffect, useState } from 'react'
 import { getAllTweets } from 'api/tweets'
-import Toast from 'components/UI/Toast'
-import useFetch from 'api/useFetch'
+import useFetch from 'customHooks/useFetch'
 
 function MainSection() {
   const { handleUserOrTweetClick } = useOutletContext()
@@ -25,15 +24,14 @@ function MainSection() {
   } = useNewTweet()
   const { handleOpenModal, isReplyCreated } = useReply()
   const [tweets, setTweets] = useState([])
-  const { data, loading, error, refetch } = useFetch(getAllTweets)
-
-  if (error) Toast(error, 'error').fire()
+  const { data, loading, refetch } = useFetch(getAllTweets)
 
   useEffect(() => {
     if (!data) return
     setTweets(data)
   }, [loading])
 
+  // effect when add new tweet or reply
   useEffect(() => {
     if (!isReplyCreated && !isTweetCreated) return
     refetch(getAllTweets)

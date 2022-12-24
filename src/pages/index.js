@@ -14,7 +14,6 @@ import {
   TweetSection,
   UserSectionLayout,
   UserMainSection,
-  UserLikeSection,
   UserReplySection,
   UserFollowSection,
 } from './MainPage'
@@ -33,7 +32,6 @@ export {
   TweetSection,
   UserSectionLayout,
   UserMainSection,
-  UserLikeSection,
   UserReplySection,
   UserFollowSection,
 }

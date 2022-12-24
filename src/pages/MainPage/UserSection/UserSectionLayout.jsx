@@ -12,6 +12,8 @@ import { ProfileUserCard } from 'components/UserCards'
 import { EditProfileModal } from 'components/UI/Modals'
 import styles from 'assets/styles/pages/userSection.module.scss'
 import { useFollowToggled } from 'contexts/FollowToggledContext'
+import useFetch from 'customHooks/useFetch'
+import { Spinner } from 'components/share'
 
 function UserSectionLayout() {
   const { currentUser, isAuthenticated } = useAuth()
@@ -22,19 +24,18 @@ function UserSectionLayout() {
   const [user, setUser] = useState({})
   const [showEditModal, setShowEditModal] = useState(false)
   const isFollowSection = lastPath.match('follow')
+  const { data, loading, refetch } = useFetch(getUser, { userId })
 
   useEffect(() => {
-    async function getUserData() {
-      const { success, data, message } = await getUser(userId)
-      if (success) {
-        if (currentUser?.id.toString() === userId) data.self = true
-        setUser(data)
-      } else {
-        console.error(message)
-      }
-    }
-    getUserData()
-  }, [userId, currentUser])
+    if (!data || !currentUser.id) return
+    if (currentUser?.id === Number(userId)) data.self = true
+    setUser(data)
+  }, [loading])
+
+  useEffect(() => {
+    if (!data) return
+    refetch(getUser, { userId })
+  }, [userId])
 
   // update user data wherever current-user changed the follow state
   useEffect(() => {
@@ -71,13 +72,20 @@ function UserSectionLayout() {
   return (
     <section className={[styles.sectionWrapper, 'scrollbar'].join(' ')}>
       <SectionHeader user={user} />
-      <ProfileUserCard
-        user={user}
-        onClickEdit={handleToggleEditModal}
-        onToggleFollow={handleToggleFollow}
-        className={isFollowSection && 'hide'}
-      />
-      <Outlet context={useOutletContext()} />
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <ProfileUserCard
+            user={user}
+            onClickEdit={handleToggleEditModal}
+            onToggleFollow={handleToggleFollow}
+            className={isFollowSection && 'hide'}
+          />
+          <Outlet context={useOutletContext()} />
+        </>
+      )}
+
       {showEditModal && (
         <EditProfileModal
           user={user}
