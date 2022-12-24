@@ -1,3 +1,4 @@
+// hooks
 import {
   Outlet,
   useOutletContext,
@@ -5,32 +6,36 @@ import {
   useLocation,
 } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getUser } from 'api/users'
+import useFetch from 'customHooks/useFetch'
+// contexts
 import { useAuth } from 'contexts/AuthContext'
+import { useEdit } from 'contexts/EditContext'
+import { useFollowToggled } from 'contexts/FollowToggledContext'
+// api
+import { getUser } from 'api/users'
+// components
 import SectionHeader from './SectionHeader'
 import { ProfileUserCard } from 'components/UserCards'
 import { EditProfileModal } from 'components/UI/Modals'
-import styles from 'assets/styles/pages/userSection.module.scss'
-import { useFollowToggled } from 'contexts/FollowToggledContext'
-import useFetch from 'customHooks/useFetch'
 import { Spinner } from 'components/share'
+import styles from 'assets/styles/pages/userSection.module.scss'
 
 function UserSectionLayout() {
   const { currentUser, isAuthenticated } = useAuth()
+  const { showEditModal, handleToggleEditModal, handleEdit } = useEdit()
   const { toggledUser, handleToggleFollow } = useFollowToggled()
   const { userId } = useParams()
   const pathnames = useLocation().pathname.split('/')
   const lastPath = pathnames[pathnames.length - 1]
-  const [user, setUser] = useState({})
-  const [showEditModal, setShowEditModal] = useState(false)
   const isFollowSection = lastPath.match('follow')
+  const [user, setUser] = useState({})
   const { data, loading, refetch } = useFetch(getUser, { userId })
 
   useEffect(() => {
-    if (!data || !currentUser.id) return
+    if (!data || !currentUser?.id) return
     if (currentUser?.id === Number(userId)) data.self = true
     setUser(data)
-  }, [loading])
+  }, [loading, currentUser?.id])
 
   useEffect(() => {
     if (!data) return
@@ -56,13 +61,8 @@ function UserSectionLayout() {
     }
   }
 
-  // show modal or not
-  function handleToggleEditModal() {
-    setShowEditModal(!showEditModal)
-  }
-
   function handleEditInfomation(data) {
-    setShowEditModal(!showEditModal)
+    handleEdit()
     setUser({
       ...user,
       ...data,
@@ -85,7 +85,6 @@ function UserSectionLayout() {
           <Outlet context={useOutletContext()} />
         </>
       )}
-
       {showEditModal && (
         <EditProfileModal
           user={user}

@@ -1,46 +1,21 @@
 // hooks & contexts
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, Outlet } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 import { NewTweetContextProvider } from 'contexts/NewTweetContext'
 import { ReplyContextProvider } from 'contexts/ReplyContext'
-import useFetch from 'customHooks/useFetch'
-import { useFollowToggled } from 'contexts/FollowToggledContext'
-// apis
-import { getTop10Users } from 'api/users'
+import { FollowToggledContextProvider } from 'contexts/FollowToggledContext'
+import { EditContextProvider } from 'contexts/EditContext'
 // components
 import PopularUserList from './PopularUserList'
 import { UserNavbar } from 'components/UI/Navbars'
 import { ReplyModal, TweetModal } from 'components/UI/Modals'
-import { Spinner } from 'components/share'
 import styles from 'assets/styles/pages/mainPage.module.scss'
 
 function MainLayout() {
   const navigate = useNavigate()
   const { logout, currentUser } = useAuth()
-  const { toggledUser, handleToggleFollow } = useFollowToggled()
-  const [popularUsers, setPopularUsers] = useState([])
   const [showTweetModal, setShowTweetModal] = useState(false)
-  const { data, loading } = useFetch(getTop10Users)
-
-  useEffect(() => {
-    if (!data) return
-    setPopularUsers(data)
-  }, [loading])
-
-  // update data wherever user changed the follow state
-  useEffect(() => updatePopularUsers(toggledUser), [toggledUser])
-
-  function updatePopularUsers(targetUser) {
-    if (!targetUser?.id) return
-    setPopularUsers((draft) =>
-      draft.map((user) =>
-        user.id === targetUser.id
-          ? { ...user, isFollowed: !user.isFollowed }
-          : user
-      )
-    )
-  }
 
   function handleToggleTweetModal() {
     setShowTweetModal(!showTweetModal)
@@ -65,10 +40,8 @@ function MainLayout() {
     <div className={styles.layout}>
       <NewTweetContextProvider>
         <ReplyContextProvider>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <>
+          <EditContextProvider>
+            <FollowToggledContextProvider>
               <UserNavbar
                 onLogout={logout}
                 currentUserId={currentUser?.id}
@@ -76,18 +49,16 @@ function MainLayout() {
               />
               <Outlet context={{ handleUserOrTweetClick }} />
               <PopularUserList
-                users={popularUsers}
                 className={styles.userList}
                 onClick={handleUserOrTweetClick}
-                onToggleFollow={handleToggleFollow}
               />
               <TweetModal
                 active={showTweetModal}
                 onClose={handleToggleTweetModal}
               />
               <ReplyModal />
-            </>
-          )}
+            </FollowToggledContextProvider>
+          </EditContextProvider>
         </ReplyContextProvider>
       </NewTweetContextProvider>
     </div>

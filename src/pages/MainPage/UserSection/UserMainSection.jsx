@@ -8,6 +8,7 @@ import { useReply } from 'contexts/ReplyContext'
 // components
 import { MainTweet } from 'components/Tweets'
 import { Spinner } from 'components/share'
+import { useEdit } from 'contexts/EditContext'
 
 function UserMainSection() {
   const { handleUserOrTweetClick } = useOutletContext()
@@ -17,6 +18,7 @@ function UserMainSection() {
   const [tweets, setTweets] = useState([])
   const { handleToggleLikeTweet } = useNewTweet()
   const { handleOpenModal, isReplyCreated } = useReply()
+  const { isEdited } = useEdit()
   const { data, loading, refetch } = useFetch(getUserInfoData, {
     fieldName,
     userId,
@@ -28,14 +30,23 @@ function UserMainSection() {
     setTweets(data)
   }, [loading])
 
-  // effect from switch route or add new reply
+  // refetch when added new reply or edited profile
+  useEffect(() => {
+    if (!data) return
+    if (!isReplyCreated && !isEdited) return
+    refetch(getUserInfoData, {
+      fieldName,
+      userId,
+    })
+  }, [isReplyCreated, isEdited])
+  // refetch when switched route
   useEffect(() => {
     if (!data) return
     refetch(getUserInfoData, {
       fieldName,
       userId,
     })
-  }, [fieldName, isReplyCreated])
+  }, [fieldName])
 
   async function handleLikeClick(tweetId, isLiked) {
     const { success, message } = await handleToggleLikeTweet(tweetId, isLiked)

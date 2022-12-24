@@ -11,6 +11,7 @@ export default function useFetch(axiosPromise, params) {
   }, [])
 
   async function fetchData(axiosPromise, params) {
+    console.log('fetch', axiosPromise.name, params?.fieldName)
     setData(null)
     setLoading(true)
     const { success, data, message } = await axiosPromise(params)
