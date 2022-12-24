@@ -1,4 +1,9 @@
-import { axiosInstance, baseUrl, handleAxiosError } from './axiosInstance'
+import axios from 'axios'
+import { baseUrl, handleAxiosError } from './axiosInstance'
+
+const axiosInstance = axios.create({
+  baseURL: `${baseUrl}`,
+})
 
 axiosInstance.interceptors.request.use(
   (config) => {

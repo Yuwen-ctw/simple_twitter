@@ -84,7 +84,7 @@ function MainLayout() {
                 currentUserId={currentUser?.id}
                 onModalButtonClick={handleToggleTweetModal}
               />
-              <Outlet context={{ handleUserOrTweetClick, showTweetModal }} />
+              <Outlet context={{ handleUserOrTweetClick }} />
               <PopularUserList
                 users={popularUsers}
                 className={styles.userList}

@@ -40,6 +40,7 @@ export function NewTweetContextProvider({ children }) {
   }
 
   async function handleAddTweet() {
+    if (isTweetCreated) setIsTweetCreated(false)
     // check length and show warning
     if (tweetInput.trim().length === 0) {
       mainTweetInputRef.current?.setAttribute('data-zeroSize', 'true')
@@ -47,25 +48,22 @@ export function NewTweetContextProvider({ children }) {
       return { isCreated: false }
     }
     if (tweetInput.trim().length > 140) return { isCreated: false }
+
+    // start add tweet process
     setDisabled(true)
-    // send api
-    const { success, tweet, message } = await addTweet(tweetInput)
+    const { success, message } = await addTweet(tweetInput)
     if (success) {
       Toast('推文發送成功', 'success').fire()
-      // initial value
-      tweet.User = currentUser
-      tweet.likeCount = 0
-      tweet.replyCount = 0
       // clean the tweet input
       setTweetInput('')
       setDisabled(false)
-      return { success, tweet, message, isTweetCreated: true }
+      setIsTweetCreated(true)
     } else {
       console.error(message)
       Toast(`推文發送失敗: ${message}`, 'error').fire()
       setDisabled(false)
-      return { isCreated: false }
     }
+    return success
   }
 
   async function handleToggleLikeTweet(tweetId, isLiked) {

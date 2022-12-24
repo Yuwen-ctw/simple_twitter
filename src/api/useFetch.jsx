@@ -6,17 +6,22 @@ export default function useFetch(axiosPromise) {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    async function fetchData() {
-      setLoading(true)
-      const { success, data, message } = await axiosPromise()
-      if (success) {
-        setData(data)
-      } else {
-        setError(message)
-      }
-      setLoading(false)
-    }
-    fetchData()
+    fetchData(axiosPromise)
   }, [])
-  return { data, loading, error }
+
+  async function fetchData(axiosPromise) {
+    console.log('fetch')
+    setLoading(true)
+    const { success, data, message } = await axiosPromise()
+    if (success) {
+      setData(data)
+    } else {
+      setError(message)
+    }
+    setLoading(false)
+  }
+
+  const refetch = () => fetchData(axiosPromise)
+
+  return { data, loading, error, refetch }
 }

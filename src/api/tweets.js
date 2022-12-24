@@ -1,12 +1,7 @@
-import axios from 'axios'
+import { axiosInstance, baseUrl, handleAxiosError } from './axiosInstance'
 
-const baseUrl = 'https://quiet-mountain-47605.herokuapp.com/api'
 const basePath = 'tweets'
 
-const axiosInstance = axios.create({
-  baseURL: `${baseUrl}`,
-  validateStatus: (status) => status >= 200 && status <= 500,
-})
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken')
@@ -21,14 +16,9 @@ axiosInstance.interceptors.request.use(
 export async function getAllTweets() {
   try {
     const { data } = await axiosInstance.get(`${baseUrl}/${basePath}`)
-    // if fetch success: [], else {success: false, message: '...'}
-    if (data.success === false) return { ...data }
     return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Get tweets failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -54,11 +44,8 @@ export async function addTweet(description) {
       description,
     })
     return data
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Add tweet failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -68,11 +55,8 @@ export async function likeTweet(tweetId) {
       `${baseUrl}/${basePath}/${tweetId}/like`
     )
     return data
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Like tweet failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -82,11 +66,8 @@ export async function dislikeTweet(tweetId) {
       `${baseUrl}/${basePath}/${tweetId}/unlike`
     )
     return data
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Dislike tweet failed]: ${err}`,
-    }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
 
@@ -113,11 +94,8 @@ export async function addReply(data) {
       `${baseUrl}/${basePath}/${tweetId}/replies`,
       { comment }
     )
-    return { success: true, data }
-  } catch (err) {
-    return {
-      success: false,
-      message: `[Add Reply failed]: ${err}`,
-    }
+    return { ...data }
+  } catch (error) {
+    return handleAxiosError(error)
   }
 }
