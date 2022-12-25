@@ -23,7 +23,7 @@
     display: none;
 
     @include for-pad {
-      display: block;
+      display: grid;
     }
   }
 }

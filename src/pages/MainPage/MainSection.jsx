@@ -20,9 +20,9 @@ function MainSection() {
     disabled,
     handleInputChange,
     handleAddTweet,
-    mainTweetInputRef,
     handleToggleLikeTweet,
     isTweetCreated,
+    errMsg,
   } = useNewTweet()
   const { handleOpenModal, isReplyCreated } = useReply()
   const [tweets, setTweets] = useState([])
@@ -76,12 +76,12 @@ function MainSection() {
         {isOnMobile && <UserAvatar src={currentUser?.avatar} />}
       </SectionTitle>
       <TweetInput
-        ref={mainTweetInputRef}
         src={currentUser?.avatar}
         value={tweetInput}
         onChange={handleInputChange}
         onClick={handleAddTweet}
         disabled={disabled}
+        errMsg={errMsg}
       />
       <hr />
       {loading && <Spinner />}

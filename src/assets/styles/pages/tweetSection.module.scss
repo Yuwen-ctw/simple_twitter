@@ -1,3 +1,5 @@
+@use '../abstracts/index' as *;
+
 .sectionWrapper {
   display: flex;
   flex-direction: column;
@@ -18,5 +20,15 @@
     &:active {
       opacity: 0.5;
     }
+  }
+}
+
+.replyInput {
+  position: relative;
+  padding: 16px 24px;
+  grid-template-rows: 82px;
+  border-bottom: 1px solid $listBorder;
+  textarea {
+    height: 50px;
   }
 }

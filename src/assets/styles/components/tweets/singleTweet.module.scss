@@ -38,7 +38,7 @@
 
 .tweetInfo {
   grid-area: info;
-  padding: 16px 0;
+  padding: 16px 0 16px 24px;
   border-top: 1px solid #e6ecf0;
   border-bottom: 1px solid #e6ecf0;
 
@@ -54,9 +54,9 @@
 
 .tweetButtons {
   grid-area: button;
-  padding-top: 10px;
+  padding: 10px 0 0 24px;
   display: flex;
-  gap: 128px;
+  gap: 36px;
   button {
     height: 30px;
     cursor: pointer;
@@ -65,5 +65,15 @@
     img {
       width: 100%;
     }
+  }
+}
+
+@include for-pad {
+  .tweetInfo {
+    padding: 16px 0;
+  }
+  .tweetButtons {
+    padding: 10px 0 0 0;
+    gap: 128px;
   }
 }

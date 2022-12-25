@@ -19,24 +19,6 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   display: grid;
   grid-template-columns: 1fr;
   place-items: start;
-
-  @include for-pad {
-    padding: 200px 16px 16px;
-  }
-  .switcherWrapper {
-    width: 100%;
-    border-bottom: 1px solid $listBorder;
-    a {
-      width: 80px;
-      text-align: center;
-      @include for-pad {
-        width: 110px;
-      }
-      @include for-tablet {
-        width: 130px;
-      }
-    }
-  }
 }
 
 :global(.hide) {
@@ -55,6 +37,7 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   &:has(> img[src]) {
     background-image: none;
   }
+
   img {
     /* hide if no image url*/
     &:not([src]) {
@@ -64,12 +47,6 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
     height: 124px;
     object-fit: cover;
   }
-  @include for-pad {
-    height: 200px;
-    img {
-      height: 200px;
-    }
-  }
 }
 
 .avatar {
@@ -77,12 +54,6 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   position: absolute;
   left: 24px;
   top: 84px;
-  @include for-pad {
-    @include circleAvatar(140px, 4px);
-    left: 16px;
-    top: 200px;
-    translate: 0 -50%;
-  }
 }
 
 %iconWrapper {
@@ -95,10 +66,6 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   background-size: 24px;
   background-repeat: no-repeat;
   background-position: center;
-  @include for-pad {
-    width: 40px;
-    height: 40px;
-  }
 }
 
 .buttonGroup {
@@ -111,19 +78,10 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   align-items: center;
   gap: 16px;
 
-  @include for-pad {
-    margin-top: 0px;
-    gap: 12px;
-    height: 72px;
-  }
-
-  @include for-tablet {
-    gap: 16px;
-  }
-
   &.hide {
     visibility: hide;
   }
+
   .mailTo {
     @extend %iconWrapper;
     @extend %interactingShadow;
@@ -158,10 +116,6 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
     text-align: start;
     label {
       padding: 4px 8px;
-
-      @include for-pad {
-        padding: 8px 16px;
-      }
     }
   }
   /* EditButton */
@@ -179,4 +133,75 @@ $mailToHover: '../../../svgs/profile_mail_clr.svg';
   @include font(0.875rem, 400, 1.57);
   word-break: break-all;
   white-space: break-spaces;
+}
+
+/* media queries */
+@media screen and (min-width: 576px) {
+  .layout {
+    padding: 176px 16px 16px;
+  }
+
+  .background {
+    height: 176px;
+    img {
+      height: 176px;
+    }
+  }
+
+  .avatar {
+    @include circleAvatar(120px, 2px);
+    left: 16px;
+    top: 176px;
+    translate: 0 -50%;
+  }
+}
+
+@include for-pad {
+  .layout {
+    padding: 200px 16px 16px;
+  }
+
+  .background {
+    height: 200px;
+    img {
+      height: 200px;
+    }
+  }
+
+  .avatar {
+    @include circleAvatar(140px, 4px);
+    left: 16px;
+    top: 200px;
+    translate: 0 -50%;
+  }
+
+  %iconWrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .buttonGroup {
+    margin-top: 0px;
+    gap: 12px;
+    height: 72px;
+  }
+}
+
+@include for-tablet {
+  .layout {
+    .switcherWrapper {
+      a {
+        width: 130px;
+      }
+    }
+  }
+
+  .buttonGroup {
+    gap: 16px;
+    & :nth-child(3) {
+      label {
+        padding: 8px 16px;
+      }
+    }
+  }
 }

@@ -6,7 +6,6 @@ import {
   IntroText,
   ButtonGroup,
 } from './base'
-import { SwitchLink } from 'components/UI/Buttons'
 import styles from 'assets/styles/components/userCards/profileUserCard.module.scss'
 
 function ProfileUserCard({ user, onClickEdit, onToggleFollow, className }) {
@@ -35,11 +34,6 @@ function ProfileUserCard({ user, onClickEdit, onToggleFollow, className }) {
         userId={user.id}
         onClick={handleFollowInfoClick}
       />
-      <div className={styles.switcherWrapper}>
-        <SwitchLink text="推文" to={`/user/${user.id}/tweets`} />
-        <SwitchLink text="回覆" to={`/user/${user.id}/replied_tweets`} />
-        <SwitchLink text="喜歡的內容" to={`/user/${user.id}/likes`} />
-      </div>
     </div>
   )
 }

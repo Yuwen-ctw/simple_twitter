@@ -7,13 +7,13 @@
 
 .sectionHeader {
   align-self: flex-start;
+  width: fit-content;
   padding: 24px;
   display: inline-flex;
   justify-content: flex-start;
   align-items: center;
   gap: 16px;
   cursor: pointer;
-  width: fit-content;
   &:hover {
     opacity: 0.7;
   }
@@ -41,7 +41,24 @@
   }
 }
 
-.switchWrapper {
-  border-top: 1px solid $listBorder;
+.switchers {
+  width: 100%;
   border-bottom: 1px solid $listBorder;
+
+  &.switcherTopBorder {
+    border-top: 1px solid $listBorder;
+  }
+
+  a {
+    width: 80px;
+    text-align: center;
+  }
+}
+
+@include for-pad {
+  .switchers {
+    a {
+      width: 110px;
+    }
+  }
 }

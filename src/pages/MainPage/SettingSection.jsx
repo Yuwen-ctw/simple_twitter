@@ -48,7 +48,7 @@ function inputReducer(state, action) {
 
 function SettingSection() {
   const { isOnMobile } = useRWD()
-  const { currentUser, isAuthenticated, logout } = useAuth()
+  const { currentUser, logout } = useAuth()
   const [inputValues, dispatch] = useReducer(inputReducer, initialInput)
   const inputNames = Object.keys(inputValues)
   const [disabled, setDisabled] = useState(false)
@@ -56,6 +56,7 @@ function SettingSection() {
 
   // get initial values
   useEffect(() => {
+    if (!currentUser?.id) return
     dispatch({
       type: actions.all,
       payload: {
@@ -64,7 +65,7 @@ function SettingSection() {
         email: currentUser?.email,
       },
     })
-  }, [isAuthenticated])
+  }, [currentUser])
 
   function handleInputChange(action) {
     const { type, payload } = action

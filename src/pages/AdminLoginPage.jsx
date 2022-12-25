@@ -3,7 +3,7 @@ import { useState, useEffect, useReducer } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
-import { AuthContainer, AuthInput } from 'components/form'
+import { AuthInput } from 'components/form'
 import { Logo, PageTitle, SmallSpinner } from 'components/share'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'

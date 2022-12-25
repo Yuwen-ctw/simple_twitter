@@ -12,6 +12,7 @@ const TweetInput = forwardRef((props, ref) => {
     buttonText = '推文',
     className,
     disabled,
+    errMsg,
   } = props
   return (
     <div className={[styles.input__wrapper, className].join(' ')} ref={ref}>
@@ -19,14 +20,13 @@ const TweetInput = forwardRef((props, ref) => {
       <textarea
         data-rolename="tweetInput"
         placeholder={placeholder}
-        className={[styles.introInput]}
+        className={[styles.textInput]}
         id="profile-intro-input"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
       />
-      <span data-rolename="tooMany-msg">字數不可超過 140 字</span>
-      <span data-rolename="zeroSize-msg">內容不可空白</span>
+      <span className={styles.errMsg}>{errMsg}</span>
       <ClrButton
         text={
           disabled ? <SmallSpinner classname={styles.smSpinner} /> : buttonText

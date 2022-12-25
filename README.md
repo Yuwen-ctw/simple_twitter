@@ -19,6 +19,7 @@
 - 管理者可透過後台登入頁面登入，並使用管理者相關功能。
 - 管理者可以瀏覽全站的推文清單，並快覽每則推文第 1 行或前 50 字。
 - 管理者可以瀏覽站內所有的使用者清單，並依使用者推文數由多至少進行排序。
+- 支援 RWD
 
 # 使用方法
 
@@ -57,6 +58,7 @@ src\
 　| _ assests - 管理 image, svg, style\
 　| _ components \
 　| _ contexts \
+　| _ customHooks \
 　| _ pages \
 　| _ routes \
 　| _ utilities
@@ -69,7 +71,9 @@ src\
 - react-router-dom - 路由
 - scss - CSS 預處理器
 - axios - 處理 HTTP 請求
+- sweetalert2 - 彈跳視窗
 - json-server - 模擬 API
+
   <br/>
   <br/>
   <br/>

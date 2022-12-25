@@ -4,36 +4,25 @@
   display: grid;
   grid-template-columns: auto 1fr;
   padding: 16px 16px 0px 24px;
-  position: relative;
   width: 100%;
 
-  /* bottom border which input is invalid */
-  &[data-tooMany='true'] {
-    span[data-rolename='tooMany-msg'] {
-      display: inline;
-    }
-  }
-  &[data-zeroSize='true'] {
-    span[data-rolename='zeroSize-msg'] {
-      display: inline;
-    }
-  }
   /* error message */
-  > span {
+  > span.errMsg {
     @include font(0.9375rem, 500, 1, $clr-error);
     position: absolute;
     right: 84px;
     bottom: 48px;
-    display: none;
+    display: inline;
     translate: 0 calc(100% + 4px);
   }
+
   /* btn spinner*/
   .smSpinner {
     height: 24px;
   }
 }
 
-.introInput {
+.textInput {
   @include font(1rem, 400, 26px, $text-dark);
   padding: 0 64px 0 10px;
   width: 100%;
@@ -51,8 +40,20 @@
 
 .btn {
   position: absolute;
-  bottom: 16px;
-  right: 16px;
+  top: 17px;
+  right: 24px;
   font-size: 1rem;
   width: 64px;
+}
+
+@include for-pad {
+  .input__wrapper {
+    position: relative;
+  }
+
+  .btn {
+    top: unset;
+    bottom: 16px;
+    right: 16px;
+  }
 }
