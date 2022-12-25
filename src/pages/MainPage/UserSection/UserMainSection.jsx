@@ -81,7 +81,7 @@ function UserMainSection() {
   })
 
   return (
-    <ul onClick={handleUserOrTweetClick}>
+    <ul onClick={handleUserOrTweetClick} className="scrollbar">
       {loading ? <Spinner /> : <>{tweetList}</>}
     </ul>
   )
