@@ -1,16 +1,18 @@
-import { SectionTitle, Spinner } from 'components/share'
-import { MainTweet } from 'components/Tweets'
-import styles from 'assets/styles/pages/mainSection.module.scss'
+import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
-import { TweetInput } from 'components/form'
 import { useAuth } from 'contexts/AuthContext'
 import { useNewTweet } from 'contexts/NewTweetContext'
 import { useReply } from 'contexts/ReplyContext'
-import { useEffect, useState } from 'react'
-import { getAllTweets } from 'api/tweets'
 import useFetch from 'customHooks/useFetch'
+import useRWD from 'customHooks/useRWD'
+import { getAllTweets } from 'api/tweets'
+import { SectionTitle, Spinner, UserAvatar } from 'components/share'
+import { TweetInput } from 'components/form'
+import { MainTweet } from 'components/Tweets'
+import styles from 'assets/styles/pages/mainSection.module.scss'
 
 function MainSection() {
+  const { isOnMobile } = useRWD()
   const { handleUserOrTweetClick } = useOutletContext()
   const { currentUser } = useAuth()
   const {
@@ -18,9 +20,9 @@ function MainSection() {
     disabled,
     handleInputChange,
     handleAddTweet,
-    mainTweetInputRef,
     handleToggleLikeTweet,
     isTweetCreated,
+    errMsg,
   } = useNewTweet()
   const { handleOpenModal, isReplyCreated } = useReply()
   const [tweets, setTweets] = useState([])
@@ -70,14 +72,16 @@ function MainSection() {
 
   return (
     <section className={styles.sectionWrapper}>
-      <SectionTitle text="首頁" />
+      <SectionTitle text="首頁">
+        {isOnMobile && <UserAvatar src={currentUser?.avatar} />}
+      </SectionTitle>
       <TweetInput
-        ref={mainTweetInputRef}
         src={currentUser?.avatar}
         value={tweetInput}
         onChange={handleInputChange}
         onClick={handleAddTweet}
         disabled={disabled}
+        errMsg={errMsg}
       />
       <hr />
       {loading && <Spinner />}

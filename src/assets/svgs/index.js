@@ -1,4 +1,7 @@
 import featherSvg from './feather.svg'
+import featherWhiteSvg from './feather_white.svg'
+import featherBlackSvg from './feather_black.svg'
+import featherBrandSvg from './feather_brand.svg'
 import likeSvg from './like.svg'
 import replySvg from './reply.svg'
 import likingSvg from './like_fill.svg'
@@ -19,6 +22,9 @@ import noti_disconnectedSvg from './noti_disconnected.svg'
 import noti_errorSvg from './noti_error.svg'
 export {
   featherSvg,
+  featherWhiteSvg,
+  featherBlackSvg,
+  featherBrandSvg,
   likeSvg,
   replySvg,
   likingSvg,

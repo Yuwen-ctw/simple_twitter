@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
 // components
 import { Logo, PageTitle, SmallSpinner } from 'components/share'
-import { AuthContainer, AuthInput } from 'components/form'
+import { AuthInput } from 'components/form'
 import { BaseLink, ClrButton } from 'components/UI/Buttons'
 import Toast from 'components/UI/Toast'
 import styles from 'assets/styles/pages/loginPage.module.scss'
@@ -48,9 +48,9 @@ function RegisterPage() {
   const { isAuthenticated, register } = useAuth()
   const [inputValues, dispatch] = useReducer(inputReducer, initialInput)
   const [disabled, setDisabled] = useState(false)
+  const [errMsg, setErrMsg] = useState({})
   const navigate = useNavigate()
   const inputNames = Object.keys(inputValues)
-  const [errMsg, setErrMsg] = useState({})
 
   function handleInputChange(action) {
     const { type, payload } = action
@@ -108,8 +108,10 @@ function RegisterPage() {
       } catch (err) {
         console.error(err)
       }
+      // clean the password input
       dispatch({ type: actions.password, payload: '' })
       dispatch({ type: actions.checkPassword, payload: '' })
+
       Toast(
         `註冊失敗：
         ${message}`,

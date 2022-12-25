@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useFetch from 'customHooks/useFetch'
+import useRWD from 'customHooks/useRWD'
 // contexts
 import { useAuth } from 'contexts/AuthContext'
 import { useEdit } from 'contexts/EditContext'
@@ -16,12 +17,14 @@ import { getUser } from 'api/users'
 // components
 import SectionHeader from './SectionHeader'
 import { ProfileUserCard } from 'components/UserCards'
+import { SwitchLink } from 'components/UI/Buttons'
 import { EditProfileModal } from 'components/UI/Modals'
 import { Spinner } from 'components/share'
 import styles from 'assets/styles/pages/userSection.module.scss'
 
 function UserSectionLayout() {
-  const { currentUser, isAuthenticated } = useAuth()
+  const { isOnMobile } = useRWD()
+  const { currentUser } = useAuth()
   const { showEditModal, handleToggleEditModal, handleEdit } = useEdit()
   const { toggledUser, handleToggleFollow } = useFollowToggled()
   const { userId } = useParams()
@@ -37,6 +40,7 @@ function UserSectionLayout() {
     setUser(data)
   }, [loading, currentUser?.id])
 
+  // refetch when route parameter :userId changed
   useEffect(() => {
     if (!data) return
     refetch(getUser, { userId })
@@ -44,7 +48,7 @@ function UserSectionLayout() {
 
   // update user data wherever current-user changed the follow state
   useEffect(() => {
-    if (!isAuthenticated) return
+    if (!currentUser?.id) return
     updateCurrentUser(toggledUser)
   }, [toggledUser])
 
@@ -61,7 +65,7 @@ function UserSectionLayout() {
     }
   }
 
-  function handleEditInfomation(data) {
+  function handleEditClick(data) {
     handleEdit()
     setUser({
       ...user,
@@ -80,15 +84,22 @@ function UserSectionLayout() {
             user={user}
             onClickEdit={handleToggleEditModal}
             onToggleFollow={handleToggleFollow}
-            className={isFollowSection && 'hide'}
+            className={isFollowSection && !isOnMobile && 'hide'}
           />
+          <div
+            className={[styles.switchers, isFollowSection && 'hide'].join(' ')}
+          >
+            <SwitchLink text="推文" to={`/user/${user.id}/tweets`} />
+            <SwitchLink text="回覆" to={`/user/${user.id}/replied_tweets`} />
+            <SwitchLink text="喜歡的內容" to={`/user/${user.id}/likes`} />
+          </div>
           <Outlet context={useOutletContext()} />
         </>
       )}
       {showEditModal && (
         <EditProfileModal
           user={user}
-          onSave={handleEditInfomation}
+          onSave={handleEditClick}
           onClose={handleToggleEditModal}
         />
       )}

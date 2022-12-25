@@ -5,17 +5,12 @@ import { TweetInput } from 'components/form'
 import styles from 'assets/styles/components/modals/tweetModal.module.scss'
 
 function TweetModal({ active, onClose }) {
-  const {
-    tweetInput,
-    disabled,
-    handleInputChange,
-    handleAddTweet,
-    modalTweetInputRef,
-  } = useNewTweet()
+  const { tweetInput, disabled, errMsg, handleInputChange, handleAddTweet } =
+    useNewTweet()
   const { currentUser } = useAuth()
 
   async function handleClickAddTweet() {
-    const success = await handleAddTweet()
+    const { success } = await handleAddTweet()
     if (success) onClose()
   }
 
@@ -23,12 +18,12 @@ function TweetModal({ active, onClose }) {
     <Modal active={active} onClose={onClose}>
       <div className={styles.layout}>
         <TweetInput
-          ref={modalTweetInputRef}
           src={currentUser?.avatar}
           value={tweetInput}
           onChange={handleInputChange}
           onClick={handleClickAddTweet}
           disabled={disabled}
+          errMsg={errMsg}
         />
       </div>
     </Modal>

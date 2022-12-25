@@ -8,7 +8,10 @@
   text-align: center;
 
   h3 {
-    margin: 29px 0 40px;
+    margin: 29px 0 16px;
+    @include for-pad {
+      margin: 29px 0 40px;
+    }
   }
 
   & > :first-child {

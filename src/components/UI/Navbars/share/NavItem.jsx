@@ -1,6 +1,8 @@
 import styles from 'assets/styles/components/ui/navbars.module.scss'
 import { Link } from 'react-router-dom'
+import useRWD from 'customHooks/useRWD'
 const NavItem = ({ value, text, check, to, onClick }) => {
+  const { isOnDesktop } = useRWD()
   return (
     <>
       <input
@@ -17,7 +19,7 @@ const NavItem = ({ value, text, check, to, onClick }) => {
         state={value}
         onClick={onClick}
       >
-        {text}
+        {isOnDesktop ? text : ''}
       </Link>
     </>
   )

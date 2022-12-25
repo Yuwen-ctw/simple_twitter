@@ -1,6 +1,5 @@
 import { userLogin, adminLogin, register } from 'api/auth'
 import { getUser } from 'api/users'
-import Toast from 'components/UI/Toast'
 import * as jwt from 'jsonwebtoken'
 import { useEffect, useState, createContext, useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router'
@@ -32,7 +31,6 @@ function AuthContextProvider({ children }) {
     if (pathname.includes('register')) return
     if (pathname.includes('login')) return
     navigate('login')
-    Toast('請進行登入！', 'disconnected').fire()
   }
 
   // check authToken when route switched
@@ -64,6 +62,7 @@ function AuthContextProvider({ children }) {
 
   function logout() {
     localStorage.removeItem('authToken')
+    sessionStorage.removeItem('authToken')
     setIsAuthenticated(false)
     setPayload(null)
   }

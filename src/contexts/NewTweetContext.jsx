@@ -1,12 +1,10 @@
-import { useState, createContext, useContext, useRef } from 'react'
+import { useState, createContext, useContext } from 'react'
 import { addTweet, likeTweet, dislikeTweet } from 'api/tweets'
-import { useAuth } from './AuthContext'
 import Toast from 'components/UI/Toast'
 const defaultContextValue = {
   tweetInput: null,
   disabled: null,
-  mainTweetInputRef: null,
-  modalTweetInputRef: null,
+  errMsg: null,
   handleInputChange: null,
   handleAddTweet: null,
   handleToggleLikeTweet: null,
@@ -17,37 +15,30 @@ const NewTweetContext = createContext(defaultContextValue)
 export const useNewTweet = () => useContext(NewTweetContext)
 
 export function NewTweetContextProvider({ children }) {
-  const { currentUser } = useAuth()
   const [tweetInput, setTweetInput] = useState('')
   const [disabled, setDisabled] = useState(false)
   const [isTweetCreated, setIsTweetCreated] = useState(false)
-  const mainTweetInputRef = useRef(null)
-  const modalTweetInputRef = useRef(null)
+  const [errMsg, setErrMsg] = useState('')
 
   function handleInputChange(value) {
     if (isTweetCreated) setIsTweetCreated(false)
-    // check length and show or hide warning
     if (value.length > 140) {
-      mainTweetInputRef.current?.setAttribute('data-tooMany', 'true')
-      modalTweetInputRef.current?.setAttribute('data-tooMany', 'true')
+      setErrMsg('字數不可超過 140 字')
     } else {
-      mainTweetInputRef.current?.setAttribute('data-tooMany', 'false')
-      mainTweetInputRef.current?.setAttribute('data-zeroSize', 'false')
-      modalTweetInputRef.current?.setAttribute('data-tooMany', 'false')
-      modalTweetInputRef.current?.setAttribute('data-zeroSize', 'false')
+      setErrMsg('')
     }
     setTweetInput(value)
   }
 
   async function handleAddTweet() {
     if (isTweetCreated) setIsTweetCreated(false)
-    // check length and show warning
+
     if (tweetInput.trim().length === 0) {
-      mainTweetInputRef.current?.setAttribute('data-zeroSize', 'true')
-      modalTweetInputRef.current?.setAttribute('data-zeroSize', 'true')
-      return { isCreated: false }
+      setErrMsg('內容不可空白')
+      return { success: false }
     }
-    if (tweetInput.trim().length > 140) return { isCreated: false }
+
+    if (tweetInput.trim().length > 140) return { success: false }
 
     // start add tweet process
     setDisabled(true)
@@ -63,7 +54,7 @@ export function NewTweetContextProvider({ children }) {
       Toast(`推文發送失敗: ${message}`, 'error').fire()
       setDisabled(false)
     }
-    return success
+    return { success }
   }
 
   async function handleToggleLikeTweet(tweetId, isLiked) {
@@ -78,8 +69,7 @@ export function NewTweetContextProvider({ children }) {
       value={{
         tweetInput,
         disabled,
-        mainTweetInputRef,
-        modalTweetInputRef,
+        errMsg,
         handleInputChange,
         handleAddTweet,
         handleToggleLikeTweet,

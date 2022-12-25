@@ -9,7 +9,6 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.2);
-  // backdrop-filter: blur(0px);
 }
 
 :global(.active) {
@@ -18,14 +17,13 @@
 
 .dialog {
   position: relative;
-  margin: 56px auto 0px;
   width: 100%;
-  max-width: 634px;
   background: #ffffff;
-  border-radius: 14px;
+  height: 100vh;
 }
 
 .dialog__header {
+  height: 74px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid $listBorder;
@@ -34,7 +32,8 @@
   .closeBtn {
     border: 0;
     background-color: transparent;
-    background-image: url('../../../svgs/modal_close.svg');
+    background-image: url('../../../images/backArrow.png');
+    background-size: 24px;
     margin: 16px;
     width: 24px;
     height: 24px;
@@ -48,6 +47,26 @@
   }
 
   .title {
-    @include font(1.125rem, 700, 1.44, $text-pageTitle);
+    @include font(1.5rem, 700, 1.08, $text-pageTitle);
+  }
+}
+
+@include for-pad {
+  .dialog {
+    margin: 56px auto 0px;
+    width: 100%;
+    max-width: 634px;
+    background: #ffffff;
+    border-radius: 14px;
+    height: auto;
+  }
+  .dialog__header {
+    height: auto;
+    .title {
+      @include font(1.125rem, 700, 1.44, $text-pageTitle);
+    }
+    .closeBtn {
+      background-image: url('../../../svgs/modal_close.svg');
+    }
   }
 }

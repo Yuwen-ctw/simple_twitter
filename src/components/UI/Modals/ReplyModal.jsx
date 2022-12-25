@@ -8,7 +8,7 @@ import styles from 'assets/styles/components/modals/replyModal.module.scss'
 function ReplyModal() {
   const {
     replyInputValue,
-    replyInputRef,
+    errMsg,
     disabled,
     handleReplyInputChange,
     handleAddReply,
@@ -22,7 +22,6 @@ function ReplyModal() {
       <ModalTweet tweet={tweet} />
       <div className={[styles.replyWrapper]}>
         <TweetInput
-          ref={replyInputRef}
           src={currentUser?.avatar}
           value={replyInputValue}
           onChange={handleReplyInputChange}
@@ -30,6 +29,7 @@ function ReplyModal() {
           placeholder="推你的回覆"
           buttonText="回覆"
           disabled={disabled}
+          errMsg={errMsg}
         />
       </div>
     </Modal>

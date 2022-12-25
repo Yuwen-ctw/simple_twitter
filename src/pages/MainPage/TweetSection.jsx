@@ -2,23 +2,33 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useReply } from 'contexts/ReplyContext'
+import useRWD from 'customHooks/useRWD'
 import { getAllReplies, getTweet, likeTweet, dislikeTweet } from 'api/tweets'
 // components
 import { SectionTitle, Spinner } from 'components/share'
 import { SingleTweet } from 'components/Tweets'
 import Reply from 'components/Reply'
 import Toast from 'components/UI/Toast'
+import { TweetInput } from 'components/form'
 // assests
 import { backImage } from 'assets/images'
 import styles from 'assets/styles/pages/tweetSection.module.scss'
 
 function TweetSection() {
+  const { isOnMobile } = useRWD()
   const { handleOpenModal, isReplyCreated } = useReply()
   const [replies, setReplies] = useState([])
   const [tweet, setTweet] = useState({})
   const [loading, setLoading] = useState(false)
   const { tweetId } = useParams()
   const navigate = useNavigate()
+  const {
+    replyInputValue,
+    errMsg,
+    disabled,
+    handleReplyInputChange,
+    handleAddReply,
+  } = useReply()
 
   useEffect(() => {
     // show loading spinner
@@ -84,6 +94,18 @@ function TweetSection() {
             onLikeClick={handleLikeClick}
             onReplyClick={handleOpenModal}
           />
+          {isOnMobile && (
+            <TweetInput
+              placeholder="推你的回覆"
+              buttonText="回覆"
+              className={styles.replyInput}
+              value={replyInputValue}
+              disabled={disabled}
+              onChange={handleReplyInputChange}
+              onClick={() => handleAddReply(tweet.id)}
+              errMsg={errMsg}
+            />
+          )}
           <ul>{replyList}</ul>
         </>
       )}

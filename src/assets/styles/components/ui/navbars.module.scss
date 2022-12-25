@@ -1,29 +1,62 @@
 @use '../../abstracts/index' as *;
 
 .navbar {
-  padding: 8px 0px;
-  width: 178px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
-  & > :first-child {
-    margin-left: 16px;
+  position: absolute;
+  bottom: 0px;
+  z-index: 999;
+  background: white;
+  padding: 16px 0px;
+  width: 100%;
+  /* children layout */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas: 'home pen profile setting';
+  gap: 48px;
+
+  @include for-pad {
+    position: static;
+    padding: 8px 0px;
+    width: 108px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  @include for-tablet {
+    width: 108px;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @include for-desktop {
+    width: 178px;
+    gap: 8px;
+    align-items: flex-start;
+    & > :first-child {
+      margin-left: 16px;
+    }
   }
 }
 
 .navItem {
-  @include font(1.125rem, 700, 1.44, $text-nav-gray);
-  text-decoration: none;
-  margin-left: 16px;
-  padding: 16px 16px 16px 40px;
+  margin: 0 auto;
+  padding: 12px;
   cursor: pointer;
   background-repeat: no-repeat;
   background-size: 24px;
   background-position: left center;
   transition: background-image 0.2s, color 0.2s, opacity 0.2s;
+
   &:active {
     opacity: 0.5;
+  }
+
+  @include for-desktop {
+    @include font(1.125rem, 700, 1.44, $text-nav-gray);
+    text-decoration: none;
+    margin-left: 16px;
+    padding: 16px 16px 16px 40px;
   }
 }
 
@@ -67,5 +100,34 @@ input[data-value] {
   &:checked + a {
     background-image: url('../../../svgs/nav_logout_clr.svg');
     color: $brand;
+  }
+}
+
+.userNavbar__button {
+  grid-area: pen;
+  width: 24px;
+  margin: 0 auto;
+  background-image: url('../../../svgs/feather_black.svg');
+  background-color: white;
+  @include backgroundImage();
+  box-shadow: 0 0 0 0;
+
+  &:hover {
+    @include backgroundImage();
+    background-color: white;
+    background-image: url('../../../svgs/feather_brand.svg');
+    box-shadow: 0 0 0 0;
+  }
+
+  @include for-pad {
+    width: 40px;
+    height: 40px;
+    background-image: url('../../../svgs/feather_white.svg');
+    background-color: $brand;
+
+    &:hover {
+      background-image: url('../../../svgs/feather_white.svg');
+      @include backgroundImage();
+    }
   }
 }

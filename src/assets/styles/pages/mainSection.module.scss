@@ -5,8 +5,26 @@
   flex-direction: column;
 
   & > h4 {
-    padding: 24px;
+    position: relative;
+    padding: 24px 24px 24px 98px;
     border-bottom: 1px solid $listBorder;
+    @include for-pad {
+      padding: 24px;
+    }
+    div {
+      position: absolute;
+      left: 24px;
+      top: 50%;
+      translate: 0% -50%;
+    }
+  }
+  /* tweet input*/
+  & > :nth-child(2) {
+    display: none;
+
+    @include for-pad {
+      display: grid;
+    }
   }
 }
 

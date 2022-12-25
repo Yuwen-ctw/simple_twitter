@@ -13,8 +13,11 @@
     position: relative;
     flex-grow: 1;
     max-height: 100vh;
-    margin: 0 24px 0 24px;
+    margin: 0;
     border-left: 1px solid $listBorder;
     border-right: 1px solid $listBorder;
+    @include for-pad {
+      margin: 0 24px 0 24px;
+    }
   }
 }

@@ -1,9 +1,23 @@
+@use '../../abstracts/index' as *;
+
 .layout {
-  height: 243px;
+  height: 100vh;
   > div {
-    height: 100%;
+    height: 85%;
     > textarea {
-      height: 75%;
+      height: 100%;
+    }
+  }
+}
+
+@include for-pad {
+  .layout {
+    height: 243px;
+    > div {
+      height: 100%;
+      > textarea {
+        height: 75%;
+      }
     }
   }
 }

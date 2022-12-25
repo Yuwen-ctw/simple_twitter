@@ -1,10 +1,10 @@
 import { addReply } from 'api/tweets'
-import { useState, createContext, useContext, useRef } from 'react'
+import { useState, createContext, useContext } from 'react'
 import Toast from 'components/UI/Toast'
 
 const defaultContextValue = {
   replyInputValue: null,
-  replyInputRef: null,
+  errMsg: null,
   disabled: null,
   showReplyModal: null,
   handleOpenModal: null,
@@ -18,7 +18,6 @@ const ReplyContext = createContext(defaultContextValue)
 export const useReply = () => useContext(ReplyContext)
 
 export function ReplyContextProvider({ children }) {
-  const replyInputRef = useRef(null)
   const [replyInputValue, setReplyInputValue] = useState('')
   const [disabled, setDisabled] = useState(false)
   const [isReplyCreated, setIsReplyCreated] = useState(false)
@@ -26,17 +25,17 @@ export function ReplyContextProvider({ children }) {
     isShow: false,
     tweet: {},
   })
+  const [errMsg, setErrMsg] = useState('')
 
   function handleReplyInputChange(value) {
-    value.length > 1 &&
-      replyInputRef.current?.setAttribute('data-zeroSize', 'false')
+    value.length > 0 && setErrMsg('')
     setReplyInputValue(value)
   }
 
   async function handleAddReply(tweetId) {
     // 檢查字數
     if (replyInputValue.length === 0) {
-      replyInputRef.current?.setAttribute('data-zeroSize', 'true')
+      setErrMsg('內容不可空白')
       return
     }
     // start add reply process
@@ -57,13 +56,12 @@ export function ReplyContextProvider({ children }) {
   }
 
   function handleOpenModal(tweet) {
-    // clean the error message
-    replyInputRef.current?.setAttribute('data-zeroSize', 'false')
     setShowReplyModal({ isShow: true, tweet })
   }
 
   function handleCloseModal() {
     if (isReplyCreated) setIsReplyCreated(false)
+    setErrMsg('')
     setReplyInputValue('')
     setShowReplyModal({ isShow: false, tweet: {} })
   }
@@ -72,7 +70,7 @@ export function ReplyContextProvider({ children }) {
     <ReplyContext.Provider
       value={{
         replyInputValue,
-        replyInputRef,
+        errMsg,
         disabled,
         showReplyModal,
         handleOpenModal,
