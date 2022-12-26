@@ -36,7 +36,7 @@ function UserRepliesSection() {
   ))
 
   return (
-    <ul onClick={handleUserOrTweetClick}>
+    <ul onClick={handleUserOrTweetClick} className="scrollbar">
       {loading && <Spinner />}
       {dataList}
     </ul>

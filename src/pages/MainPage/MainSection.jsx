@@ -1,11 +1,15 @@
+// hooks
 import { useEffect, useState } from 'react'
 import { useOutletContext } from 'react-router-dom'
 import { useAuth } from 'contexts/AuthContext'
-import { useNewTweet } from 'contexts/NewTweetContext'
-import { useReply } from 'contexts/ReplyContext'
 import useFetch from 'customHooks/useFetch'
 import useRWD from 'customHooks/useRWD'
+// contexts
+import { useNewTweet } from 'contexts/NewTweetContext'
+import { useReply } from 'contexts/ReplyContext'
+// api
 import { getAllTweets } from 'api/tweets'
+// components
 import { SectionTitle, Spinner, UserAvatar } from 'components/share'
 import { TweetInput } from 'components/form'
 import { MainTweet } from 'components/Tweets'

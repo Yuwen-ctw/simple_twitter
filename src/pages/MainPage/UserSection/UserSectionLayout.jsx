@@ -74,7 +74,7 @@ function UserSectionLayout() {
   }
 
   return (
-    <section className={[styles.sectionWrapper, 'scrollbar'].join(' ')}>
+    <section className={[styles.sectionWrapper].join(' ')}>
       <SectionHeader user={user} />
       {loading ? (
         <Spinner />
