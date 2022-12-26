@@ -58,7 +58,7 @@ function UserFollowersSection() {
     )
   })
   return (
-    <section className={styles.sectionWrapper}>
+    <>
       <div className={[styles.switchers, styles.switcherTopBorder].join(' ')}>
         <SwitchLink text="追隨者" to={`/user/${userId}/followers`} />
         <SwitchLink text="正在追隨" to={`/user/${userId}/followings`} />
@@ -70,7 +70,7 @@ function UserFollowersSection() {
           {listData}
         </ul>
       )}
-    </section>
+    </>
   )
 }
 
