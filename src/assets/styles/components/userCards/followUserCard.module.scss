@@ -1,7 +1,6 @@
 @use '../../abstracts/index' as *;
 .layout {
   width: 100%;
-  max-width: 640px;
   padding: 16px 30px 16px 16px;
   border-bottom: 1px solid $listBorder;
   display: grid;
@@ -9,7 +8,12 @@
   grid-template-rows: auto 1fr;
   column-gap: 8px;
 
+  @include for-pad {
+    max-width: 640px;
+  }
+
   [data-rolename='name'] {
+    word-break: break-all;
     align-self: center;
     &:hover {
       text-decoration: underline;
@@ -19,6 +23,17 @@
   [data-rolename='content'] {
     grid-column: 2 / 4;
   }
+
+  /* checkbox */
+  & > :nth-child(3) {
+    label {
+      padding: 4px 8px;
+      @include for-pad {
+        padding: 8px 16px;
+      }
+    }
+  }
+
   &:hover {
     background-color: $hover-background;
   }

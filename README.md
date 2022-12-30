@@ -8,6 +8,7 @@
 |       <img width="1604" alt="screen-shot-tweet" src="./public/screenShotTweet.jpg"> 推文頁       |        <img width="1604" alt="screen-shot-profile" src="./public/screenShotProfile.jpg"> 個人頁        |
 | <img width="1604" alt="screen-shot-followlist" src="./public/screenShotFollowList.jpg"> 追隨清單 |        <img width="1604" alt="screen-shot-edit" src="./public/screenShotEdit.jpg"> 編輯個人自介        |
 |  <img width="1604" alt="screen-shot-setting" src="./public/screenShotSetting.jpg"> 編輯帳戶資訊  | <img width="1604" alt="screen-shot-adminTweet" src="./public/screenShotAdminTweet.jpg"> 管理者推文頁面 |
+|    <img width="1604" alt="screen-shot-mobile" src="./public/screenShotMobile.jpg"> 手機板首頁    |     <img width="1604" alt="screen-shot-mobile" src="./public/screenShotMobile2.jpg"> 手機板個人頁      |
 
 # 功能
 
@@ -22,6 +23,8 @@
 - 支援 RWD
 
 # 使用方法
+
+須確認已安裝 node.js 與 npm
 
 1.打開終端機，Clone 專案至本機
 
@@ -50,6 +53,13 @@ npm start
 5.成功後會自動開啟網站
 
 <br/>
+
+## 前台預設帳號
+
+- 帳號: user1
+- 密碼: 12345678
+  <br/>
+  <br/>
 
 # 資料夾結構
 

@@ -15,7 +15,11 @@
     max-height: 100vh;
     border-left: 1px solid $listBorder;
     border-right: 1px solid $listBorder;
+    /* space for navbar */
+    padding-bottom: 56px;
+
     @include for-pad {
+      padding-bottom: unset;
       margin: 0 24px 0 0px;
       max-width: 640px;
     }
