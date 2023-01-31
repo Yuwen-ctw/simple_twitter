@@ -14,7 +14,10 @@ html {
 body {
   margin: 0 auto;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  // for safari
+  max-height: -webkit-fill-available;
+
   font-family: 'Noto Sans TC', 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
