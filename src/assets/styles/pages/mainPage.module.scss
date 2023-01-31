@@ -2,7 +2,10 @@
 
 .layout {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  // for safari
+  max-height: -webkit-fill-available;
+
   /* target: navbar */
   > :first-child {
     flex-shrink: 0;

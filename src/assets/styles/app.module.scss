@@ -3,7 +3,10 @@
 .app {
   position: relative;
   margin: 0 auto;
-  min-height: 100vh;
+  height: 100vh;
+  // for safari
+  max-height: -webkit-fill-available;
+
   @include for-tablet {
     width: 960px;
   }

@@ -1,6 +1,6 @@
 # simple twitter
 
-<a href="https://yuwen-ctw.github.io/simple_twitter/login" target="_blank">DEMO</a>
+<a href="https://simple-twitter-ac-yuwen-team.netlify.app/login" target="_blank">DEMO</a>
 
 |                                                                                                  |                                                                                                        |
 | :----------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------: |
